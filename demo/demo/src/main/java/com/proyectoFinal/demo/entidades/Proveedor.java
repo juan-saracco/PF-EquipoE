@@ -14,6 +14,7 @@ public class Proveedor extends Usuario{
     private Double calificacion;
 
     public Proveedor() {
+        super();
     }
 
     public Enum getOficio() {

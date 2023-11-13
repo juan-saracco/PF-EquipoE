@@ -1,3 +1,4 @@
+/*
 package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Proveedor;
@@ -12,10 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author ILIANA
- */
 @Service
 public class ProveedorServicio extends Usuario {
 
@@ -28,6 +25,10 @@ public class ProveedorServicio extends Usuario {
     @Autowired
     private ImagenServicio imagenServicio;
 
+    public ProveedorServicio() {
+        super(id);
+    }
+
     @Transactional
     public void crearProveedor(MultipartFile archivo, String nombre, String apellido, Enum oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
 
@@ -35,7 +36,7 @@ public class ProveedorServicio extends Usuario {
 
         Usuario usuario = usuarioRepositorio.findById(EnumOficio).get();
 
-        Proveedor proveedor = new Proveedor();
+       Proveedor proveedor = new Proveedor();
 
         proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
@@ -49,8 +50,9 @@ public class ProveedorServicio extends Usuario {
      public List<Proveedor> listarProveedores() {
         List<Proveedor> proveedores = new ArrayList();
 
-        proveedores = proveedorRepositorio.findAll();
+        proveedores = ProveedorRepositorio.findAll();
 
         return proveedores;
 
 }
+*/
