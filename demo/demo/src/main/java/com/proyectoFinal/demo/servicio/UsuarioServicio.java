@@ -2,6 +2,7 @@ package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Imagen;
 import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.enumeraciones.Rol;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
@@ -22,12 +23,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author ILIANA
- */
+// Descomentar cuando se implemente la clase SeguridadWeb
+//public class UsuarioServicio implements UserDetailsService
+
 @Service
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioServicio  {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -37,6 +37,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void registrar(MultipartFile archivo, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
+
         validar(nombre, apellido, DNI, email, direccion, telefono, password, password2);
 
         Usuario usuario = new Usuario();
@@ -57,6 +58,15 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFoto(foto);
 
         usuarioRepositorio.save(usuario);
+    }
+
+    public List<Usuario> leerUsuarios(){
+
+        List<Usuario> usuarios = new ArrayList();
+
+        usuarios = usuarioRepositorio.findAll();
+
+        return usuarios;
     }
 
     @Transactional
@@ -90,8 +100,25 @@ public class UsuarioServicio implements UserDetailsService {
 
             usuarioRepositorio.save(usuario);
         }
-
     }
+
+    public void eliminarUsuario(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+        }
+        usuarioRepositorio.deleteById(id);
+
+        if (!respuesta.isPresent()) {
+
+            throw new MiException("Usuario no encontrado por Id" + id);
+
+        }
+    }
+
 
     private void validar(String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
 
@@ -130,7 +157,8 @@ public class UsuarioServicio implements UserDetailsService {
 
     }
 
-    @Override
+    // PARA LOGIN --> Hace falta clase SeguridadWeb
+/*    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -154,22 +182,6 @@ public class UsuarioServicio implements UserDetailsService {
         } else {
             return null;
         }
-    }
+    }*/
 
-    public void eliminarUsuario(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
-
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-
-        if (respuesta.isPresent()) {
-
-            Usuario usuario = respuesta.get();
-        }
-        usuarioRepository.deleteById(id);
-
-        if (!respuesta.isPresent()) {
-
-            throw new MiException("Usuario no encontrado por Id" + id);
-
-        }
-    }
 }

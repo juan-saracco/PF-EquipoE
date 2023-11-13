@@ -1,10 +1,7 @@
 package com.proyectoFinal.demo.entidades;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
+import com.proyectoFinal.demo.enumeraciones.Rol;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -21,24 +18,23 @@ public class Usuario {
     
     private String email;
     
-    private String contrasenia;
+    private String password;
     
-    private String documento;
+    private String DNI;
     
     private String telefono;
     
     private String direccion;
     
-//    @Enumerated(EnumType.STRING)
-//    private Rol rol;
+   @Enumerated(EnumType.STRING)
+   private Rol rol;
     
     @OneToOne
     private Imagen foto;
     
     private Boolean estado;
 
-    public Usuario() {
-    }
+
 
     public String getId() {
         return id;
@@ -68,20 +64,20 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getDocumento() {
-        return documento;
+    public String getDNI() {
+        return DNI;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
     }
 
     public String getTelefono() {
@@ -100,13 +96,13 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-//    public Rol getRol() {
-//        return rol;
-//    }
-//
-//    public void setRol(Rol rol) {
-//        this.rol = rol;
-//    }
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
     public Imagen getFoto() {
         return foto;

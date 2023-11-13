@@ -8,6 +8,7 @@ public class Consumidor extends Usuario{
     private String pedido;
 
     public Consumidor() {
+        super();
     }
 
     public String getPedido() {
