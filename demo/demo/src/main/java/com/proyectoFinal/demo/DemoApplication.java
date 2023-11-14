@@ -1,4 +1,4 @@
-package com.pyoectoFinal.demo;
+package com.proyectoFinal.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
