@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -61,21 +61,22 @@
     <!--        REGISTRO       -->
     <!--====================================================-->
     <h2>Sos un nuevo usuario?Registrate aqui!</h2>
-    <form action="/registrarUsuario" method="POST" class="text-center">
+    <form th:action="@{/registrarUsuario}" method="POST" class="text-center">
 
         <div class="col">
             <div class="card border-success mb-3" style="max-width: 18rem;">
                 <div class="card-header">Registro</div>
                 <div class="card-body text-primary">
-                    <div>
+                    <div>                                        //podriamos agregar un tymeleaf para q no se borre lo escrito.
+                                                                // Agregar Campos Name = al servicio
                         <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control">
 
                         <input type="text" aria-label="Apellido" placeholder="Apellido" class="form-control mt-3">
 
 
-                        <input type="number" aria-label="documento" placeholder="Documento" class="form-control mt-3">
+                        <input type="number" aria-label="Documento" placeholder="Documento" class="form-control mt-3">
 
-                        <input type="number" aria-label="telefono" placeholder="telefono" class="form-control mt-3">
+                        <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control mt-3">
 
                         <input type="text" aria-label="Direccion" placeholder="Direccion" class="form-control mt-3">
 
