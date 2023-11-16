@@ -18,10 +18,10 @@ public class usuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping("/obtener")
-    public String obtenerUsuarios(){
-        return 
-    }
+    //@GetMapping("/obtener")
+    //public String obtenerUsuarios(){
+    //    return 
+    //}
 
     @GetMapping("/registrar")
     public String registrar(){
