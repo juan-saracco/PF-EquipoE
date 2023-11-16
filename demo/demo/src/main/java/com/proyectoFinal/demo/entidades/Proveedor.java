@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 @Entity
 public class Proveedor extends Usuario{
     
-    private Enum oficio;
+    private Oficios oficio;
     
     private String descripcion;
      
