@@ -19,7 +19,7 @@ public class FeedBack {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2" )
     private String id;
-     
+    
     private Pedido pedido;
     
     private Integer calificacion;
