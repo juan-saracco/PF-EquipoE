@@ -4,6 +4,10 @@ import javax.persistence.*;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ *
+ * @author maresca
+ */
 @Entity
 public class Usuario {
     
@@ -33,8 +37,6 @@ public class Usuario {
     private Imagen foto;
     
     private Boolean estado;
-
-
 
     public String getId() {
         return id;
