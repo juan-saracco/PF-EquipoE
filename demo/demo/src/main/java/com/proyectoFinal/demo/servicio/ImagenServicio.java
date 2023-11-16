@@ -1,6 +1,7 @@
 package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Imagen;
+import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.ImagenRepositorio;
 import java.util.Optional;
@@ -62,5 +63,20 @@ public class ImagenServicio {
         return null;
     }
     
+      public void eliminarImagen(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
+
+        Optional<Imagen> respuesta = imagenRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+        imagenRepositorio.deleteById(id);
+        }
+        
+        if (!respuesta.isPresent()) {
+
+            throw new MiException("Imagen no encontrada por Id" + id);
+
+        }
+    }
 }
 
