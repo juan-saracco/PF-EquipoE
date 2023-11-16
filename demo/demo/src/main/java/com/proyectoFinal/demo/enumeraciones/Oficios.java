@@ -1,0 +1,19 @@
+package com.proyectoFinal.demo.enumeraciones;
+
+public enum Oficios {
+    ALBANIL,
+    CARPINTERO_EBANISTA, 		
+    CERRAJERO, 		
+    DECORADOR_INTERIORES, 		
+    GASISTA_MATRICULADO, 		
+    JARDINERO_DESMALEZADOR, 		
+    PINTOR_DE_OBRA, 		
+    PLOMERO, 		
+    SOLDADOR_CARPINTERIA_METALICA, 		
+    TECNICO_DE_PC, 		
+    TECNICO_ELECTRICISTA, 		
+    TECNICO_ELECTRODOMESTICOS, 		
+    VIDRIERO, 		
+    YESISTA; 		
+ 
+}
