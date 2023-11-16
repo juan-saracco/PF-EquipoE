@@ -27,9 +27,9 @@ public class proveedorControlador {
     public String registro(MultipartFile archivo, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2, Oficios oficio, String descripcion, Integer tarifaPorHora, Double calificacion, ModelMap modelo){
 
         try {
-            proveedorservicio.registrar(MultipartFile archivo, String nombre, String apellido, Enum oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion);
+            proveedorservicio.registrar(MultipartFile archivo, String nombre, String apellido,String descripcion, Integer tarifaPorHora, String telefono, Double calificacion);
             modelo.put("exito", "Usuario registrado correctamente.");
-            return "index.html";
+            return "registroUsuario.html";
 
         } catch (MiException e) {
             modelo.put("error", e.getMessage());
