@@ -24,12 +24,18 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
 /**
  *
  * @author ILIANA
  */
 @Service
 public class UsuarioServicio implements UserDetailsService {
+=======
+
+@Service
+public class UsuarioServicio implements UserDetailsService  {
+>>>>>>> desarrollo
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -48,7 +54,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setDNI(DNI);
         usuario.setDireccion(direccion);
         usuario.setTelefono(telefono);
-        usuario.setEmail(email);
+        usuario.setEmail(email);           // << Fijarse si no genera algun error, en el template tiene 1 nombre y en el portalcontrolador se guia por el template.
 
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
@@ -95,6 +101,27 @@ public class UsuarioServicio implements UserDetailsService {
 
     }
 
+<<<<<<< HEAD
+=======
+    public void eliminarUsuario(String id) throws MiException {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+        }
+        usuarioRepositorio.deleteById(id);
+
+        if (!respuesta.isPresent()) {
+
+            throw new MiException("Usuario no encontrado por Id" + id);
+
+        }
+    }
+
+
+>>>>>>> desarrollo
     private void validar(String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -132,6 +159,10 @@ public class UsuarioServicio implements UserDetailsService {
 
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> desarrollo
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

@@ -2,10 +2,14 @@ package com.proyectoFinal.demo.entidades;
 
 import javax.persistence.Entity;
 
+/**
+ *
+ * @author maresca
+ */
 @Entity
 public class Proveedor extends Usuario{
     
-    private Enum oficio;
+    private Oficio oficio;
     
     private String descripcion;
      
@@ -17,11 +21,11 @@ public class Proveedor extends Usuario{
         super();
     }
 
-    public Enum getOficio() {
+    public Oficio getOficio() {
         return oficio;
     }
 
-    public void setOficio(Enum oficio) {
+    public void setOficio(Oficio oficio) {
         this.oficio = oficio;
     }
 
