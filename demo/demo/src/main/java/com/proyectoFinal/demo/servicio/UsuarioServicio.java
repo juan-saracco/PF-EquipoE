@@ -100,7 +100,7 @@ public class UsuarioServicio implements UserDetailsService  {
         }
     }
 
-    public void eliminarUsuario(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
+    public void eliminarUsuario(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
 
