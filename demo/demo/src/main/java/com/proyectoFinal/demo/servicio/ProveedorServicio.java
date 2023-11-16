@@ -1,6 +1,6 @@
-/*
 package com.proyectoFinal.demo.servicio;
 
+import com.proyectoFinal.demo.entidades.Oficios;
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
@@ -18,7 +18,7 @@ public class ProveedorServicio extends Usuario {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-     
+
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
 
@@ -26,15 +26,15 @@ public class ProveedorServicio extends Usuario {
     private ImagenServicio imagenServicio;
 
     public ProveedorServicio() {
-        super(id);
+        super();
     }
 
     @Transactional
-    public void crearProveedor(MultipartFile archivo, String nombre, String apellido, Enum oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
+    public void registrar(MultipartFile archivo, String id, String nombre, String apellido, Oficios oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
 
         validar(oficio, descripcion, tarifaPorHora, calificacion);
 
-        Usuario usuario = usuarioRepositorio.findById(EnumOficio).get();
+        Usuario usuario = usuarioRepositorio.findById(id).get();
 
        Proveedor proveedor = new Proveedor();
 
@@ -44,9 +44,9 @@ public class ProveedorServicio extends Usuario {
         proveedor.setCalificacion(calificacion);
 
         proveedorRepositorio.save(proveedor);
-       
+
     }
-    
+
      public List<Proveedor> listarProveedores() {
         List<Proveedor> proveedores = new ArrayList();
 
@@ -55,4 +55,6 @@ public class ProveedorServicio extends Usuario {
         return proveedores;
 
 }
-*/
+
+}
+
