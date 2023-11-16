@@ -11,6 +11,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,9 +24,18 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
+/**
+ *
+ * @author ILIANA
+ */
+@Service
+public class UsuarioServicio implements UserDetailsService {
+=======
 
 @Service
 public class UsuarioServicio implements UserDetailsService  {
+>>>>>>> desarrollo
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -34,8 +44,7 @@ public class UsuarioServicio implements UserDetailsService  {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(MultipartFile archivo, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
-
+    public void registrar(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
         validar(nombre, apellido, DNI, email, direccion, telefono, password, password2);
 
         Usuario usuario = new Usuario();
@@ -56,15 +65,6 @@ public class UsuarioServicio implements UserDetailsService  {
         usuario.setFoto(foto);
 
         usuarioRepositorio.save(usuario);
-    }
-
-    public List<Usuario> leerUsuarios(){
-
-        List<Usuario> usuarios = new ArrayList();
-
-        usuarios = usuarioRepositorio.findAll();
-
-        return usuarios;
     }
 
     @Transactional
@@ -98,8 +98,11 @@ public class UsuarioServicio implements UserDetailsService  {
 
             usuarioRepositorio.save(usuario);
         }
+
     }
 
+<<<<<<< HEAD
+=======
     public void eliminarUsuario(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -118,25 +121,26 @@ public class UsuarioServicio implements UserDetailsService  {
     }
 
 
+>>>>>>> desarrollo
     private void validar(String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("el nombre no puede ser nulo o estar vacio");
         }
 
-        if (nombre.isEmpty() || apellido == null) {
+        if (apellido.isEmpty() || apellido == null) {
             throw new MiException("el apellido no puede ser nulo o estar vacio");
         }
 
-        if (nombre.isEmpty() || DNI == null) {
+        if (DNI.isEmpty() || DNI == null) {
             throw new MiException("el DNI no puede ser nulo o estar vacio");
         }
 
-        if (nombre.isEmpty() || direccion == null) {
+        if (direccion.isEmpty() || direccion == null) {
             throw new MiException("la direccion no puede ser nulo o estar vacio");
         }
 
-        if (nombre.isEmpty() || telefono == null) {
+        if (telefono.isEmpty() || telefono == null) {
             throw new MiException("el telefono no puede ser nulo o estar vacio");
         }
 
@@ -182,4 +186,19 @@ public class UsuarioServicio implements UserDetailsService  {
         }
     }
 
+    public void eliminarUsuario(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+            usuarioRepositorio.deleteById(id);
+        }
+
+        if (!respuesta.isPresent()) {
+
+            throw new MiException("Usuario no encontrado por Id" + id);
+
+        }
+    }
 }

@@ -1,10 +1,14 @@
 package com.proyectoFinal.demo.repositorios;
 
-import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.entidades.Proveedor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProveedorRepositorio extends JpaRepository<Usuario,String> {
+public interface ProveedorRepositorio extends JpaRepository<Proveedor,String> {
 
+     @Query("SELECT u from Proveedor u WHERE u.email = :aux")
+    public Proveedor buscarPorEmail(@Param("aux")String email);
 }
