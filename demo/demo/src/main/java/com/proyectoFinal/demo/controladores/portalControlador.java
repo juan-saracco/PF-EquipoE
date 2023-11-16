@@ -22,7 +22,7 @@ public class portalControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping                  // en caso de ser necesario ("/inicio")
+    @GetMapping
     public String inicio() {
         return "index.html";
     }
@@ -30,24 +30,6 @@ public class portalControlador {
     @GetMapping("/login")
     public String login() {
         return "login.html";
-    }
-
-    @PostMapping("/registro")
-    public String registro(MultipartFile Archivo ,@RequestParam String Nombre, @RequestParam String Apellido, @RequestParam String Documento, @RequestParam String Telefono, @RequestParam String Direccion, @RequestParam String Mail, @RequestParam String Contraseña, @RequestParam String Confirmar, ModelMap modelo) {
-
-        try {
-            usuarioServicio.registrar(Archivo,Nombre,Apellido,Documento,Direccion,Telefono,Mail,Contraseña,Confirmar);  //Solucionar
-
-            modelo.put("exito", "Usuario registrado correctamente!");
-            return "index.html";
-
-        } catch (MiException e) {
-            modelo.put("error", e.getMessage());
-            modelo.put("nombre", Nombre);
-            modelo.put("email", Mail);
-            throw new RuntimeException(e);
-        }                                                  //Contro+Alt+T   en intellij para aplicar bucles o trycatch
-
     }
 
 }
