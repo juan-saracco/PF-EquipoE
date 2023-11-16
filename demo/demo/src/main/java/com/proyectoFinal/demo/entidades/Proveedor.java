@@ -5,23 +5,19 @@ import javax.persistence.Entity;
 @Entity
 public class Proveedor extends Usuario{
     
-    private Oficios oficio;
-    
-    private String descripcion;
-     
-    private Integer tarifaPorHora;
-    
-    private Double calificacion;
+private Oficios oficio;
+private String descripcion;
+private Integer tarifaPorHora;
+private Double calificacion;
 
     public Proveedor() {
-        super();
     }
 
-    public Enum getOficio() {
+    public Oficios getOficio() {
         return oficio;
     }
 
-    public void setOficio(Enum oficio) {
+    public void setOficio(Oficios oficio) {
         this.oficio = oficio;
     }
 
@@ -48,5 +44,4 @@ public class Proveedor extends Usuario{
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
-    
 }

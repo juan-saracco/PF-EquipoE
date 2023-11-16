@@ -30,14 +30,20 @@ public class ProveedorServicio extends Usuario {
     }
 
     @Transactional
-    public void registrar(MultipartFile archivo, String id, String nombre, String apellido, Oficios oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
+    public void registrar(MultipartFile archivo, String id, String nombre, String apellido, Integer DNI, Oficios oficio, String direccion, String email, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
 
         validar(oficio, descripcion, tarifaPorHora, calificacion);
 
-        Usuario usuario = usuarioRepositorio.findById(id).get();
+        Usuario proveedor = usuarioRepositorio.findById(id).get();
 
        Proveedor proveedor = new Proveedor();
 
+        proveedor.setNombre(nombre);
+        proveedor.setApellido(apellido);
+        proveedor.setDNI(DNI);
+        proveedor.setDireccion(direccion);
+        proveedor.setTelefono(telefono);
+        proveedor.setEmail(email);
         proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
         proveedor.setTarifaPorHora(tarifaPorHora);
