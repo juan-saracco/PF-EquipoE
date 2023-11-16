@@ -159,10 +159,7 @@ public class UsuarioServicio implements UserDetailsService  {
 
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> desarrollo
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
