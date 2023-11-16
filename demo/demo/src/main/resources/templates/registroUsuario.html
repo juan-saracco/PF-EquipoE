@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -60,20 +60,23 @@
     <!--====================================================-->
     <!--        REGISTRO       -->
     <!--====================================================-->
-    <form action="/registrarUsuario" method="POST" class="d-flex justify-content-center mt-4">
-        
-        <div class="card border-2 w-75 d-flex flex-column align-items-center">
-            
-            <h2>Sos un nuevo usuario?Registrate aqui!</h2>
+    <h2>Sos un nuevo usuario?Registrate aqui!</h2>
+    <form th:action="@{/registrarUsuario}" method="POST" class="text-center">
 
-            <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control form-control-lg mt-3 w-75">
+        <div class="col">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">Registro</div>
+                <div class="card-body text-primary">
+                    <div>                                        //podriamos agregar un tymeleaf para q no se borre lo escrito.
+                                                                // Agregar Campos Name = al servicio
+                        <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control">
 
             <input type="text" aria-label="Apellido" placeholder="Apellido" class="form-control form-control-lg mt-3 w-75">
 
 
-            <input type="number" aria-label="documento" placeholder="Documento" class="form-control form-control-lg mt-3 w-75">
+                        <input type="number" aria-label="Documento" placeholder="Documento" class="form-control mt-3">
 
-            <input type="number" aria-label="telefono" placeholder="telefono" class="form-control form-control-lg mt-3 w-75">
+                        <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control mt-3">
 
             <input type="text" aria-label="Direccion" placeholder="Direccion" class="form-control form-control-lg mt-3 w-75">
 

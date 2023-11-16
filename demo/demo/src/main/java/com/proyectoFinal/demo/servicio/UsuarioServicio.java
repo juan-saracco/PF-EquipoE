@@ -23,11 +23,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-// Descomentar cuando se implemente la clase SeguridadWeb
-//public class UsuarioServicio implements UserDetailsService
 
 @Service
-public class UsuarioServicio  {
+public class UsuarioServicio implements UserDetailsService  {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -47,7 +45,7 @@ public class UsuarioServicio  {
         usuario.setDNI(DNI);
         usuario.setDireccion(direccion);
         usuario.setTelefono(telefono);
-        usuario.setEmail(email);
+        usuario.setEmail(email);           // << Fijarse si no genera algun error, en el template tiene 1 nombre y en el portalcontrolador se guia por el template.
 
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
@@ -102,7 +100,7 @@ public class UsuarioServicio  {
         }
     }
 
-    public void eliminarUsuario(MultipartFile archivo, String id, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
+    public void eliminarUsuario(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
 
@@ -157,8 +155,8 @@ public class UsuarioServicio  {
 
     }
 
-    // PARA LOGIN --> Hace falta clase SeguridadWeb
-/*    @Override
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -182,6 +180,6 @@ public class UsuarioServicio  {
         } else {
             return null;
         }
-    }*/
+    }
 
 }
