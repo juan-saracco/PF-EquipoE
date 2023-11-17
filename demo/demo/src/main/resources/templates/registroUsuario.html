@@ -60,32 +60,35 @@
     <!--====================================================-->
     <!--        REGISTRO       -->
     <!--====================================================-->
-    <h2>Sos un nuevo usuario?Registrate aqui!</h2>
-    <form th:action="@{/registrarUsuario}" method="POST" class="text-center">
+    <form th:action="@{/registrarUsuario}" method="POST" class="d-flex justify-content-center mt-4 text-center">
 
-        <div class="col">
-            <div class="card border-success mb-3" style="max-width: 18rem;">
-                <div class="card-header">Registro</div>
-                <div class="card-body text-primary">
-                    <div>                                        //podriamos agregar un tymeleaf para q no se borre lo escrito.
-                                                                // Agregar Campos Name = al servicio
-                        <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control">
+        <div class="card border-2 w-75 d-flex flex-column align-items-center">
+            <small>podriamos agregar un tymeleaf para q no se borre lo escrito.// Agregar Campos Name = al
+                servicio</small>
 
-            <input type="text" aria-label="Apellido" placeholder="Apellido" class="form-control form-control-lg mt-3 w-75">
+            <h2>Sos un nuevo usuario?Registrate aqui!</h2>
+            
+            <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control form-control-lg mt-3 w-75">
+
+            <input type="text" aria-label="Apellido" placeholder="Apellido"
+            class="form-control form-control-lg mt-3 w-75">
 
 
-                        <input type="number" aria-label="Documento" placeholder="Documento" class="form-control mt-3">
+            <input type="number" aria-label="Documento" placeholder="Documento" class="form-control form-control-lg mt-3 w-75">
 
-                        <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control mt-3">
+            <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control form-control-lg mt-3 w-75">
 
-            <input type="text" aria-label="Direccion" placeholder="Direccion" class="form-control form-control-lg mt-3 w-75">
+            <input type="text" aria-label="Direccion" placeholder="Direccion"
+            class="form-control form-control-lg mt-3 w-75">
 
 
             <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75">
 
-            <input type="password" aria-label="password" placeholder="Contraseña" class="form-control form-control-lg mt-3 w-75">
+            <input type="password" aria-label="password" placeholder="Contraseña"
+            class="form-control form-control-lg mt-3 w-75">
 
-            <input type="password" aria-label="password" placeholder="Confirmar contraseña" class="form-control form-control-lg mt-3 w-75">
+            <input type="password" aria-label="password" placeholder="Confirmar contraseña"
+            class="form-control form-control-lg mt-3 w-75">
 
             <button type="button" class="btn btn-success mt-5 mb-3">Registrate</button>
         </div>
