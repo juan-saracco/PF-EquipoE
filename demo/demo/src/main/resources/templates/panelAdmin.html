@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Admin</title>
-  <link rel="stylesheet" href="../styles/panelAdmin.css">
-</head>
-<body style="margin: 0; padding: 0; box-sizing: border-box;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Admin</title>
+    <link rel="stylesheet" href="../styles/panelAdmin.css" />
+  </head>
+  <body style="margin: 0; padding: 0; box-sizing: border-box">
+
+    <div style="width: 100%; height: 100vh;">
+      <div style="margin: 20vh auto; height: 30vh ;width: 30%; border: 1px solid black; display: flex; flex-direction: column; align-items: center; justify-content: space-around;">
+
+        <h1>Panel de Administración</h1>
+
+        <div style="display: flex; align-items: center; justify-content:center; text-align: center;">
 
 
+        <a target="_blank" th:href="@{/admin/usuario}">Gestión de Usuarios</a>
+        <br />
+        <a target="_blank" th:href="@{/admin/feedback}">Gestión de Comentarios</a>
+        <br />
+        <a target="_blank" th:href="@{/admin/services/new}">Crear Nuevo Servicio</a>
 
-    <h1>Panel de Administración</h1>
-    <!-- Muestra estadísticas clave o información relevante para el administrador -->
-    <a th:href="@{/admin/users}">Gestión de Usuarios</a>
-    <br>
-    <a th:href="@{/admin/comments}">Gestión de Comentarios</a>
-    <br>
-    <a th:href="@{/admin/services/new}">Crear Nuevo Servicio</a>
-    <!-- Otros enlaces a funciones de administración -->
+       </div>
 
-    <!-- Contenido adicional según sea necesario -->
 
-  
-</body>
+      </div>
+    </div>
+
+
+  </body>
 </html>
