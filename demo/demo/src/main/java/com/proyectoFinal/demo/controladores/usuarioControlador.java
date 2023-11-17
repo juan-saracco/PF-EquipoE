@@ -19,14 +19,14 @@ public class usuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    // Sujeto a cambio //
+    //conectada a panel admin//
     @GetMapping("/obtener")
-    public String obtenerUsuarios(ModelMap model){
+    public String obtenerPanelAdminUsuarios(ModelMap model){
 
         List<Usuario> usuarios = usuarioServicio.leerUsuarios();
 
         model.addAttribute("usuarios", usuarios);
-        return "usuarios.html";
+        return "adminUsuarios.html";
     }
 
     @GetMapping("/registrar")
