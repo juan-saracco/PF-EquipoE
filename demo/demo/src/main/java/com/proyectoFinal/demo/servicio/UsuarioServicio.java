@@ -24,18 +24,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-<<<<<<< HEAD
-/**
- *
- * @author ILIANA
- */
-@Service
-public class UsuarioServicio implements UserDetailsService {
-=======
-
 @Service
 public class UsuarioServicio implements UserDetailsService  {
->>>>>>> desarrollo
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -101,8 +91,6 @@ public class UsuarioServicio implements UserDetailsService  {
 
     }
 
-<<<<<<< HEAD
-=======
     public void eliminarUsuario(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -120,8 +108,6 @@ public class UsuarioServicio implements UserDetailsService  {
         }
     }
 
-
->>>>>>> desarrollo
     private void validar(String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -158,7 +144,6 @@ public class UsuarioServicio implements UserDetailsService  {
         }
 
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -202,3 +187,4 @@ public class UsuarioServicio implements UserDetailsService  {
         }
     }
 }
+
