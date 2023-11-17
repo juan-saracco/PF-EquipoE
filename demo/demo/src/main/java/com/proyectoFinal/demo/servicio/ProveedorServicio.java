@@ -52,11 +52,12 @@ public class ProveedorServicio extends Usuario  implements UserDetailsService  {
     }
 
     @Transactional
-    public void registrar(MultipartFile archivo, String id, String nombre, String apellido, Oficios oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
+    public void registrar(String nombre, String apellido, String email, String password, String DNI, String telefono, String direccion, MultipartFile foto, Oficios oficio, String descripcion, Integer tarifaPorHora)
+            throws MiException {
 
-        validar(oficio, descripcion, tarifaPorHora, calificacion);
+        validar(nombre, apellido, email, password, DNI, telefono, direccion, oficio, descripcion, tarifaPorHora);
 
-        Usuario usuario = usuarioRepositorio.findById(id).get();
+      //  Usuario proveedor = usuarioRepositorio.findById(id).get();
 
        Proveedor proveedor = new Proveedor();
 =======
@@ -65,6 +66,7 @@ public class ProveedorServicio extends Usuario  implements UserDetailsService  {
             String apellido, String DNI, String email, Enum oficio, String descripcion,
             Integer tarifaPorHora, String telefono, String direccion, String password, String password2) throws MiException {
 
+<<<<<<< HEAD
         validar(nombre, apellido, DNI, email, oficio, descripcion, tarifaPorHora, direccion, telefono, password, password2);
 
         Usuario usuario = new Usuario();
@@ -106,11 +108,19 @@ public class ProveedorServicio extends Usuario  implements UserDetailsService  {
         proveedor.setDNI(DNI);
         proveedor.setTelefono(telefono);
         proveedor.setDireccion(direccion);
+=======
+        proveedor.setNombre(nombre);
+        proveedor.setApellido(apellido);
+        proveedor.setDNI(DNI);
+        proveedor.setDireccion(direccion);
+        proveedor.setTelefono(telefono);
+>>>>>>> rjr2
         proveedor.setEmail(email);
         proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
         proveedor.setTarifaPorHora(tarifaPorHora);
 
+<<<<<<< HEAD
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
 
         proveedor.setRol(Rol.USER);
@@ -124,6 +134,8 @@ public class ProveedorServicio extends Usuario  implements UserDetailsService  {
 
             proveedor.setFoto(foto);
 
+=======
+>>>>>>> rjr2
 
         proveedorRepositorio.save(proveedor);
 <<<<<<< HEAD
@@ -239,6 +251,56 @@ public class ProveedorServicio extends Usuario  implements UserDetailsService  {
 <<<<<<< HEAD
 
 }
+    private void validar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, Oficios oficio, String descripcion, Integer tarifaPorHora) throws MiException {
 
+<<<<<<< HEAD
 =======
 >>>>>>> desarrollo
+=======
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiException("El nombre no puede ser nulo o estar vacio");
+        }
+
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("El apellido no puede ser nulo o estar vacio");
+        }
+
+        if (email.isEmpty() || email == null) {
+            throw new MiException("El email no puede ser nulo o estar vacio");
+        }
+
+        if (password.isEmpty() || password == null || password.length() <= 5) {
+            throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
+        }
+
+        if (!password.equals(password2)) {
+            throw new MiException("Las contraseñas no pueden ser diferentes");
+
+        }
+
+        if (DNI.isEmpty() || DNI == null) {
+            throw new MiException("El DNI no puede ser nulo o estar vacio");
+        }
+
+        if (telefono.isEmpty() || telefono == null) {
+            throw new MiException("El telefono no puede ser nulo o estar vacio");
+        }
+
+        if (direccion.isEmpty() || direccion == null) {
+            throw new MiException("La direccion no puede ser nulo o estar vacio");
+        }
+
+        if (oficio == null) {
+            throw new MiException("El oficio no puede ser nulo o estar vacio");
+        }
+
+
+        if (tarifaPorHora.equals(0) || tarifaPorHora == null) {
+            throw new MiException("La tarifa no puede ser nula o estar vacia");
+        }
+
+
+    }
+}
+
+>>>>>>> rjr2

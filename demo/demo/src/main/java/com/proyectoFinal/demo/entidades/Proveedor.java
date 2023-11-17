@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 public class Proveedor extends Usuario{
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Oficios oficio;
 =======
     private Oficio oficio;
@@ -20,16 +21,29 @@ public class Proveedor extends Usuario{
     private Integer tarifaPorHora;
     
     private Double calificacion;
+=======
+private Oficios oficio;
+private String descripcion;
+private Integer tarifaPorHora;
+private Double calificacion;
+>>>>>>> rjr2
 
     public Proveedor() {
-        super();
     }
 
+<<<<<<< HEAD
     public Oficio getOficio() {
         return oficio;
     }
 
     public void setOficio(Oficio oficio) {
+=======
+    public Oficios getOficio() {
+        return oficio;
+    }
+
+    public void setOficio(Oficios oficio) {
+>>>>>>> rjr2
         this.oficio = oficio;
     }
 
@@ -56,5 +70,4 @@ public class Proveedor extends Usuario{
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
-    
 }
