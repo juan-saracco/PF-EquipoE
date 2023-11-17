@@ -4,30 +4,27 @@ package com.proyectoFinal.demo.servicio;
 import com.proyectoFinal.demo.entidades.Consumidor;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.ConsumidorRepositorio;
-import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Service
-public class ConsumidorServicio {
+public class ConsumidorServicio extends UsuarioServicio {
     
-   @Autowired
-   private UsuarioRepositorio usuarioRepositorio;
-   
-   @Autowired
-   private ConsumidorRepositorio consumidorRepositorio;
-   
-   @Autowired
-   private PedidoServicio pedidoServicio;
-   
-   @Autowired
-   private ImagenServicio imagenServicio;
-   
+    @Autowired
+    ConsumidorRepositorio consumidorRepositorio;
+    
    @Transactional
-   public void crearConsumidor() throws MiException { 
+   public void registrarConsumidor(MultipartFile archivo, String id, 
+           String nombre, String apellido, String DNI, String email, 
+           String direccion, String telefono, String password, String password2) 
+           throws MiException { 
+       
+       super.registrar(archivo, id, nombre, apellido, DNI, email, direccion, telefono, password, password2);
        
        Consumidor consumidor = new Consumidor();
        
@@ -42,30 +39,5 @@ public class ConsumidorServicio {
        
        return consumidores;
    }
-   
-   //Como relacionar pedido con consumidor, proveedor y a su vez si el pedido deberia ser o no un atributo de consumidor o al reves. 
-   
-    @Transactional(readOnly = true)
-    public consumidor getOne(String id){
-        return consumidorRepositorio.getOne(id);
-    }
     
-    //cambiar el estado no eliminar
-    @Transactional
-    public void eliminar(String id) throws MiException{
-        
-        Consumidor consumidor = consumidorRepositorio.getById(id);
-        
-        consumidorRepositorio.delete(consumidor);
-
-    }
-    
-    public void validar() throws MiException{ 
-        
-        if(.isEmpty() ||  == null){
-            throw new MiException(" no puede ser nulo o estar vacio");
-        }
-    }    
-   
-   
 }
