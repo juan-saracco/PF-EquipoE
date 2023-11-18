@@ -12,8 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-
-
 public class SecurityWeb extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -26,9 +24,24 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-                .antMatchers("/css/*", "/js/*", "/img/*", "/")
-                .permitAll();
-
+        http
+                .authorizeHttpRequests()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/css/*", "/js/*", "/img/*", "/**")
+                .permitAll()
+                .and().formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/logincheck")//FALTA EL PATH EN EL FORM DEL LOGIN.HTML (TAMBIEN EL METHOD=POST)
+                .usernameParameter("Mail")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/index")//DEBERÍA HABER UNA VISTA DIFERENTE P/USUARIO LOGUEADO. PUSE INDEX A FALTA DE UNA ALTERNATIVA.
+                .permitAll()
+                .and().logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
+                .and().csrf()
+                .disable();
     }
+
 }

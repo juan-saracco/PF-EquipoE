@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!doctype >
+<html lang="en" html xmlns:th="https://www.thymeleaf.org/"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -65,41 +65,37 @@
         <div class="card border-2 w-75 d-flex flex-column align-items-center">
 
             <h2>Registrate como proveedor de servicios de nuestra prestigiosa comunidad</h2>
-            <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control" 
-            name="nombre" th:value="${nombre}">
 
-            <input type="text" aria-label="Apellido" placeholder="Apellido"
-                class="form-control form-control-lg mt-3 w-75"
-                 name="apellido" th:value="${apellido}">
-
-            <input type="number" aria-label="Documento" placeholder="Documento" class="form-control mt-3"
-            name="DNI" th:value="${DNI}">
-
-            <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control mt-3"
-            name="${Telefono}" th:value="Telefono">
-
+            <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control form-control-lg mt-3 w-75" name="nombre"
+                th:value="${nombre}">
+            
+            <input type="text" aria-label="Apellido" placeholder="Apellido" class="form-control form-control-lg mt-3 w-75"
+                name="apellido" th:value="${apellido}">
+            
+            <input type="text" aria-label="DNI" placeholder="Documento Nacional de Identidad"
+                class="form-control form-control-lg mt-3 w-75" name="DNI" th:value="${DNI}">
+            
+            <input type="text" aria-label="Telefono" placeholder="Telefono" class="form-control form-control-lg mt-3 w-75"
+                name="Telefono" th:value="${Telefono}">
+            
+            
             <input type="text" aria-label="Direccion" placeholder="Direccion" class="form-control form-control-lg mt-3 w-75"
-            name="${Direccion}" th:value="Direccion">
-
-
-            <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75" 
-            name="${Mail}" th:value="${Mail}">
-
-            <input type="password" aria-label="password" placeholder="Contraseña"
-                class="form-control form-control-lg mt-3 w-75"
-                name="${password}" th:value="${password}">
-
+                name="Direccion" th:value="${Direccion}">
+            
+            
+            <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75" name="Mail"
+                th:value="${Mail}">
+            
+            <input type="password" aria-label="password" placeholder="Contraseña" class="form-control form-control-lg mt-3 w-75"
+                name="password" th:value="${password}">
+            
             <input type="password" aria-label="password" placeholder="Confirmar contraseña"
-                class="form-control form-control-lg mt-3 w-75"
-                name="${password2}" th:value="${password2}">
-
-
-                <input type="text" aria-label="Descripcion" placeholder="Descripcion" class="form-control form-control-lg mt-3 w-75" 
-                name="${Descripcion}" th:value="${Descripcion}">
-
+                class="form-control form-control-lg mt-3 w-75" name="password2" th:value="${password2}">
+            
+            
+            <input type="text" aria-label="Descripcion" placeholder="Descripcion" class="form-control form-control-lg mt-3 w-75"
+                name="Descripcion" th:value="${Descripcion}">
                 
-
-
             <button type="button" class="btn btn-success mt-5 mb-3">Registrate</button>
         </div>
 

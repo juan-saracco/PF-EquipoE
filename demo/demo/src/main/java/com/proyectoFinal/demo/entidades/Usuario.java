@@ -4,122 +4,122 @@ import javax.persistence.*;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- *
- * @author maresca
- */
-@Entity
-public class Usuario {
+import java.util.Date;
+
+classpublic class Usuario {
     
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2" )
-    private String id;
-    
-    private String nombre;
-    
-    private String apellido;
-    
-    private String email;
-    
-    private String password;
-    
-    private String DNI;
-    
-    private String telefono;
-    
-    private String direccion;
-    
-   @Enumerated(EnumType.STRING)
-   private Rol rol;
-    
-    @OneToOne
-    private Imagen foto;
-    
-    private Boolean estado;
+@Id
+@GeneratedValue(generator = "uuid")
+@GenericGenerator(name = "uuid", strategy = "uuid2" )
+private String id;
+private String nombre;
+private String apellido;
+private String email;
+private String password;
+private String DNI;
+private String telefono;
+private String direccion;
+@Enumerated(EnumType.STRING)
+private Rol rol;
+@OneToOne
+private Imagen archivo;
+private Boolean estado;
+@Temporal(TemporalType.DATE)
+private Date fecha_alta;
 
-    public String getId() {
-        return id;
-    }
+public String getId() {
+    return id;
+}
 
-    public String getNombre() {
-        return nombre;
-    }
+public void setId(String id) {
+    this.id = id;
+}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+public String getNombre() {
+    return nombre;
+}
 
-    public String getApellido() {
-        return apellido;
-    }
+public void setNombre(String nombre) {
+    this.nombre = nombre;
+}
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+public String getApellido() {
+    return apellido;
+}
 
-    public String getEmail() {
-        return email;
-    }
+public void setApellido(String apellido) {
+    this.apellido = apellido;
+}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+public String getEmail() {
+    return email;
+}
 
-    public String getPassword() {
-        return password;
-    }
+public void setEmail(String email) {
+    this.email = email;
+}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+public String getPassword() {
+    return password;
+}
 
-    public String getDNI() {
-        return DNI;
-    }
+public void setPassword(String password) {
+    this.password = password;
+}
 
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
-    }
+public String getDNI() {
+    return DNI;
+}
 
-    public String getTelefono() {
-        return telefono;
-    }
+public void setDNI(String DNI) {
+    this.DNI = DNI;
+}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+public String getTelefono() {
+    return telefono;
+}
 
-    public String getDireccion() {
-        return direccion;
-    }
+public void setTelefono(String telefono) {
+    this.telefono = telefono;
+}
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+public String getDireccion() {
+    return direccion;
+}
 
-    public Rol getRol() {
-        return rol;
-    }
+public void setDireccion(String direccion) {
+    this.direccion = direccion;
+}
 
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
+public Rol getRol() {
+    return rol;
+}
 
-    public Imagen getFoto() {
-        return foto;
-    }
+public void setRol(Rol rol) {
+    this.rol = rol;
+}
 
-    public void setFoto(Imagen foto) {
-        this.foto = foto;
-    }
+public Imagen getFoto() {
+    return archivo;
+}
 
-    public Boolean isEstado() {
-        return estado;
-    }
+public void setFoto(Imagen foto) {
+    this.archivo = foto;
+}
 
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
+public Boolean getEstado() {
+    return estado;
+}
 
+public void setEstado(Boolean estado) {
+    this.estado = estado;
+}
+
+public Date getFecha_alta() {
+    return fecha_alta;
+}
+
+public void setFecha_alta(Date fecha_alta) {
+    this.fecha_alta = fecha_alta;
+}
 }

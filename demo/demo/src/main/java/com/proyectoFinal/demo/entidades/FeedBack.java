@@ -8,26 +8,24 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- *
- * @author maresca
- */
 @Entity
 public class FeedBack {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2" )
     private String id;
-     
+
     private Pedido pedido;
-    
+
     private Integer calificacion;
-    
+
     private String comentario;
-    
+
     @Temporal(TemporalType.DATE)
     private Date alta;
+
+    private Boolean estado;
 
     public FeedBack() {
     }
@@ -35,7 +33,11 @@ public class FeedBack {
     public String getId() {
         return id;
     }
-    
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Pedido getPedido() {
         return pedido;
     }
@@ -67,5 +69,12 @@ public class FeedBack {
     public void setAlta(Date alta) {
         this.alta = alta;
     }
-    
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
 }

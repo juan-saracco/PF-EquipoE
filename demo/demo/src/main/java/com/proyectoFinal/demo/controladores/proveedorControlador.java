@@ -1,6 +1,6 @@
 package com.proyectoFinal.demo.controladores;
 
-import com.proyectoFinal.demo.entidades.Oficios;
+import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +24,15 @@ public class proveedorControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(MultipartFile archivo, String nombre, String apellido, String DNI, String email, String direccion, String telefono, String password, String password2, Oficios oficio, String descripcion, Integer tarifaPorHora, Double calificacion, ModelMap modelo){
+    public String registro(MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam Oficio oficio, @RequestParam String descripcion, @RequestParam Integer tarifaPorHora, @RequestParam Double calificacion, ModelMap modelo){
 
         try {
-            proveedorservicio.registrar(MultipartFile archivo, String nombre, String apellido,String descripcion, Integer tarifaPorHora, String telefono, Double calificacion);
+            proveedorservicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, oficio, descripcion, tarifaPorHora);
             modelo.put("exito", "Usuario registrado correctamente.");
-            return "registroUsuario.html";
+            return "index.html";
 
         } catch (MiException e) {
             modelo.put("error", e.getMessage());
-            modelo.put("nombre", nombre);
             return "registro.html";
         }
 
