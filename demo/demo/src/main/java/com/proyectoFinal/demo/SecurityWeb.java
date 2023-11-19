@@ -29,7 +29,7 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
         http
                 .authorizeHttpRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/usuario/*").hasRole("USER")
+                //.antMatchers("/usuario/*").hasRole("USER")
                 .antMatchers("/css/*", "/js/*", "/img/*", "/**")
                 .permitAll()
                 .and().formLogin()
