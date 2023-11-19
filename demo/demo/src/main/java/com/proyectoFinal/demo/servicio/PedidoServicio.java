@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Pedido;
@@ -96,4 +97,11 @@ public class PedidoServicio {
             throw new MiException ("la solicitud no puede ser 0 o estar vacia");
         }
     }
+=======
+
+package com.proyectoFinal.demo.servicio;
+
+public class PedidoServicio {
+    
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
 }

@@ -2,6 +2,7 @@
 package com.proyectoFinal.demo.entidades;
 
 import java.util.Date;
+<<<<<<< HEAD
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -9,11 +10,22 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Pedido {
 
+=======
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
+
+public class Pedido {
+    
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+<<<<<<< HEAD
     @OneToOne
     private Usuario consumidor;
     @OneToOne
@@ -30,6 +42,23 @@ public class Pedido {
     @Temporal(TemporalType.DATE)
     private Date fecha_modificacion;
 
+=======
+    private Consumidor consumidor;
+  
+    private Proveedor proveedor;    
+  
+    private String solicitud;
+    
+    private boolean estadoPedido;
+  
+    private Integer cotizacion;
+    
+    private FeedBack feedBack;
+    
+    @Temporal(TemporalType.DATE)
+    private Date alta;
+
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
     public Pedido() {
     }
 
@@ -41,11 +70,19 @@ public class Pedido {
         this.id = id;
     }
 
+<<<<<<< HEAD
     public Usuario getConsumidor() {
         return consumidor;
     }
 
     public void setConsumidor(Usuario consumidor) {
+=======
+    public Consumidor getConsumidor() {
+        return consumidor;
+    }
+
+    public void setConsumidor(Consumidor consumidor) {
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
         this.consumidor = consumidor;
     }
 
@@ -65,6 +102,7 @@ public class Pedido {
         this.solicitud = solicitud;
     }
 
+<<<<<<< HEAD
     public Boolean getEstadoPedido() {
         return estadoPedido;
     }
@@ -89,6 +127,24 @@ public class Pedido {
         this.feedBack = feedBack;
     }
 
+=======
+    public boolean isEstadoPedido() {
+        return estadoPedido;
+    }
+
+    public void setEstadoPedido(boolean estadoPedido) {
+        this.estadoPedido = estadoPedido;
+    }
+
+    public Integer getCotizacion() {
+        return cotizacion;
+    }
+
+    public void setCotizacion(Integer cotizacion) {
+        this.cotizacion = cotizacion;
+    }
+
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
     public Date getAlta() {
         return alta;
     }
@@ -97,6 +153,7 @@ public class Pedido {
         this.alta = alta;
     }
 
+<<<<<<< HEAD
     public Date getFecha_modificacion() {
         return fecha_modificacion;
     }
@@ -104,4 +161,14 @@ public class Pedido {
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
     }
+=======
+    public FeedBack getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(FeedBack feedBack) {
+        this.feedBack = feedBack;
+    }
+    
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
 }
