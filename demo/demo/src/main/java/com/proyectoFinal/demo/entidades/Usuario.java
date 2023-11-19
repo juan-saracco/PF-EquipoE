@@ -4,40 +4,38 @@ import javax.persistence.*;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Date;
 @Entity
 public class Usuario {
     
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2" )
-    private String id;
-    
-    private String nombre;
-    
-    private String apellido;
-    
-    private String email;
-    
-    private String password;
-    
-    private String DNI;
-    
-    private String telefono;
-    
-    private String direccion;
-    
-   @Enumerated(EnumType.STRING)
-   private Rol rol;
-    
-    @OneToOne
-    private Imagen foto;
-    
-    private Boolean estado;
+@Id
+@GeneratedValue(generator = "uuid")
+@GenericGenerator(name = "uuid", strategy = "uuid2" )
+private String id;
+private String nombre;
+private String apellido;
+private String email;
+private String password;
+private String DNI;
+private String telefono;
+private String direccion;
+@Enumerated(EnumType.STRING)
+private Rol rol;
+@OneToOne
+private Imagen imagen;
+private Boolean estado;
+@Temporal(TemporalType.DATE)
+private Date fecha_alta;
 
-
+    public Usuario() {
+    }
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -104,15 +102,15 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Imagen getFoto() {
-        return foto;
+    public Imagen getImagen() {
+        return imagen;
     }
 
-    public void setFoto(Imagen foto) {
-        this.foto = foto;
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 
-    public Boolean isEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
@@ -120,4 +118,11 @@ public class Usuario {
         this.estado = estado;
     }
 
+    public Date getFecha_alta() {
+        return fecha_alta;
+    }
+
+    public void setFecha_alta(Date fecha_alta) {
+        this.fecha_alta = fecha_alta;
+    }
 }

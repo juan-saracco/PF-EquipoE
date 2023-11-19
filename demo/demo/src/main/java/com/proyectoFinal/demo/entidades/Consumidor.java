@@ -1,22 +1,19 @@
+
 package com.proyectoFinal.demo.entidades;
 
-import javax.persistence.Entity;
-
-@Entity
+/**
+ *
+ * @author Maresca
+ */
 public class Consumidor extends Usuario{
-    
-    private String pedido;
 
     public Consumidor() {
-        super();
-    }
-
-    public String getPedido() {
-        return pedido;
     }
 
     public void setPedido(String pedido) {
-        this.pedido = pedido;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+  
     
 }

@@ -1,15 +1,15 @@
 package com.proyectoFinal.demo.controladores;
 
-import com.proyectoFinal.demo.entidades.Imagen;
+import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/usuario")
@@ -18,9 +18,14 @@ public class usuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    //conectada a panel admin//
     @GetMapping("/obtener")
-    public String obtenerUsuarios(){
-        return 
+    public String obtenerPanelAdminUsuarios(ModelMap model){
+
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+
+        model.addAttribute("usuarios", usuarios);
+        return "adminUsuarios.html";
     }
 
     @GetMapping("/registrar")
@@ -28,12 +33,46 @@ public class usuarioControlador {
         return "registroUsuario.html";
     }
 
+
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String telefono, @RequestParam String direccion, @RequestParam MultipartFile archivo, @RequestParam String password, @RequestParam String password2) throws MiException {
-        usuarioServicio.registrar(archivo, nombre, apellido, DNI, email , direccion, telefono, password, password2 );
-        return "registroUsuario.html";
+    public String registro(MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+
+        try {
+            usuarioServicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+
+            modelo.put("Exito", "Usuario registrado correctamente!");
+            return "index.html";
+
+        } catch (MiException e) {
+            modelo.put("Error", e.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido",apellido);
+
+          return "registroUsuario.html";
+        }
     }
 
 
+    @PostMapping("/modificar/{id}")
+    public String modificar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo){
+        try {
+            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+            modelo.put("exito", "se modifico el usuario correctamente");
+        } catch (MiException e) {
+            modelo.put("error", "Error: No se pudo modifica el usuario.");
+        }
 
+        return "modificarUsuario.html";
+    }
+    @PostMapping("/cambiarestado/{id}")
+    public String cambiarestadoPorId(@PathVariable String id, ModelMap modelo){
+        try {
+            modelo.addAttribute("exito", "Se dio de baja el usuario correctamente");
+            usuarioServicio.cambiarestado(id);
+        }catch (Exception e){
+            modelo.put("error", "Error: no se pudo borrar el usuario");
+        }
+
+        return "modificarUsuario.html";
+    }
 }

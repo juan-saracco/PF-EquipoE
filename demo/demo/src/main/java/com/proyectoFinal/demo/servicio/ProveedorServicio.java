@@ -1,58 +1,166 @@
-/*
 package com.proyectoFinal.demo.servicio;
 
+import com.proyectoFinal.demo.entidades.Imagen;
+import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Proveedor;
-import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.enumeraciones.Rol;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.ProveedorRepositorio;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Service
-public class ProveedorServicio extends Usuario {
+public class ProveedorServicio extends UsuarioServicio  {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-     
+
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
 
     @Autowired
     private ImagenServicio imagenServicio;
 
-    public ProveedorServicio() {
-        super(id);
-    }
+@Transactional
+       public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen,Oficio oficio, String descripcion, Double tarifaPorHora)
+            throws MiException {
 
-    @Transactional
-    public void crearProveedor(MultipartFile archivo, String nombre, String apellido, Enum oficio, String descripcion, Integer tarifaPorHora, String telefono, Double calificacion) throws MiException {
+        validar(oficio, descripcion, tarifaPorHora);
+        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, imagen);
+        //Imagen img = IMS.guardar(foto);
 
-        validar(oficio, descripcion, tarifaPorHora, calificacion);
+        Proveedor proveedor = new Proveedor();
 
-        Usuario usuario = usuarioRepositorio.findById(EnumOficio).get();
-
-       Proveedor proveedor = new Proveedor();
-
+       // proveedor.setFoto(foto);
         proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
         proveedor.setTarifaPorHora(tarifaPorHora);
-        proveedor.setCalificacion(calificacion);
+        proveedor.setEstado(true);
+        proveedor.setRol(Rol.PROVEEDOR);
+        proveedor.setFecha_alta(new Date());
 
         proveedorRepositorio.save(proveedor);
-       
+
     }
-    
-     public List<Proveedor> listarProveedores() {
+
+    @Transactional
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen, Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
+
+        validar(oficio, descripcion, tarifaPorHora);
+        super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
+
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+
+
+        if (respuesta.isPresent()) {
+
+            super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
+
+            Proveedor proveedor = new Proveedor();
+
+            proveedor.setOficio(oficio);
+            proveedor.setDescripcion(descripcion);
+            proveedor.setTarifaPorHora(tarifaPorHora);
+            proveedor.setEstado(true);
+            proveedor.setRol(Rol.PROVEEDOR);
+            proveedor.setFecha_alta(new Date());
+
+            String idImagen = null;
+
+            if (proveedor.getImagen() != null) {
+                idImagen = proveedor.getImagen().getId();
+            }
+            Imagen img = imagenServicio.actualizar(imagen, idImagen);
+
+            proveedor.setImagen(img);
+
+
+            proveedorRepositorio.save(proveedor);
+        }
+    }
+
+    public List<Proveedor> listarProveedores() {
         List<Proveedor> proveedores = new ArrayList();
-
-        proveedores = ProveedorRepositorio.findAll();
-
+        proveedores = (proveedorRepositorio.findAll());
         return proveedores;
+    }
+
+
+
+// Revisar si hacen falta todos los parametros o solo ID -RJR-
+public void cambiarestado(String id) throws MiException {
+
+    Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+
+    if (respuesta.isPresent()) {
+        Proveedor P = respuesta.get();
+        P.setEstado(!P.getEstado());
+    }
+
+    if (!respuesta.isPresent()) {
+        throw new MiException("Usuario no encontrado por Id" + id);
+    }
 
 }
-*/
+
+
+    private void validar(Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
+
+        if (oficio == null) {
+            throw new MiException("El oficio no puede ser nulo o estar vacio");
+        }
+        if (descripcion.isEmpty() || descripcion == null) {
+            throw new MiException("La descripcion no puede ser nula o estar vacia");
+        }
+
+        if (tarifaPorHora.equals(0) || tarifaPorHora == null) {
+            throw new MiException("La tarifa no puede ser nula o estar vacia");
+        }
+
+    }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(email);
+
+        if (proveedor != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + proveedor.getRol().toString());
+
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("proveedorsession", proveedor);
+
+            return new User(proveedor.getEmail(), proveedor.getPassword(), permisos);
+
+        } else {
+            return null;
+        }
+    }
+}
+
+
