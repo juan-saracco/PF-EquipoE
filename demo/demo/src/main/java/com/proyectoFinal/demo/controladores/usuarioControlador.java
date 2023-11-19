@@ -1,6 +1,5 @@
 package com.proyectoFinal.demo.controladores;
 
-import com.proyectoFinal.demo.entidades.Imagen;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
@@ -19,14 +18,14 @@ public class usuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    // Sujeto a cambio //
+    //conectada a panel admin//
     @GetMapping("/obtener")
-    public String obtenerUsuarios(ModelMap model){
+    public String obtenerPanelAdminUsuarios(ModelMap model){
 
-        List<Usuario> usuarios = usuarioServicio.leerUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
 
         model.addAttribute("usuarios", usuarios);
-        return "usuarios.html";
+        return "adminUsuarios.html";
     }
 
     @GetMapping("/registrar")
@@ -34,40 +33,42 @@ public class usuarioControlador {
         return "registroUsuario.html";
     }
 
-    @PostMapping("/modificar/{id}")
-    public String modificar(MultipartFile archivo,@PathVariable String id ,@RequestParam String nombre, @RequestParam String apellido, @RequestParam String documento, @RequestParam String telefono, @RequestParam String direccion, @RequestParam String mail, @RequestParam String contrasenia,  @RequestParam String contrasenia2, ModelMap model){
+
+    @PostMapping("/registro")
+    public String registro(MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, apellido, documento, mail, direccion, telefono, contrasenia, contrasenia2);
-            model.put("exito", "se modifico el usuario correctamente");
+            usuarioServicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+
+            modelo.put("Exito", "Usuario registrado correctamente!");
+            return "index.html";
+
         } catch (MiException e) {
-            model.put("error", "Error: No se pudo modifica el usuario.");
+            modelo.put("Error", e.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido",apellido);
+
+          return "registroUsuario.html";
+        }
+    }
+
+
+    @PostMapping("/modificar/{id}")
+    public String modificar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo){
+        try {
+            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+            modelo.put("exito", "se modifico el usuario correctamente");
+        } catch (MiException e) {
+            modelo.put("error", "Error: No se pudo modifica el usuario.");
         }
 
         return "modificarUsuario.html";
     }
-
-    @PostMapping("/registro")
-    public String registro(MultipartFile Archivo ,@RequestParam String Nombre, @RequestParam String Apellido, @RequestParam String Documento, @RequestParam String Telefono, @RequestParam String Direccion, @RequestParam String Mail, @RequestParam String Contrasenia, @RequestParam String Confirmar, ModelMap modelo) {
-
+    @PostMapping("/cambiarestado/{id}")
+    public String cambiarestadoPorId(@PathVariable String id, ModelMap modelo){
         try {
-            usuarioServicio.registrar(Archivo, Nombre, Apellido, Documento, Direccion, Telefono, Mail, Contrasenia, Confirmar);
-
-            modelo.put("exito", "Usuario registrado correctamente!");
-            return "index.html";
-
-        } catch (MiException e) {
-            modelo.put("error", e.getMessage());
-            modelo.put("nombre", Nombre);
-            modelo.put("email", Mail);
-            throw new RuntimeException(e);
-        }
-    }
-
-    @PostMapping("/borrar/{id}")
-    public String borrarPorId(@PathVariable String id, ModelMap modelo){
-        try {
-            modelo.addAttribute("exito", "Se elimino el usuario correctamente");
-            usuarioServicio.eliminarUsuario(id);
+            modelo.addAttribute("exito", "Se dio de baja el usuario correctamente");
+            usuarioServicio.cambiarestado(id);
         }catch (Exception e){
             modelo.put("error", "Error: no se pudo borrar el usuario");
         }

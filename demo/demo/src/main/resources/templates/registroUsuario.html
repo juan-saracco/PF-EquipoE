@@ -60,35 +60,85 @@
     <!--====================================================-->
     <!--        REGISTRO       -->
     <!--====================================================-->
-    <h2>Sos un nuevo usuario?Registrate aqui!</h2>
-    <form th:action="@{/registrarUsuario}" method="POST" class="text-center">
+<<<<<<< HEAD
+    <form th:action="@{/usuario/registro}" method="POST" class="d-flex justify-content-center mt-4">
+      
+        <h2>Sos un nuevo usuario? Registrate aqui!</h2>
 
         <div class="col">
             <div class="card border-success mb-3" style="max-width: 18rem;">
                 <div class="card-header">Registro</div>
-                <div class="card-body text-primary">
-                    <div>                                        //podriamos agregar un tymeleaf para q no se borre lo escrito.
-                                                                // Agregar Campos Name = al servicio
-                        <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control">
+                <div class="card border-2 w-75 d-flex flex-column align-items-center">
+                    <div> 
+                        
+                        <input type="text" aria-label="Nombre" placeholder="Nombre"
+                            class="form-control form-control-lg mt-3 w-75" name="nombre" th:value="${nombre}">
+        
+                        <input type="text" aria-label="Apellido" placeholder="Apellido"
+                            class="form-control form-control-lg mt-3 w-75" name="apellido" th:value="${apellido}">
+        
+                        <input type="text" aria-label="DNI" placeholder="Documento Nacional de Identidad"
+                            class="form-control form-control-lg mt-3 w-75" name="DNI" th:value="${DNI}">
+        
+                        <input type="text" aria-label="Telefono" placeholder="Telefono"
+                            class="form-control form-control-lg mt-3 w-75" name="Telefono" th:value="${Telefono}">
+                
+                        <input type="text" aria-label="Direccion" placeholder="Direccion"
+                            class="form-control form-control-lg mt-3 w-75" name="Direccion" th:value="${Direccion}">
+                
+                        <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75"
+                            name="Mail" th:value="${Mail}">
+        
+                        <input type="password" aria-label="password" placeholder="Contraseña"
+                            class="form-control form-control-lg mt-3 w-75" name="password" th:value="${password}">
+        
+                        <input type="password" aria-label="password" placeholder="Confirmar contraseña"
+                            class="form-control form-control-lg mt-3 w-75" name="password2" th:value="${password2}">
+        
+                        <button type="submit" class="btn btn-success mt-5 mb-3">Registrate</button>
+                    </div>
 
-            <input type="text" aria-label="Apellido" placeholder="Apellido" class="form-control form-control-lg mt-3 w-75">
+<!-- Mensajes de Usuario creado correctamente o no -->
+        <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+            <p th:text="${Exito}"></p>
+=======
+    <form th:action="@{/registrarUsuario}" method="POST" class="d-flex justify-content-center mt-4 text-center">
+
+        <div class="card border-2 w-75 d-flex flex-column align-items-center">
+            <small>podriamos agregar un tymeleaf para q no se borre lo escrito.// Agregar Campos Name = al
+                servicio</small>
+
+            <h2>Sos un nuevo usuario?Registrate aqui!</h2>
+            
+            <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control form-control-lg mt-3 w-75">
+
+            <input type="text" aria-label="Apellido" placeholder="Apellido"
+            class="form-control form-control-lg mt-3 w-75">
 
 
-                        <input type="number" aria-label="Documento" placeholder="Documento" class="form-control mt-3">
+            <input type="number" aria-label="Documento" placeholder="Documento" class="form-control form-control-lg mt-3 w-75">
 
-                        <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control mt-3">
+            <input type="number" aria-label="Telefono" placeholder="Telefono" class="form-control form-control-lg mt-3 w-75">
 
-            <input type="text" aria-label="Direccion" placeholder="Direccion" class="form-control form-control-lg mt-3 w-75">
+            <input type="text" aria-label="Direccion" placeholder="Direccion"
+            class="form-control form-control-lg mt-3 w-75">
 
 
             <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75">
 
-            <input type="password" aria-label="password" placeholder="Contraseña" class="form-control form-control-lg mt-3 w-75">
+            <input type="password" aria-label="password" placeholder="Contraseña"
+            class="form-control form-control-lg mt-3 w-75">
 
-            <input type="password" aria-label="password" placeholder="Confirmar contraseña" class="form-control form-control-lg mt-3 w-75">
+            <input type="password" aria-label="password" placeholder="Confirmar contraseña"
+            class="form-control form-control-lg mt-3 w-75">
 
             <button type="button" class="btn btn-success mt-5 mb-3">Registrate</button>
+>>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
         </div>
+    
+        <div th:if="${Error!=null}" class=" alert alert-danger" role="alert">
+            <p th:text="${Error}"></p>
+        </div> 
 
     </form>
 

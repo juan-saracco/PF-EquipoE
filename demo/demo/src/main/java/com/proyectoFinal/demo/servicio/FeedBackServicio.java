@@ -13,10 +13,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author maresca
- */
 @Service
 public class FeedBackServicio {
 
@@ -27,25 +23,25 @@ public class FeedBackServicio {
     public void crearFeedBack(Pedido pedido, Integer calificacion, String comentario) throws MiException {
 
         validar(pedido, calificacion, comentario);
-        
+
         FeedBack feedBack = new FeedBack();
-        
-        feedBack.setPedido(pedido);
+
         feedBack.setCalificacion(calificacion);
         feedBack.setComentario(comentario);
         feedBack.setAlta(new Date());
-        
+        feedBack.setEstado(Boolean.TRUE);
+
         feedbackRepositorio.save(feedBack);
     }
-    
+
     public List<FeedBack> listarFeedBacks(){
         List<FeedBack> feedBacks = new ArrayList();
-        
-        feedBacks = feedbackRepositorio.findAll();
-        
+
+        feedBacks = feedbackRepositorio.listarFeedbacksActivos();
+
         return feedBacks;
     }
-    
+
     @Transactional
     public void editarFeedBack(String id, Pedido pedido, Integer calificacion, String comentario) throws MiException {
 
@@ -56,42 +52,46 @@ public class FeedBackServicio {
         if (respuesta.isPresent()) {
 
             FeedBack feedBack = respuesta.get();
-            feedBack.setPedido(pedido);
             feedBack.setCalificacion(calificacion);
             feedBack.setComentario(comentario);
 
             feedbackRepositorio.save(feedBack);
         }
     }
-    
+
     public void moderarFeedBack(String id, Pedido pedido, Integer calificacion, String comentario) throws MiException{
-       
+
         validar(pedido, calificacion, comentario);
-        
+
         Optional<FeedBack> rta = feedbackRepositorio.findById(id);
-        
+
         if (rta.isPresent()) {
 
             FeedBack feedBack = rta.get();
-            feedBack.setPedido(pedido);
             feedBack.setCalificacion(feedBack.getCalificacion());
             feedBack.setComentario(comentario);
 
             feedbackRepositorio.save(feedBack);
-        }        
+        }
     }
-    
+
     public void eliminarFeedBack(String id){
-        
+
         Optional<FeedBack> rta = feedbackRepositorio.findById(id);
-        
+
         if(rta.isPresent()){
             FeedBack feedBack = rta.get();
-            
+
+            if(feedBack.getEstado().equals(Boolean.TRUE)){
+                feedBack.setEstado(Boolean.FALSE);
+            }else if(feedBack.getEstado().equals(Boolean.FALSE)){
+                feedBack.setEstado(Boolean.TRUE);
+            }
+
             feedbackRepositorio.delete(feedBack);
         }
     }
-    
+
     private void validar(Pedido pedido, Integer calificacion, String comentario) throws MiException {
 
         if (pedido == null) {
@@ -104,7 +104,7 @@ public class FeedBackServicio {
 
         if (comentario.isEmpty() || comentario == null) {
             throw new MiException("el comentario no puede ser nulo o estar vacio");
-        }        
-    }    
+        }
+    }
 
 }

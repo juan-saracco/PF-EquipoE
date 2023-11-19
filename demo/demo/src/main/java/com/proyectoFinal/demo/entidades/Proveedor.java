@@ -1,26 +1,21 @@
 package com.proyectoFinal.demo.entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-/**
- *
- * @author maresca
- */
 @Entity
 public class Proveedor extends Usuario{
-    
+
+    @ManyToOne
     private Oficio oficio;
-    
     private String descripcion;
-     
-    private Integer tarifaPorHora;
-    
+    private Double tarifaPorHora;
     private Double calificacion;
 
-    public Proveedor() {
-        super();
-    }
 
+    public Proveedor() {
+    }
     public Oficio getOficio() {
         return oficio;
     }
@@ -37,11 +32,11 @@ public class Proveedor extends Usuario{
         this.descripcion = descripcion;
     }
 
-    public Integer getTarifaPorHora() {
+    public Double getTarifaPorHora() {
         return tarifaPorHora;
     }
 
-    public void setTarifaPorHora(Integer tarifaPorHora) {
+    public void setTarifaPorHora(Double tarifaPorHora) {
         this.tarifaPorHora = tarifaPorHora;
     }
 
@@ -52,5 +47,4 @@ public class Proveedor extends Usuario{
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
-    
 }
