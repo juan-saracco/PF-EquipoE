@@ -24,7 +24,7 @@ public class proveedorControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam Oficio oficio, @RequestParam String descripcion, @RequestParam Integer tarifaPorHora, @RequestParam Double calificacion, ModelMap modelo){
+    public String registro(MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam Oficio oficio, @RequestParam String descripcion, @RequestParam Double tarifaPorHora, @RequestParam Double calificacion, ModelMap modelo){
 
         try {
             proveedorservicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, oficio, descripcion, tarifaPorHora);

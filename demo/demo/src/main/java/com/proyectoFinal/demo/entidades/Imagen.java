@@ -4,10 +4,6 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- *
- * @author maresca
- */
 @Entity
 public class Imagen {
     

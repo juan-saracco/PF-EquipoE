@@ -26,7 +26,6 @@ public class FeedBackServicio {
 
         FeedBack feedBack = new FeedBack();
 
-        feedBack.setPedido(pedido);
         feedBack.setCalificacion(calificacion);
         feedBack.setComentario(comentario);
         feedBack.setAlta(new Date());
@@ -53,7 +52,6 @@ public class FeedBackServicio {
         if (respuesta.isPresent()) {
 
             FeedBack feedBack = respuesta.get();
-            feedBack.setPedido(pedido);
             feedBack.setCalificacion(calificacion);
             feedBack.setComentario(comentario);
 
@@ -70,7 +68,6 @@ public class FeedBackServicio {
         if (rta.isPresent()) {
 
             FeedBack feedBack = rta.get();
-            feedBack.setPedido(pedido);
             feedBack.setCalificacion(feedBack.getCalificacion());
             feedBack.setComentario(comentario);
 

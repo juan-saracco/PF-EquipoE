@@ -40,14 +40,15 @@ public class usuarioControlador {
         try {
             usuarioServicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            modelo.put("exito", "Usuario registrado correctamente!");
+            modelo.put("Exito", "Usuario registrado correctamente!");
             return "index.html";
 
         } catch (MiException e) {
-            modelo.put("error", e.getMessage());
+            modelo.put("Error", e.getMessage());
             modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            throw new RuntimeException(e);
+            modelo.put("apellido",apellido);
+
+          return "registroUsuario.html";
         }
     }
 

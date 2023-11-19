@@ -2,12 +2,11 @@
 package com.proyectoFinal.demo.entidades;
 
 import java.util.Date;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
 import org.hibernate.annotations.GenericGenerator;
 
+@Entity
 public class Pedido {
 
     @Id
@@ -15,20 +14,21 @@ public class Pedido {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private Consumidor consumidor;
-
+    @OneToOne
+    private Usuario consumidor;
+    @OneToOne
     private Proveedor proveedor;
-
     private String solicitud;
-
-    private boolean estadoPedido;
-
+    private Boolean estadoPedido;
     private Double cotizacion;
 
+    @OneToOne
     private FeedBack feedBack;
-
     @Temporal(TemporalType.DATE)
     private Date alta;
+
+    @Temporal(TemporalType.DATE)
+    private Date fecha_modificacion;
 
     public Pedido() {
     }
@@ -41,11 +41,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public Consumidor getConsumidor() {
+    public Usuario getConsumidor() {
         return consumidor;
     }
 
-    public void setConsumidor(Consumidor consumidor) {
+    public void setConsumidor(Usuario consumidor) {
         this.consumidor = consumidor;
     }
 
@@ -65,28 +65,20 @@ public class Pedido {
         this.solicitud = solicitud;
     }
 
-    public boolean isEstadoPedido() {
+    public Boolean getEstadoPedido() {
         return estadoPedido;
     }
 
-    public void setEstadoPedido(boolean estadoPedido) {
+    public void setEstadoPedido(Boolean estadoPedido) {
         this.estadoPedido = estadoPedido;
     }
 
-    public Integer getCotizacion() {
+    public Double getCotizacion() {
         return cotizacion;
     }
 
     public void setCotizacion(Double cotizacion) {
         this.cotizacion = cotizacion;
-    }
-
-    public Date getAlta() {
-        return alta;
-    }
-
-    public void setAlta(Date alta) {
-        this.alta = alta;
     }
 
     public FeedBack getFeedBack() {
@@ -97,4 +89,19 @@ public class Pedido {
         this.feedBack = feedBack;
     }
 
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+
+    public Date getFecha_modificacion() {
+        return fecha_modificacion;
+    }
+
+    public void setFecha_modificacion(Date fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
+    }
 }

@@ -1,8 +1,6 @@
 package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Imagen;
-import com.proyectoFinal.demo.entidades.Oficio;
-import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import com.proyectoFinal.demo.excepciones.MiException;
@@ -38,7 +36,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
+    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -55,15 +53,15 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-        Imagen foto = imagenServicio.guardar(archivo);
+        Imagen foto = imagenServicio.guardar(imagen);
 
-        usuario.setFoto(foto);
+        usuario.setImagen(foto);
 
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -85,12 +83,12 @@ public class UsuarioServicio implements UserDetailsService {
 
             String idImagen = null;
 
-            if (usuario.getFoto() != null) {
-                idImagen = usuario.getFoto().getId();
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
             }
-            Imagen foto = imagenServicio.actualizar(archivo, idImagen);
+            Imagen foto = imagenServicio.actualizar(imagen, idImagen);
 
-            usuario.setFoto(foto);
+            usuario.setImagen(foto);
 
             usuarioRepositorio.save(usuario);
         }

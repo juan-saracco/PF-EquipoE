@@ -1,19 +1,21 @@
 package com.proyectoFinal.demo.entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Proveedor extends Usuario{
 
-private Oficio oficio;
-private String descripcion;
-private Integer tarifaPorHora;
-private Double calificacion;
+    @ManyToOne
+    private Oficio oficio;
+    private String descripcion;
+    private Double tarifaPorHora;
+    private Double calificacion;
 
 
     public Proveedor() {
     }
-
     public Oficio getOficio() {
         return oficio;
     }
@@ -30,11 +32,11 @@ private Double calificacion;
         this.descripcion = descripcion;
     }
 
-    public Integer getTarifaPorHora() {
+    public Double getTarifaPorHora() {
         return tarifaPorHora;
     }
 
-    public void setTarifaPorHora(Integer tarifaPorHora) {
+    public void setTarifaPorHora(Double tarifaPorHora) {
         this.tarifaPorHora = tarifaPorHora;
     }
 

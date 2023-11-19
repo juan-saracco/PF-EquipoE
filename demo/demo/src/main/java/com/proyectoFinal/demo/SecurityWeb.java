@@ -1,9 +1,10 @@
+package com.proyectoFinal.demo;
+
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,21 +21,23 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioServicio)                      //Autentica primero
-                .passwordEncoder(new BCryptPasswordEncoder());       //Pasa el codificador dspues
+                .passwordEncoder(new BCryptPasswordEncoder());       //Pasa el codificador despues
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/usuario/*").hasRole("USER")
                 .antMatchers("/css/*", "/js/*", "/img/*", "/**")
                 .permitAll()
                 .and().formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/logincheck")//FALTA EL PATH EN EL FORM DEL LOGIN.HTML (TAMBIEN EL METHOD=POST)
-                .usernameParameter("Mail")
+                .loginProcessingUrl("/logincheck")
+                .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/index")//DEBERÍA HABER UNA VISTA DIFERENTE P/USUARIO LOGUEADO. PUSE INDEX A FALTA DE UNA ALTERNATIVA.
+                .defaultSuccessUrl("/inicio")
                 .permitAll()
                 .and().logout()
                 .logoutUrl("/logout")

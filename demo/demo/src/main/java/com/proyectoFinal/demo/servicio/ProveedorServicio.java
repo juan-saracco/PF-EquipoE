@@ -40,11 +40,11 @@ public class ProveedorServicio extends UsuarioServicio  {
     private ImagenServicio imagenServicio;
 
 @Transactional
-       public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo,Oficio oficio, String descripcion, Integer tarifaPorHora)
+       public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen,Oficio oficio, String descripcion, Double tarifaPorHora)
             throws MiException {
 
         validar(oficio, descripcion, tarifaPorHora);
-        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, imagen);
         //Imagen img = IMS.guardar(foto);
 
         Proveedor proveedor = new Proveedor();
@@ -62,17 +62,17 @@ public class ProveedorServicio extends UsuarioServicio  {
     }
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, Oficio oficio, String descripcion, Integer tarifaPorHora) throws MiException {
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen, Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
 
         validar(oficio, descripcion, tarifaPorHora);
-        super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,archivo);
+        super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
 
         if (respuesta.isPresent()) {
 
-            super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,archivo);
+            super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
 
             Proveedor proveedor = new Proveedor();
 
@@ -85,12 +85,12 @@ public class ProveedorServicio extends UsuarioServicio  {
 
             String idImagen = null;
 
-            if (proveedor.getFoto() != null) {
-                idImagen = proveedor.getFoto().getId();
+            if (proveedor.getImagen() != null) {
+                idImagen = proveedor.getImagen().getId();
             }
-            Imagen img = imagenServicio.actualizar(archivo, idImagen);
+            Imagen img = imagenServicio.actualizar(imagen, idImagen);
 
-            proveedor.setFoto(img);
+            proveedor.setImagen(img);
 
 
             proveedorRepositorio.save(proveedor);
@@ -105,7 +105,7 @@ public class ProveedorServicio extends UsuarioServicio  {
 
 
 
-// Revisar si hacen falta todos los paramentros o solo ID -RJR-
+// Revisar si hacen falta todos los parametros o solo ID -RJR-
 public void cambiarestado(String id) throws MiException {
 
     Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
@@ -122,7 +122,7 @@ public void cambiarestado(String id) throws MiException {
 }
 
 
-    private void validar(Oficio oficio, String descripcion, Integer tarifaPorHora) throws MiException {
+    private void validar(Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
 
         if (oficio == null) {
             throw new MiException("El oficio no puede ser nulo o estar vacio");
