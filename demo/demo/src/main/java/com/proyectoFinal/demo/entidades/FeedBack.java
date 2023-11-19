@@ -12,17 +12,9 @@ public class FeedBack {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2" )
     private String id;
-<<<<<<< HEAD
 
-   private Integer calificacion;
-
-=======
-    
-    private Pedido pedido;
-    
     private Integer calificacion;
-    
->>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
+
     private String comentario;
 
     @Temporal(TemporalType.DATE)
