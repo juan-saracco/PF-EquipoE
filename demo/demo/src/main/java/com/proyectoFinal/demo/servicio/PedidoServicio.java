@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Pedido;
@@ -29,7 +28,7 @@ public class PedidoServicio {
     @Transactional
     public void crearPedido(String id, String idConsumidor, String idProveedor, String solicitud,Double cotizacion) throws MiException{
 
-      validar(idConsumidor, idProveedor, solicitud,cotizacion);
+        validar(idConsumidor, idProveedor, solicitud,cotizacion);
 
         Pedido pedido = new Pedido();
 
@@ -40,7 +39,7 @@ public class PedidoServicio {
         pedido.setSolicitud(solicitud);
         pedido.setEstadoPedido(true);
 
-      pedidoRepositorio.save(pedido);
+        pedidoRepositorio.save(pedido);
     }
 
     public List<Pedido> listarPedidos(){
@@ -97,11 +96,4 @@ public class PedidoServicio {
             throw new MiException ("la solicitud no puede ser 0 o estar vacia");
         }
     }
-=======
-
-package com.proyectoFinal.demo.servicio;
-
-public class PedidoServicio {
-    
->>>>>>> 4447d73c3efda2822b320299b34532dd992cbfa6
 }
