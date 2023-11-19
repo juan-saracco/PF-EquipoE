@@ -45,8 +45,8 @@ public class usuarioControlador {
 
         } catch (MiException e) {
             modelo.put("Error", e.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("apellido",apellido);
+         //   modelo.put("nombre", nombre);
+          //  modelo.put("apellido",apellido);
 
           return "registroUsuario.html";
         }
