@@ -10,70 +10,73 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Maresca
- */
 @Service
 public class OficioServicio {
-    
+
     @Autowired
     OficioRepositorio oficioRepositorio;
-    
+
     @Transactional
     public void crearOficio(String denominacion) throws MiException{
-        
+
         validar(denominacion);
-        
+
         Oficio oficio = new Oficio();
         oficio.setDenominacion(denominacion);
-        
-        oficioRepositorio.save(oficio);        
+        oficio.setEstado(Boolean.TRUE);
+
+        oficioRepositorio.save(oficio);
     }
-    
+
     public List<Oficio> listarOficios(){
-        
+
         List<Oficio> oficios = new ArrayList();
-        oficios = oficioRepositorio.findAll();
-        
+        oficios = oficioRepositorio.listarOficiosActivos();
+
         return oficios;
     }
-    
+
     @Transactional
     public void modificarOficio(String id, String denominacion) throws MiException{
-        
+
         validar(denominacion);
-        
+
         Optional<Oficio> rta = oficioRepositorio.findById(id);
-        
+
         if(rta.isPresent()){
             Oficio oficio = rta.get();
             oficio.setDenominacion(denominacion);
-            
+
             oficioRepositorio.save(oficio);
         }
     }
-    
-    public void eliminarOficio(String id){
-    
+
+    @Transactional
+    public void cambiarEstadoOficio(String id){ //ELIMINAR/ACTIVAR
+
         Optional<Oficio> rta = oficioRepositorio.findById(id);
-        
+
         if(rta.isPresent()){
             Oficio oficio = rta.get();
-            
-            oficioRepositorio.delete(oficio);
+
+            if(oficio.getEstado().equals(Boolean.TRUE)){
+                oficio.setEstado(Boolean.FALSE);
+            }else if(oficio.getEstado().equals(Boolean.FALSE)){
+                oficio.setEstado(Boolean.TRUE);
+            }
+            oficioRepositorio.save(oficio);
         }
     }
-    
+
     public void validar(String denominacion) throws MiException{
-        
+
         if (denominacion == null || denominacion.isEmpty()) {
             throw new MiException("La denominacion no puede ser nula ni estar vacía");
         }
     }
-    
+
     public Oficio getReferenceById(String id){
         return oficioRepositorio.getReferenceById(id);
-    }  
-    
+    }
+
 }
