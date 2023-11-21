@@ -67,10 +67,10 @@ public class usuarioControlador {
     @PostMapping("/cambiarestado/{id}")
     public String cambiarestadoPorId(@PathVariable String id, ModelMap modelo){
         try {
-            modelo.addAttribute("exito", "Se dio de baja el usuario correctamente");
+            modelo.addAttribute("Exito", "Se dio de baja el usuario correctamente");
             usuarioServicio.cambiarestado(id);
         }catch (Exception e){
-            modelo.put("error", "Error: no se pudo borrar el usuario");
+            modelo.put("Error", "Error: no se pudo borrar el usuario");
         }
 
         return "modificarUsuario.html";
