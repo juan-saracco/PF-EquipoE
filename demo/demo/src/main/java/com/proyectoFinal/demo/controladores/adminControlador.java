@@ -51,9 +51,9 @@ public class adminControlador {
         
         try {
             oficioServicio.crearOficio(denominacion);
-            modelo.put("exito","El oficio ha sido cargado con éxito");
+            modelo.put("Exito","El oficio ha sido cargado con éxito");
         } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
+            modelo.put("Error", ex.getMessage());
             
             return "registroOficio.html";
         }
@@ -78,9 +78,9 @@ public class adminControlador {
         
         try {
             oficioServicio.modificarOficio(id, denominacion);
-            modelo.put("exito","El oficio ha sido editado con éxito");
+            modelo.put("Exito","El oficio ha sido editado con éxito");
         } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
+            modelo.put("Error", ex.getMessage());
             
             return "editarOficio.html";
         }
