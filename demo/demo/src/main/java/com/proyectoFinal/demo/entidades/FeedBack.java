@@ -33,7 +33,6 @@ public class FeedBack {
         this.id = id;
     }
 
-
     public Integer getCalificacion() {
         return calificacion;
     }
@@ -65,4 +64,5 @@ public class FeedBack {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
+    
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../styles/panelAdmin.css" />
   </head>
   <body style="margin: 0; padding: 0; box-sizing: border-box">
-
+<nav th:replace="/fragmentos/navbar :: nav"></nav>
     <div style="width: 100%; height: 100vh;">
       <div style="margin: 20vh auto; height: 30vh ;width: 30%; border: 1px solid black; display: flex; flex-direction: column; align-items: center; justify-content: space-around;">
 
@@ -20,8 +20,7 @@
         <br />
         <a target="_blank" th:href="@{/admin/feedback}">Gestión de Comentarios</a>
         <br />
-        <a target="_blank" th:href="@{/admin/services/new}">Crear Nuevo Servicio</a>
-
+        <a target="_blank" th:href="@{/admin/oficios}">Oficios</a>
        </div>
 
 

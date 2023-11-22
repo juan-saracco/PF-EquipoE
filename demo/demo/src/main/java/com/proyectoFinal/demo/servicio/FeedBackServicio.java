@@ -20,9 +20,9 @@ public class FeedBackServicio {
     private FeedbackRepositorio feedbackRepositorio;
 
     @Transactional
-    public void crearFeedBack(Pedido pedido, Integer calificacion, String comentario) throws MiException {
+    public void crearFeedBack(Integer calificacion, String comentario) throws MiException {
 
-        validar(pedido, calificacion, comentario);
+        validar(calificacion, comentario);
 
         FeedBack feedBack = new FeedBack();
 
@@ -43,9 +43,9 @@ public class FeedBackServicio {
     }
 
     @Transactional
-    public void editarFeedBack(String id, Pedido pedido, Integer calificacion, String comentario) throws MiException {
+    public void editarFeedBack(String id, Integer calificacion, String comentario) throws MiException {
 
-        validar(pedido, calificacion, comentario);
+        validar(calificacion, comentario);
 
         Optional<FeedBack> respuesta = feedbackRepositorio.findById(id);
 
@@ -59,9 +59,9 @@ public class FeedBackServicio {
         }
     }
 
-    public void moderarFeedBack(String id, Pedido pedido, Integer calificacion, String comentario) throws MiException{
+    public void moderarFeedBack(String id, Integer calificacion, String comentario) throws MiException{
 
-        validar(pedido, calificacion, comentario);
+        validar(calificacion, comentario);
 
         Optional<FeedBack> rta = feedbackRepositorio.findById(id);
 
@@ -92,11 +92,7 @@ public class FeedBackServicio {
         }
     }
 
-    private void validar(Pedido pedido, Integer calificacion, String comentario) throws MiException {
-
-        if (pedido == null) {
-            throw new MiException("el pedido no puede ser nulo");
-        }
+    private void validar(Integer calificacion, String comentario) throws MiException {
 
         if (calificacion == null) {
             throw new MiException("la calificación no puede ser nula");
