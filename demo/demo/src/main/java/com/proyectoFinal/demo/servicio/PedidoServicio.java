@@ -28,7 +28,7 @@ public class PedidoServicio {
     @Transactional
     public void crearPedido(String id, String idConsumidor, String idProveedor, String solicitud,Double cotizacion) throws MiException{
 
-      validar(idConsumidor, idProveedor, solicitud,cotizacion);
+        validar(idConsumidor, idProveedor, solicitud,cotizacion);
 
         Pedido pedido = new Pedido();
 
@@ -39,7 +39,7 @@ public class PedidoServicio {
         pedido.setSolicitud(solicitud);
         pedido.setEstadoPedido(true);
 
-      pedidoRepositorio.save(pedido);
+        pedidoRepositorio.save(pedido);
     }
 
     public List<Pedido> listarPedidos(){
