@@ -43,9 +43,9 @@ public class portalControlador {
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuariosession");
         Proveedor proveedorLogueado = (Proveedor) session.getAttribute("proveedorsession");
 
-//        if(usuarioLogueado.getRol().toString().equals("USER") ){
-//            return "redirect:/usuario";
-//        }
+        if(usuarioLogueado.getRol().toString().equals("USER") ){
+            return "redirect:/usuario";
+        }
 
         if(usuarioLogueado.getRol().toString().equals("ADMIN") ){
            return "redirect:/admin/dashboard";
