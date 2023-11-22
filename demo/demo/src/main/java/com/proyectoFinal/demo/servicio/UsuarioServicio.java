@@ -100,6 +100,10 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarios;
     }
 
+    public Usuario getOne(String id){
+        return usuarioRepositorio.getOne(id);
+    }
+
     public void cambiarestado(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);

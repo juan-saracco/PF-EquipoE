@@ -40,26 +40,26 @@ public class ProveedorServicio extends UsuarioServicio  {
     private ImagenServicio imagenServicio;
 
 @Transactional
-       public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen,Oficio oficio, String descripcion, Double tarifaPorHora)
+       public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo,Oficio oficio, String descripcion, Double tarifaPorHora)
             throws MiException {
 
-        validar(oficio, descripcion, tarifaPorHora);
-        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, imagen);
-        //Imagen img = IMS.guardar(foto);
+    validar(oficio, descripcion, tarifaPorHora);
+    super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+    Imagen img = imagenServicio.guardar(archivo);
 
-        Proveedor proveedor = new Proveedor();
+    Proveedor proveedor = new Proveedor();
 
-       // proveedor.setFoto(foto);
-        proveedor.setOficio(oficio);
-        proveedor.setDescripcion(descripcion);
-        proveedor.setTarifaPorHora(tarifaPorHora);
-        proveedor.setEstado(true);
-        proveedor.setRol(Rol.PROVEEDOR);
-        proveedor.setFecha_alta(new Date());
+    proveedor.setImagen(img);
+    proveedor.setOficio(oficio);
+    proveedor.setDescripcion(descripcion);
+    proveedor.setTarifaPorHora(tarifaPorHora);
+    proveedor.setEstado(true);
+    proveedor.setRol(Rol.PROVEEDOR);
+    proveedor.setFecha_alta(new Date());
 
-        proveedorRepositorio.save(proveedor);
+    proveedorRepositorio.save(proveedor);
 
-    }
+}
 
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen, Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {

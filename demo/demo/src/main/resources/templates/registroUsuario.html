@@ -81,19 +81,24 @@
                             class="form-control form-control-lg mt-3 w-75" name="DNI" th:value="${DNI}">
         
                         <input type="text" aria-label="Telefono" placeholder="Telefono"
-                            class="form-control form-control-lg mt-3 w-75" name="Telefono" th:value="${Telefono}">
+                            class="form-control form-control-lg mt-3 w-75" name="telefono" th:value="${telefono}">
                 
                         <input type="text" aria-label="Direccion" placeholder="Direccion"
-                            class="form-control form-control-lg mt-3 w-75" name="Direccion" th:value="${Direccion}">
+                            class="form-control form-control-lg mt-3 w-75" name="direccion" th:value="${direccion}">
                 
                         <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75"
-                            name="Mail" th:value="${Mail}">
+                            name="email" th:value="${email}">
         
                         <input type="password" aria-label="password" placeholder="Contraseña"
                             class="form-control form-control-lg mt-3 w-75" name="password" th:value="${password}">
         
                         <input type="password" aria-label="password" placeholder="Confirmar contraseña"
                             class="form-control form-control-lg mt-3 w-75" name="password2" th:value="${password2}">
+
+                            <div class="col-md-4">
+                                <label  class="form-label" >Ingrese una imagen</label><br>
+                                <input type="file" class="form-control" name="archivo" placeholder="Añadir imagen">
+                            </div>     
         
                         <button type="submit" class="btn btn-success mt-5 mb-3">Registrate</button>
                     </div>

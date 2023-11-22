@@ -13,7 +13,6 @@ public class Pedido {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
     @OneToOne
     private Usuario consumidor;
     @OneToOne
@@ -21,7 +20,6 @@ public class Pedido {
     private String solicitud;
     private Boolean estadoPedido;
     private Double cotizacion;
-
     @OneToOne
     private FeedBack feedBack;
     @Temporal(TemporalType.DATE)
