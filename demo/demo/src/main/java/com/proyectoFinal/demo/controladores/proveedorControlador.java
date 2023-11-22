@@ -15,8 +15,8 @@ public class proveedorControlador {
     @Autowired
    public ProveedorServicio proveedorservicio;
 
-    @GetMapping("/registar")
-    public String registar(){
+    @GetMapping("/registrar")
+    public String registrar(){
         return "registroProveedor.html";
     }
 
