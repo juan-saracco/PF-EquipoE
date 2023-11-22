@@ -64,13 +64,15 @@
 
         <div class="card border-2 w-75 d-flex flex-column align-items-center">
 
-            <h2>Registrate como proveedor de servicios de nuestra prestigiosa comunidad</h2>
+            <h2 class="text-center">Registrate como proveedor de servicios de nuestra prestigiosa comunidad</h2>
+
 
             <input type="text" aria-label="Nombre" placeholder="Nombre" class="form-control form-control-lg mt-3 w-75"
                 name="nombre" th:value="${nombre}">
 
             <input type="text" aria-label="Apellido" placeholder="Apellido"
                 class="form-control form-control-lg mt-3 w-75" name="apellido" th:value="${apellido}">
+
 
             <input type="text" aria-label="DNI" placeholder="Documento Nacional de Identidad"
                 class="form-control form-control-lg mt-3 w-75" name="DNI" th:value="${DNI}">
@@ -113,6 +115,7 @@
         <!-- Mensaje de usuario creado correctamente o no -->
         <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
             <p th:text="${Exito}"></p>
+
         </div>
 
         <div th:if="${Error!=null}" class=" alert alert-danger" role="alert">

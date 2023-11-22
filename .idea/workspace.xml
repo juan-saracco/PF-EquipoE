@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< HEAD
+    <list default="true" id="a46060e3-eeb3-4635-976f-036adce98138" name="Changes" comment="[ADD][UPD]Puesta a 0 del codigo completo V.2">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    </list>
+=======
+<<<<<<< HEAD
     <list default="true" id="a46060e3-eeb3-4635-976f-036adce98138" name="Changes" comment="[ADD]Agregado de Query personalizada">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -12,6 +17,7 @@
 =======
     <list default="true" id="a46060e3-eeb3-4635-976f-036adce98138" name="Changes" comment="[UPD]Agregado de LONGBLOB en Entidad imagen" />
 >>>>>>> desarrollo
+>>>>>>> origin/rjr
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,11 +109,47 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "juan",
+    "git-widget-placeholder": "desarrollo",
     "ignore.virus.scanning.warn.message": "true",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="demo [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/demo/demo" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.demo [spring-boot:run]" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -199,8 +241,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[UPD]Agregado de LONGBLOB en Entidad imagen" />
+<<<<<<< HEAD
+    <MESSAGE value="[ADD][UPD]Puesta a 0 del codigo completo V.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD][UPD]Puesta a 0 del codigo completo V.2" />
+=======
     <MESSAGE value="[UPD]Modificacion de atributos Entidades--&gt;Servicios" />
     <MESSAGE value="[ADD]Agregado de Query personalizada" />
     <option name="LAST_COMMIT_MESSAGE" value="[ADD]Agregado de Query personalizada" />
+>>>>>>> origin/rjr
   </component>
 </project>

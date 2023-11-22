@@ -13,7 +13,7 @@ public class FeedBack {
     @GenericGenerator(name = "uuid", strategy = "uuid2" )
     private String id;
 
-   private Integer calificacion;
+    private Integer calificacion;
 
     private String comentario;
 
