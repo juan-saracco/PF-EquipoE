@@ -47,8 +47,8 @@ public class portalControlador {
             return "redirect:/usuario";
         }
 
-        if(proveedorLogueado.getRol().toString().equals("PROVEEDOR") ){
-         //   return "redirect:/admin/dashboard";
+        if(usuarioLogueado.getRol().toString().equals("ADMIN") ){
+           return "redirect:/admin/dashboard";
         }
 
 
