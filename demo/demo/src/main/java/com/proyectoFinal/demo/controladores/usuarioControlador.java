@@ -27,7 +27,7 @@ public class usuarioControlador {
         model.addAttribute("usuarios", usuarios);
         return "adminUsuarios.html";
     }
-
+    
     @GetMapping("/registrar")
     public String registrar(){
         return "registroUsuario.html";
