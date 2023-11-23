@@ -36,7 +36,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
+    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -53,7 +53,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-        Imagen foto = imagenServicio.guardar(imagen);
+        Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setImagen(foto);
 
