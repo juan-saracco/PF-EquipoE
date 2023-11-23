@@ -22,6 +22,7 @@
     <!--====================================================-->
     <!--        REGISTRO       -->
     <!--====================================================-->
+
     <form th:action="@{/usuario/registro}" method="POST" class="d-flex justify-content-center mt-4">
       
         <h2>Sos un nuevo usuario? Registrate aqui!</h2>
@@ -47,7 +48,7 @@
                         <input type="text" aria-label="Direccion" placeholder="Direccion"
                             class="form-control form-control-lg mt-3 w-75" name="direccion" th:value="${direccion}">
                 
-                        <input type="text" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75"
+                        <input type="email" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75"
                             name="email" th:value="${email}">
         
                         <input type="password" aria-label="password" placeholder="Contraseña"
