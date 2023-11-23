@@ -15,7 +15,7 @@
     <nav th:replace="/fragmentos/navbar :: nav"></nav>
     <header>
         <h1>Servicios de Chacras de Coria</h1>
-       
+
     </header>
 
 
@@ -23,57 +23,61 @@
     <!--        REGISTRO       -->
     <!--====================================================-->
 
-    <form th:action="@{/usuario/registro}" method="POST" class="d-flex justify-content-center mt-4">
-      
-        <h2>Sos un nuevo usuario? Registrate aqui!</h2>
+    <form th:action="@{/modificadorapido}" method="POST" class="d-flex justify-content-center mt-4">
+
+        <h2>REGISTRO RAPIDO</h2>
 
         <div class="col">
             <div class="card border-success mb-3" style="max-width: 18rem;">
                 <div class="card-header">Registro</div>
                 <div class="card border-2 w-75 d-flex flex-column align-items-center">
-                    <div> 
-                        
+                    <div>
+                        <input type="text" hidden name="id" th:value="${IDUsuario}">
+
                         <input type="text" aria-label="Nombre" placeholder="Nombre"
-                            class="form-control form-control-lg mt-3 w-75" name="nombre" th:value="${nombre}">
-        
+                            class="form-control form-control-lg mt-3 w-75" name="nombre" th:value="${NombreUsuario}">
+
                         <input type="text" aria-label="Apellido" placeholder="Apellido"
-                            class="form-control form-control-lg mt-3 w-75" name="apellido" th:value="${apellido}">
-        
+                            class="form-control form-control-lg mt-3 w-75" name="apellido"
+                            th:value="${ApellidoUsuario}">
+
                         <input type="text" aria-label="DNI" placeholder="Documento Nacional de Identidad"
                             class="form-control form-control-lg mt-3 w-75" name="DNI" th:value="${DNI}">
-        
+
                         <input type="text" aria-label="Telefono" placeholder="Telefono"
-                            class="form-control form-control-lg mt-3 w-75" name="telefono" th:value="${telefono}">
-                
+                            class="form-control form-control-lg mt-3 w-75" name="telefono"
+                            th:value="${TelefonoUsuario}">
+
                         <input type="text" aria-label="Direccion" placeholder="Direccion"
                             class="form-control form-control-lg mt-3 w-75" name="direccion" th:value="${direccion}">
-                
-                        <input type="email" aria-label="Mail" placeholder="Mail" class="form-control form-control-lg mt-3 w-75"
-                            name="email" th:value="${email}">
-        
+
+                        <input type="email" aria-label="Mail" placeholder="Mail"
+                            class="form-control form-control-lg mt-3 w-75" name="email" th:value="${EmailUsuario}">
+
                         <input type="password" aria-label="password" placeholder="Contraseña"
                             class="form-control form-control-lg mt-3 w-75" name="password" th:value="${password}">
-        
+
                         <input type="password" aria-label="password" placeholder="Confirmar contraseña"
                             class="form-control form-control-lg mt-3 w-75" name="password2" th:value="${password2}">
 
-                            <div class="col-md-4">
-                                <label  class="form-label" >Ingrese una imagen</label><br>
-                                <input type="file" class="form-control" name="archivo" placeholder="Añadir imagen">
-                            </div>     
-        
+                        <div class="col-md-4">
+                            <label class="form-label">Ingrese una imagen</label><br>
+                            <input type="file" class="form-control" name="archivo" placeholder="Añadir imagen">
+                        </div>
+
                         <button type="submit" class="btn btn-success mt-5 mb-3">Registrate</button>
+
                     </div>
 
-<!-- Mensajes de Usuario creado correctamente o no -->
-        <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
-            <p th:text="${Exito}"></p>
+                    <!-- Mensajes de Usuario creado correctamente o no -->
+                    <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                        <p th:text="${Exito}"></p>
 
-        </div>
-    
-        <div th:if="${Error!=null}" class=" alert alert-danger" role="alert">
-            <p th:text="${Error}"></p>
-        </div>
+                    </div>
+
+                    <div th:if="${Error!=null}" class=" alert alert-danger" role="alert">
+                        <p th:text="${Error}"></p>
+                    </div>
                 </div>
             </div>
         </div>

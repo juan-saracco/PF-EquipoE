@@ -36,7 +36,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
+    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -53,12 +53,31 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-        Imagen foto = imagenServicio.guardar(imagen);
+
+        Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setImagen(foto);
 
         usuarioRepositorio.save(usuario);
     }
+
+    public Usuario registrorapido(String nombre, String apellido, String email, String telefono)
+            throws MiException {
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setEmail(email);
+        usuario.setTelefono(telefono);
+        usuario.setRol(Rol.USER);
+        usuario.setEstado(true);
+        usuario.setFecha_alta(new Date());
+
+        usuarioRepositorio.save(usuario);
+        return usuario;
+    }
+
 
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
@@ -98,6 +117,10 @@ public class UsuarioServicio implements UserDetailsService {
         List<Usuario> usuarios = new ArrayList();
         usuarios = usuarioRepositorio.findAll();
         return usuarios;
+    }
+
+    public Usuario getOne(String id){
+        return usuarioRepositorio.getOne(id);
     }
 
     public void cambiarestado(String id) throws MiException {

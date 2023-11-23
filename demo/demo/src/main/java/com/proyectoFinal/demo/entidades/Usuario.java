@@ -22,7 +22,7 @@ private String direccion;
 @Enumerated(EnumType.STRING)
 private Rol rol;
 @OneToOne
-private Imagen imagen;
+private Imagen archivo;
 private Boolean estado;
 @Temporal(TemporalType.DATE)
 private Date fecha_alta;
@@ -103,11 +103,11 @@ private Date fecha_alta;
     }
 
     public Imagen getImagen() {
-        return imagen;
+        return archivo;
     }
 
     public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+        this.archivo = imagen;
     }
 
     public Boolean getEstado() {
