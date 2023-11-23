@@ -52,9 +52,45 @@ public class usuarioControlador {
         }
     }
 
+    @PostMapping("/registrorapido")
+    public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String telefono, ModelMap ModeloUsuario) {
+        try {
+            Usuario usuario = new Usuario();
+            usuario = usuarioServicio.registrorapido(nombre, apellido, email, telefono);
+// podria devolver el usuario con un modelmap
+            ModeloUsuario.addAttribute("IDUsuario", usuario.getId());
+            ModeloUsuario.addAttribute("NombreUsuario", usuario.getNombre());
+            ModeloUsuario.addAttribute("ApellidoUsuario", usuario.getApellido());
+            ModeloUsuario.addAttribute("EmailUsuario", usuario.getEmail());
+            ModeloUsuario.addAttribute("TelefonoUsuario", usuario.getTelefono());
+            return "modificarUsuario.html";
 
-    @PostMapping("/modificar/{id}")
-    public String modificar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo){
+        } catch (MiException e) {
+
+            return "index.html";
+        }
+    }
+
+    @PostMapping("/modificadorapido")
+    public String modificadorapido(MultipartFile archivo, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo){
+        try {
+            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+            modelo.put("Exito", "Se modifico el usuario correctamente");
+        } catch (MiException e) {
+            modelo.put("Error", "Error: No se pudo modificar el usuario.");
+        }
+
+        return "index.html";
+    }
+
+    /*@GetMapping("/modificar/{id}")
+    public String modificar(@PathVariable String id, ModelMap modelo2) {
+        modelo2.put("usuarioID", usuarioServicio.getOne(id));
+        return "modificarUsuario.html";
+    }*/
+/*
+    @PostMapping("/modificando/{id}")
+    public String modificando(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo){
         try {
             usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
             modelo.put("exito", "se modifico el usuario correctamente");
@@ -74,5 +110,10 @@ public class usuarioControlador {
         }
 
         return "modificarUsuario.html";
+    }*/
+
+    @GetMapping("/servicios")
+    public String servicios(){
+        return "servicios.html";
     }
 }

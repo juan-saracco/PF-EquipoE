@@ -61,6 +61,24 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    public Usuario registrorapido(String nombre, String apellido, String email, String telefono)
+            throws MiException {
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setEmail(email);
+        usuario.setTelefono(telefono);
+        usuario.setRol(Rol.USER);
+        usuario.setEstado(true);
+        usuario.setFecha_alta(new Date());
+
+        usuarioRepositorio.save(usuario);
+        return usuario;
+    }
+
+
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
             throws MiException {

@@ -1,87 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Servicios de Chacras de Coria</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!--Mi estilo-->
-    <link rel="stylesheet" href="estilo/estilo.css">
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>EQUIPO E</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
 </head>
 
 <body>
-    <nav th:replace="/fragmentos/navbar :: nav"></nav>
-    
-    <header>
-        <h1>Servicios de Chacras de Coria</h1>
-        
-    </header>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+        <!-- end header section -->
+        <!-- slider section -->
+        <section class=" slider_section position-relative">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="slider_item-box layout_padding2">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="img-box">
+                                            <div>
+                                                <img src="imagenes/chacras1.jpg" alt="" class="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-box">
+                                            <div>
+                                                <h1>
+                                                    Mantenimiento <br>
+                                                    del hogar <br>
+                                                    <span>
+                                                        Chacras de Coria
+                                                    </span>
+                                                </h1>
+                                                <p>
+                                                    El mejor sitio de busqueda de Chacras de Coria en MENDOZA
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="slider_item-box layout_padding2">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="img-box">
+                                            <div>
+                                                <img src="imagenes/chacras2.jpg" alt="" class="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-box">
+                                            <div>
+                                                <h1>
+                                                    Mantenimiento <br>
+                                                    del hogar <br>
+                                                    <span>
+                                                        Chacras de Coria
+                                                    </span>
+                                                </h1>
+                                                <p>
+                                                    El mejor sitio de busqueda de Chacras de Coria en MENDOZA
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="slider_item-box layout_padding2">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="img-box">
+                                            <div>
+                                                <img src="imagenes/chacras3.jpeg" alt="" class="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-box">
+                                            <div>
+                                                <h1>
+                                                    Mantenimiento <br>
+                                                    del hogar <br>
+                                                    <span>
+                                                        Chacras de Coria
+                                                    </span>
+                                                </h1>
+                                                <p>
+                                                    El mejor sitio de busqueda de Chacras de Coria en MENDOZA
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-    <!--====================================================-->
-    <!--        CARRUSEL       -->
-    <!--====================================================-->
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <!---------------------------------------------------->
-            <!--      ITEM 1      -->
-            <div class="carousel-item active">
-                <img src="imagenes/chacras1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Bienvenido al sitio de servicios!</h2>
-                    <p>Aqui podras encontrar los profesionales de alta fidelidad que necesites por cualquier problema
-                        que ocurra.</p>
+            </div>
+            <div class="container">
+                <div class="slider_nav-box">
+                    <div class="btn-box">
+                        <a href="">
+                            <!-- Read More -->
+                        </a>
+                        <hr>
+                    </div>
+                    <div class="custom_carousel-control">
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                            data-slide="prev">
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                            data-slide="next">
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <!---------------------------------------------------->
-            <!--      ITEM 2      -->
-
-            <div class="carousel-item">
-                <img src="imagenes/chacras2.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Bienvenido al sitio de servicios!</h2>
-                    <p>Aqui podras encontrar los profesionales de alta fidelidad que necesites por cualquier problema
-                        que ocurra.</p>
-                </div>
-            </div>
-
-            <!---------------------------------------------------->
-            <!--      ITEM 3      -->
-
-            <div class="carousel-item">
-                <img src="imagenes/chacras3.jpeg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Bienvenido al sitio de servicios!</h2>
-                    <p>Aqui podras encontrar los profesionales de alta fidelidad que necesites por cualquier problema
-                        que ocurra.</p>
-                </div>
-            </div>
-            <!----------------------------------------------------->
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        </section>
+        <!-- end slider section -->
     </div>
+    <div class="bg">
+
+        <!-- about section -->
+        <section class="about_section layout_padding">
+            <div class="container">
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        Sobre Nosotros
+                    </h3>
+                </div>
+                <p class="layout_padding2-top">
+                    Somos una aplicacion que permite conectar los tres barrios cerrados de la localidad de Chacras de
+                    Coria en Mendoza ofreciendo un lugar donde buscar y contactar profesionales de todos los rubros para
+                    realizar el mantenimiento de tu hogar.
+                </p>
+                <div class="img-box layout_padding2">
+                    <img src="images/about-img.jpg" alt="">
+                </div>
+                <p class="layout_padding2-bottom">
+                    Aqui podras consultar sobre las problemas que surgan en tu domilicio, solicitar presupuestos y
+                    coordinar visitas para realizar las reparaciones correspondientes. Ademas, podras calificar el
+                    servicio prestado asi como al prestador de manera de generar un ranking y asegurarte de siempre
+                    poder contratar al personal mas calificado para hacer tu reparacion.
+                </p>
+            </div>
+            <div class="container">
+                <div class="btn-box">
+                    <a href="">
+                        <!-- Read More -->
+                    </a>
+                    <hr>
+                </div>
+            </div>
+        </section>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+        <!-- end about section -->
+
+        <!-- service section -->
+
+        <section class="service_section layout_padding-bottom">
+            <div class="container">
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        NUESTROS SERVICIOS
+                    </h3>
+                </div>
+                <p class="">
+                    Los servicios mejor calificados de nuestra aplicacion
+                </p>
+                <div class="service_container ">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="box b-1">
+                                <div class="img-box">
+                                    <img src="images/s-1.jpg" alt="">
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Carpinteria
+                                    </h6>
+                                    <p>
+                                        Los profesionales mas prolijos del sector
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="">
+                                            <!-- Read More -->
+                                        </a>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box b-2">
+                                <div class="img-box">
+                                    <img src="images/s-2.jpg" alt="">
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Construccion
+                                    </h6>
+                                    <p>
+                                        Los profesionales mas rapidos del rubro
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="">
+                                            <!-- Read More -->
+                                        </a>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box b-3">
+                                <div class="img-box">
+                                    <img src="images/s-3.jpg" alt="">
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Electicidad
+                                    </h6>
+                                    <p>
+                                        Los profesionales con mas experiencia de la zona
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="">
+                                            <!-- Read More -->
+                                        </a>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box b-4">
+                                <div class="img-box">
+                                    <img src="images/s-4.jpg" alt="">
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Plomeria
+                                    </h6>
+                                    <p>
+                                        Los profesionales mas confiables en la materia
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="">
+                                            <!-- Read More -->
+                                        </a>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- end service section -->
+
+        <!-- work section -->
+
+        <section class="work_section layout_padding">
+            <div class="container">
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                       COMO TRABAJAMOS
+                    </h3>
+                </div>
+            </div>
+            <div class="work_container ">
+                <div class="box b-1">
+                    <div class="img-box">
+                        <img src="images/w-1.png" alt="">
+                    </div>
+                    <div class="name">
+                        <h6>
+                            PUNTUALIDAD
+                        </h6>
+                    </div>
+                </div>
+                <div class="box b-2">
+                    <div class="img-box ">
+                        <img src="images/w-2.png" alt="">
+                    </div>
+                    <div class="name">
+                        <h6>
+                            PERFECCION
+                        </h6>
+                    </div>
+                </div>
+                <div class="box b-3">
+                    <div class="img-box ">
+                        <img src="images/w-3.png" alt="">
+                    </div>
+                    <div class="name">
+                        <h6>
+                            FORMALIDAD
+                        </h6>
+                    </div>
+                </div>
+                <div class="box b-4">
+                    <div class="img-box ">
+                        <img src="images/w-4.png" alt="">
+                    </div>
+                    <div class="name">
+                        <h6>
+                            OPTIMIZACION
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="btn-box">
+                    <a href="">
+                        <!-- Read More -->
+                    </a>
+                    <hr>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- end work section -->
+
+        <!-- contact section -->
+
+        <section class="contact_section layout_padding">
+            <div class="custom_heading-container">
+                <h3 class=" ">
+                    Sos un nuevo usuario? Registrate aqui
+                </h3>
+            </div>
+            <div class="container layout_padding2-top">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <form th:action="@{/usuario/registrorapido}" method="POST">
+                            <div>
+                                <input type="text" placeholder="NOMBRE" name="nombre" th:value="${nombre}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="APELLIDO" name="apellido" th:value="${apellido}">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="EMAIL" name="email" th:value="${email}" >
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Telefono" name="telefono" th:value="${telefono}">
+                            </div>
+                            <!-- <div>
+                                <select name="" id="">
+                                    <option value="" disabled selected>TYPE OF SERVICE</option>
+                                    <option value="">Service 1</option>
+                                    <option value="">Service 2</option>
+                                    <option value="">Service 3</option>
+                                </select>
+                            </div> -->
+                            
+                            <div class="d-flex justify-content-center ">
+                                <button>
+                                    Registrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- end contact section -->
+
+        <section class="client_section layout_padding-bottom">
+            <div class="container">
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        NUESTROS CLIENTES
+                    </h3>
+                </div>
+                <div class="layout_padding2-top">
+                    <div class="client_container">
+                        <div class="detail-box">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et
+                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            </p>
+                        </div>
+                        <div class="client_id">
+                            <div class="img-box">
+                                <img src="images/client.png" alt="">
+                            </div>
+                            <div class="name">
+                                <h5>
+                                    tempor incididunt
+                                </h5>
+                                <h6>
+                                    Owner
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- info section -->
+        <section class="info_section layout_padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="info-logo">
+                            <h2>
+                               Chacras
+                            </h2>
+                            <p>
+                               Somos un sitio de gran trayectoria, recopilando a los mejores profesionales
+                               con el objetivo de brindarle los mejores servicios a los vecinos del barrio
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="info-nav">
+                            <h4>
+                                Navigacion
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="index.html">
+                                        Home
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="about.html">
+                                        About
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="service.html">
+                                        Contrataciones
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">
+                                        Contacto
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Login
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="info-contact">
+                            <h4>
+                                Informacion de contacto
+                            </h4>
+                            <div class="location">
+                                <h6>
+                                   Direccion:
+                                </h6>
+                                <a href="">
+                                    <img src="images/location.png" alt="">
+                                    <span>
+                                        Les Champs-Élysées, PA 0612
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="call">
+                                <h6>
+                                    Atencion al cliente:
+                                </h6>
+                                <a href="">
+                                    <img src="images/telephone.png" alt="">
+                                    <span>
+                                        ( +54 385 4567890 )
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="discover">
+                            <h4>
+                                Discover
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="">
+                                        Help
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        How It Works
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        subscribe
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">
+                                        Contact Us
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="social-box">
+                                <a href="">
+                                    <img src="images/facebook.png" alt="">
+                                </a>
+                                <a href="">
+                                    <img src="images/twitter.png" alt="">
+                                </a>
+                                <a href="">
+                                    <img src="images/google-plus.png" alt="">
+                                </a>
+                                <a href="">
+                                    <img src="images/linkedin.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- end info_section -->
+
+        <!-- footer section -->
+        <section class="container-fluid footer_section">
+            <p>
+                Copyright &copy; 2023 All Rights Reserved By
+                <a href="https://html.design/">Equipo E APPEGG</a>
+            </p>
+        </section>
+        <!-- footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+    </div>
 </body>
 
 </html>
