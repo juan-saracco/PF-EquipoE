@@ -24,9 +24,9 @@
     <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="/css/responsive.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -382,7 +382,7 @@
                     <div class="col-md-6 mx-auto">
                         <form th:action="@{/usuario/registrorapido}" method="POST">
                             <div>
-                                <input type="text" placeholder="NOMBRE" name="nombre" th:value="${nombre}">
+                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${nombre}">
                             </div>
                             <div>
                                 <input type="text" placeholder="APELLIDO" name="apellido" th:value="${apellido}">
@@ -391,7 +391,7 @@
                                 <input type="email" placeholder="EMAIL" name="email" th:value="${email}" >
                             </div>
                             <div>
-                                <input type="text" placeholder="Telefono" name="telefono" th:value="${telefono}">
+                                <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${password}">
                             </div>
                             <!-- <div>
                                 <select name="" id="">

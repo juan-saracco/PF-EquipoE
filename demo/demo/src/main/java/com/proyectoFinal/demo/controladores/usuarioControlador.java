@@ -114,6 +114,6 @@ public class usuarioControlador {
 
     @GetMapping("/servicios")
     public String servicios(){
-        return "servicios.html";
+        return "service.html";
     }
 }
