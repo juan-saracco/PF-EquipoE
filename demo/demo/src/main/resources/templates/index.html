@@ -1,33 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
 
-    <title>EQUIPO E</title>
-
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
-
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-    <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
-</head>
+<head th:replace="/fragmentos/head:: head"></head>
 
 <body>
     <div class="hero_area">
@@ -382,7 +357,7 @@
                     <div class="col-md-6 mx-auto">
                         <form th:action="@{/usuario/registrorapido}" method="POST">
                             <div>
-                                <input type="text" placeholder="NOMBRE" name="nombre" th:value="${nombre}">
+                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${nombre}">
                             </div>
                             <div>
                                 <input type="text" placeholder="APELLIDO" name="apellido" th:value="${apellido}">
@@ -391,7 +366,7 @@
                                 <input type="email" placeholder="EMAIL" name="email" th:value="${email}" >
                             </div>
                             <div>
-                                <input type="text" placeholder="Telefono" name="telefono" th:value="${telefono}">
+                                <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${password}">
                             </div>
                             <!-- <div>
                                 <select name="" id="">
@@ -450,142 +425,9 @@
             </div>
         </section>
         <!-- info section -->
-        <section class="info_section layout_padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="info-logo">
-                            <h2>
-                               Chacras
-                            </h2>
-                            <p>
-                               Somos un sitio de gran trayectoria, recopilando a los mejores profesionales
-                               con el objetivo de brindarle los mejores servicios a los vecinos del barrio
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-nav">
-                            <h4>
-                                Navigacion
-                            </h4>
-                            <ul>
-                                <li>
-                                    <a href="index.html">
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="about.html">
-                                        About
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="service.html">
-                                        Contrataciones
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">
-                                        Contacto
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Login
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-contact">
-                            <h4>
-                                Informacion de contacto
-                            </h4>
-                            <div class="location">
-                                <h6>
-                                   Direccion:
-                                </h6>
-                                <a href="">
-                                    <img src="images/location.png" alt="">
-                                    <span>
-                                        Les Champs-Élysées, PA 0612
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="call">
-                                <h6>
-                                    Atencion al cliente:
-                                </h6>
-                                <a href="">
-                                    <img src="images/telephone.png" alt="">
-                                    <span>
-                                        ( +54 385 4567890 )
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="discover">
-                            <h4>
-                                Discover
-                            </h4>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        Help
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        How It Works
-
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        subscribe
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">
-                                        Contact Us
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="social-box">
-                                <a href="">
-                                    <img src="images/facebook.png" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="images/twitter.png" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="images/google-plus.png" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="images/linkedin.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
         <!-- end info_section -->
-
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
         <!-- footer section -->
-        <section class="container-fluid footer_section">
-            <p>
-                Copyright &copy; 2023 All Rights Reserved By
-                <a href="https://html.design/">Equipo E APPEGG</a>
-            </p>
-        </section>
         <!-- footer section -->
 
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
