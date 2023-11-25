@@ -20,7 +20,7 @@ public class ImagenServicio {
     private ImagenRepositorio imagenRepositorio;
 
     public Imagen guardar(MultipartFile archivo) throws MiException {
-        if (archivo != null) {
+       // if (archivo != null) {
             try {
                 Imagen foto = new Imagen();
 
@@ -33,7 +33,7 @@ public class ImagenServicio {
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
-        }
+      //  }
         return null;
     }
 
