@@ -61,7 +61,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
-    public Usuario registrorapido(String nombre, String apellido, String email, String telefono)
+    public Usuario registrorapido(String nombre, String apellido, String email, String password)
             throws MiException {
 
         Usuario usuario = new Usuario();
@@ -69,7 +69,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setEmail(email);
-        usuario.setTelefono(telefono);
+        usuario.setPassword(password);
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
