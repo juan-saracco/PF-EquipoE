@@ -28,9 +28,9 @@
                     <a class="nav-link" href="contact.html">Contact us</a>
                 </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${session.usuariosession == null}" th:href="@{/login}">Login</a>
+                    <a class="nav-link" th:if="${session.usuariosession == null}" th:href="@{/login}">Login/Registro</a>
                 </li>
-                <li class="dropdown">
+                <li class="nav-item">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN')" 
                        href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="true">
                         Panel de administracion
@@ -44,7 +44,7 @@
                         <li><a class="dropdown-item" th:href="@{/admin/feedback}">Gestión de Comentarios</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown" >
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" 
                        href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         Perfil

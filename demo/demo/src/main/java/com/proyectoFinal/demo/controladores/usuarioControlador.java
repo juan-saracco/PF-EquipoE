@@ -40,8 +40,8 @@ public class usuarioControlador {
         try {
             usuarioServicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            modelo.put("Exito", "Usuario registrado correctamente!");
-            return "redirect:/";
+            modelo.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            return "login.html";
 
         } catch (MiException e) {
             modelo.put("Error", e.getMessage());
@@ -57,33 +57,13 @@ public class usuarioControlador {
         }
     }
 
-   /* COPIA DEL METODO PARA PROBAR QUE FUNCIONE*/
-  /*  @PostMapping("/registrorapido")
-    public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
-        try {
-            Usuario usuario = new Usuario();
-            usuario = usuarioServicio.registrorapido(nombre, apellido, email, password);
-// podria devolver el usuario con un modelmap
-            ModeloUsuario.addAttribute("IDUsuario", usuario.getId());
-            ModeloUsuario.addAttribute("NombreUsuario", usuario.getNombre());
-            ModeloUsuario.addAttribute("ApellidoUsuario", usuario.getApellido());
-            ModeloUsuario.addAttribute("EmailUsuario", usuario.getEmail());
-            ModeloUsuario.addAttribute("ContraseñaUsuario", usuario.getPassword());
-            return "redirect:/";
-
-        } catch (MiException e) {
-
-            return "index.html";
-        }
-    }
-*/
    @PostMapping("/registrorapido")
    public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
        try {
 
            usuarioServicio.registrorapido(nombre, apellido, email, password);
-           ModeloUsuario.put("Exito", "Usuario registrado correctamente!");
-           return "index.html";
+           ModeloUsuario.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+           return "login.html";
 
        } catch (MiException e) {
            ModeloUsuario.put("Error", e.getMessage());
