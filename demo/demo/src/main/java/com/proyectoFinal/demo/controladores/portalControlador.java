@@ -3,6 +3,7 @@ package com.proyectoFinal.demo.controladores;
 
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +51,6 @@ public class portalControlador {
         if(usuarioLogueado.getRol().toString().equals("ADMIN") ){
            return "redirect:/admin/dashboard";
         }
-
 
         return "index.html";
     }

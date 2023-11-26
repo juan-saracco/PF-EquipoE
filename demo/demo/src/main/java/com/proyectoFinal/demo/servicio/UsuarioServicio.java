@@ -61,21 +61,23 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
-    public Usuario registrorapido(String nombre, String apellido, String email, String password)
+    public void registrorapido(String nombre, String apellido, String email, String password)
             throws MiException {
+
+        validarrapido(nombre, apellido, email, password);
 
         Usuario usuario = new Usuario();
 
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setEmail(email);
-        usuario.setPassword(password);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
 
         usuarioRepositorio.save(usuario);
-        return usuario;
+      //  return usuario;
     }
 
 
@@ -171,6 +173,26 @@ public class UsuarioServicio implements UserDetailsService {
 
         if (direccion.isEmpty() || direccion == null) {
             throw new MiException("La direccion no puede ser nulo o estar vacio");
+        }
+
+    }
+
+    private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
+
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiException("El nombre no puede ser nulo o estar vacio");
+        }
+
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("El apellido no puede ser nulo o estar vacio");
+        }
+
+        if (email.isEmpty() || email == null) {
+            throw new MiException("El email no puede ser nulo o estar vacio");
+        }
+
+        if (password.isEmpty() || password == null || password.length() <= 5) {
+            throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
         }
 
     }

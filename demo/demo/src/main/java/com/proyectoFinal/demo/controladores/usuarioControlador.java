@@ -33,7 +33,7 @@ public class usuarioControlador {
         return "registroUsuario.html";
     }
 
-
+//Funcionando
     @PostMapping("/registro")
     public String registro(@RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
@@ -57,7 +57,8 @@ public class usuarioControlador {
         }
     }
 
-    @PostMapping("/registrorapido")
+   /* COPIA DEL METODO PARA PROBAR QUE FUNCIONE*/
+  /*  @PostMapping("/registrorapido")
     public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
         try {
             Usuario usuario = new Usuario();
@@ -68,13 +69,32 @@ public class usuarioControlador {
             ModeloUsuario.addAttribute("ApellidoUsuario", usuario.getApellido());
             ModeloUsuario.addAttribute("EmailUsuario", usuario.getEmail());
             ModeloUsuario.addAttribute("ContraseñaUsuario", usuario.getPassword());
-            return "modificarUsuario.html";
+            return "redirect:/";
 
         } catch (MiException e) {
 
             return "index.html";
         }
     }
+*/
+   @PostMapping("/registrorapido")
+   public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
+       try {
+
+           usuarioServicio.registrorapido(nombre, apellido, email, password);
+           ModeloUsuario.put("Exito", "Usuario registrado correctamente!");
+           return "index.html";
+
+       } catch (MiException e) {
+           ModeloUsuario.put("Error", e.getMessage());
+           ModeloUsuario.put("nombre", nombre);
+           ModeloUsuario.put("apellido", apellido);
+           ModeloUsuario.put("email", email);
+           ModeloUsuario.put("password", password);
+
+           return "index.html";
+       }
+   }
 
     @PostMapping("/modificadorapido")
     public String modificadorapido(MultipartFile archivo, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
