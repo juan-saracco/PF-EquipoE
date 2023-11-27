@@ -55,6 +55,12 @@ public class portalControlador {
         return "index.html";
     }
 
+    @GetMapping("/busqueda")
+    public String busqueda(String value) {
+
+        return "resultadoBusqueda.html";
+    }
+
 
 }
 

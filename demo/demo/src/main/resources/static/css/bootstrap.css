@@ -4134,7 +4134,7 @@ input[type="button"].btn-block {
   -ms-flex-positive: 1;
   flex-grow: 1;
   text-align: center;
-}
+  }
 
 .tab-content > .tab-pane {
   display: none;
