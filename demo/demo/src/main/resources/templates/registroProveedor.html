@@ -61,9 +61,12 @@
                                         th:value="${password2}">
                                 </div>
                                 <div>
-                                    <input type="oficio" placeholder="oficio" name="oficio"
-                                        th:value="${oficio}">
+                                    <select>
+                                        <option value="" disabled selected>OFICIO</option>
+                                        <option th:each="oficio: ${Alloficio}" th:text="${oficio.denominacion}" th:value="${oficio}"></option>
+                                    </select>
                                 </div>
+
                                 <!-- Agrega un div para el listado de oficios en cuadriculas 
                                 <div class="oficios-cuadricula">
                                 <!-- Itera sobre la lista de oficios y crea checkboxes para cada uno
@@ -74,14 +77,16 @@
                                </div>
                                 </th:block>
                                 </div>-->
-                                
+
                                 <div>
-                                    <input type="text" placeholder="Breve Descripcion" name="descripcion" th:value="${descripcion}">
+                                    <input type="text" placeholder="INGRESE UNA BREVE DESCRIPCION" name="descripcion"
+                                        th:value="${descripcion}">
                                 </div>
                                 <div>
-                                    <input type="text" placeholder="Tarifa aprox. por hora" name="tarifa" th:value="${tarifaPorHora}">
+                                    <input type="text" placeholder="TARIFA POR HORA" name="tarifa"
+                                        th:value="${tarifaPorHora}">
                                 </div>
-                                
+
                                 <div>
                                     <input type="file" placeholder="INGRESE UNA IMAGEN DE PERFIL" name="archivo">
                                 </div>

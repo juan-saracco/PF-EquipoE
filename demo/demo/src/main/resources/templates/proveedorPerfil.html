@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perfil proveedor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/imagenes.css">
+</head>
+
+<body>
+    <h1>Perfil proveedor</h1>
+
+    <!--=======================================================-->
+    <!--        PRESENTACION        -->
+    <!--=======================================================-->
+
+    <div class="container mx-auto d-flex flex-wrap justify-content-between border border-danger p-2 m-3">
+        <div class="w-25">
+            <img src="../static/imagenes/jonysins.jpg" class="rounded w-100" alt="La foto del proveedor">
+        </div>
+
+        <div class="d-flex flex-column w-75">
+            <h2 class="m-2">Johnny Sins</h2>
+            <p class="m-2">Soy especialista en plomeria, con buenas habilidades tambien en electricidad y gas y asi
+                ofrecer un servicio integral. Te cambio y lustro toda la cañeria para que quede como nueva ;)</p>
+
+            <button type="button" class="btn btn-primary m-auto"> Contratar </button>
+        </div>
+    </div>
+
+    <!--=======================================================-->
+    <!--        GALERIA DE TRABAJOS        -->
+    <!--=======================================================-->
+    <div class="container text-center mt-5">
+
+        <h2>Otros trabajos realizados por el proveedor</h2>
+
+        <img src="../static/imagenes/plomeria1.jpg" class="img-thumbnail m-2" alt="...">
+
+        <img src="../static/imagenes/plomeria2.jpg" class="img-thumbnail m-2" alt="...">
+
+        <img src="../static/imagenes/plomeria3.jpg" class="img-thumbnail m-2" alt="...">
+
+    </div>
+
+    <!--=======================================================-->
+    <!--        COMENTARIOS        -->
+    <!--=======================================================-->
+
+    <div class="container mt-5 ">
+        <h2 class="text-center">COMENTARIOS</h2>
+
+        <!----------------------------------------------------->
+        <!--        comentario de usuario       -->
+
+        <div class="card border border-danger" style="width: 18rem;">
+            <img src="../static/imagenes/ryan.jpg" id="imagen-pedido" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3 class="card-title">Un gran laburante</h3>
+                <p class="card-text">La verdad vino, me hizo un buen presupuesto rapido y sin vueltas. Muy buena
+                    relacion calidad-precio. Se nota toda la experiencia que tiene.</p>
+                <hr>
+                <h5 class="text-center">Calificacion</h5>
+                <div class="d-flex justify-content-center align-items-center align-content-center">
+                    <p class="fs-4 m-0">5</p>
+                    <img src="../static/imagenes/star.svg" alt="" height="30px">
+                </div>
+            </div>
+
+            <div class="card-body d-flex flex-column align-items-center">
+                <a href="#" class="card-link">Ver perfil</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!--=======================================================-->
+    <!--            PEDIDOS PROVEEDOR        -->
+    <!--=======================================================-->
+
+    <div class="container mt-5 ">
+        <h2 class="text-center">PEDIDOS (deberia verlo solo el proveedor con TH)</h2>
+
+        <!----------------------------------------------------->
+        <!--        pedido del usuario       -->
+
+        <div class="card border border-danger" style="width: 18rem;">
+            <img src="../static/imagenes/ryan.jpg" id="imagen-pedido" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3 class="card-title">Ryan Gosling tiene un pedido para usted</h3>
+                <p class="card-text">Necesito sus conocimientos para reparar mi mojo dojo casa house.</p>
+            </div>
+            <div class="card-body">
+                <h3>Categorias del servicio</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Plomeria</li>
+                    <li class="list-group-item">Electricidad</li>
+                    <li class="list-group-item">Gas</li>
+                </ul>
+            </div>
+            <div class="card-body d-flex flex-column align-items-center">
+                <a href="#" class="card-link">Ver perfil del solicitante</a>
+                <button type="button" class="btn btn-outline-danger mt-3">Aceptar pedido</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -125,4 +125,6 @@ private Date fecha_alta;
     public void setFecha_alta(Date fecha_alta) {
         this.fecha_alta = fecha_alta;
     }
+
+
 }

@@ -33,15 +33,15 @@ public class usuarioControlador {
         return "registroUsuario.html";
     }
 
-
+//Funcionando
     @PostMapping("/registro")
     public String registro(@RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
         try {
             usuarioServicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            modelo.put("Exito", "Usuario registrado correctamente!");
-            return "redirect:/";
+            modelo.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            return "login.html";
 
         } catch (MiException e) {
             modelo.put("Error", e.getMessage());
@@ -57,24 +57,24 @@ public class usuarioControlador {
         }
     }
 
-    @PostMapping("/registrorapido")
-    public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
-        try {
-            Usuario usuario = new Usuario();
-            usuario = usuarioServicio.registrorapido(nombre, apellido, email, password);
-// podria devolver el usuario con un modelmap
-            ModeloUsuario.addAttribute("IDUsuario", usuario.getId());
-            ModeloUsuario.addAttribute("NombreUsuario", usuario.getNombre());
-            ModeloUsuario.addAttribute("ApellidoUsuario", usuario.getApellido());
-            ModeloUsuario.addAttribute("EmailUsuario", usuario.getEmail());
-            ModeloUsuario.addAttribute("ContraseñaUsuario", usuario.getPassword());
-            return "modificarUsuario.html";
+   @PostMapping("/registrorapido")
+   public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
+       try {
 
-        } catch (MiException e) {
+           usuarioServicio.registrorapido(nombre, apellido, email, password);
+           ModeloUsuario.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+           return "login.html";
 
-            return "index.html";
-        }
-    }
+       } catch (MiException e) {
+           ModeloUsuario.put("Error", e.getMessage());
+           ModeloUsuario.put("nombre", nombre);
+           ModeloUsuario.put("apellido", apellido);
+           ModeloUsuario.put("email", email);
+           ModeloUsuario.put("password", password);
+
+           return "index.html";
+       }
+   }
 
     @PostMapping("/modificadorapido")
     public String modificadorapido(MultipartFile archivo, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
