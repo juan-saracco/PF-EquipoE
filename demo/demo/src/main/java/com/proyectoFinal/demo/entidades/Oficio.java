@@ -15,7 +15,9 @@ public class Oficio {
     private String id;
 
     private String denominacion;
+    
     private Boolean estado;
+    
     public Oficio() {
     }
 

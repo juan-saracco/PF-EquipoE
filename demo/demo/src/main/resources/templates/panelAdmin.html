@@ -1,33 +1,137 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panel Admin</title>
-    <link rel="stylesheet" href="../styles/panelAdmin.css" />
-  </head>
-  <body style="margin: 0; padding: 0; box-sizing: border-box">
-
-    <div style="width: 100%; height: 100vh;">
-      <div style="margin: 20vh auto; height: 30vh ;width: 30%; border: 1px solid black; display: flex; flex-direction: column; align-items: center; justify-content: space-around;">
-
-        <h1>Panel de Administración</h1>
-
-        <div style="display: flex; align-items: center; justify-content:center; text-align: center;">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
-        <a target="_blank" th:href="@{/admin/usuario}">Gestión de Usuarios</a>
-        <br />
-        <a target="_blank" th:href="@{/admin/feedback}">Gestión de Comentarios</a>
-        <br />
-        <a target="_blank" th:href="@{/admin/services/new}">Crear Nuevo Servicio</a>
+<head th:replace="/fragmentos/head:: head"></head>
 
-       </div>
+<body>
+    <div class="hero_area">
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
 
+        <div class="bg">
 
-      </div>
+            <p class="">
+            </p>
+
+            <section class="service_section layout_padding-bottom">
+                <div class="container">
+                    <div class="custom_heading-container">
+                        <h3 class=" ">
+                            Panel de Administracion
+                        </h3>
+                    </div>
+                    <p class="">
+                    </p>
+                    <div class="service_container ">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="box b-1">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarUsuario.jpeg" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Usuarios
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/admin/usuario}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-2">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarFeedback.png" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Pedidos
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/admin/feedback}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-3">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarOficio.png" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Oficios
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a href="@{/admin/oficios}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-4">
+                                    <div class="img-box">
+                                        <img src="/imagenes/electricidad.jpg" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Proveedores
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a href="">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- end service section -->
+
+            <!-- work section -->
+
+            <!-- end work section -->
+
+            <!-- contact section -->
+
+            <!-- end contact section -->
+
+            <!-- info section -->
+
+            <!-- end info_section -->
+
+            <!-- footer section -->
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+            <!-- footer section -->
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+        </div>
     </div>
+</body>
 
-
-  </body>
 </html>

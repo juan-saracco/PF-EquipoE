@@ -3,6 +3,7 @@ package com.proyectoFinal.demo.controladores;
 
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,15 +45,20 @@ public class portalControlador {
         Proveedor proveedorLogueado = (Proveedor) session.getAttribute("proveedorsession");
 
         if(usuarioLogueado.getRol().toString().equals("USER") ){
-            return "redirect:/usuario";
+            return "redirect:/";
         }
 
-        if(proveedorLogueado.getRol().toString().equals("PROVEEDOR") ){
-         //   return "redirect:/admin/dashboard";
+        if(usuarioLogueado.getRol().toString().equals("ADMIN") ){
+           return "redirect:/admin/dashboard";
         }
-
 
         return "index.html";
+    }
+
+    @GetMapping("/busqueda")
+    public String busqueda(String value) {
+
+        return "resultadoBusqueda.html";
     }
 
 

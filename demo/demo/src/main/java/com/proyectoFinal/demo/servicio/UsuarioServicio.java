@@ -36,7 +36,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
+    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -53,12 +53,33 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-        Imagen foto = imagenServicio.guardar(imagen);
+
+        Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setImagen(foto);
 
         usuarioRepositorio.save(usuario);
     }
+
+    public void registrorapido(String nombre, String apellido, String email, String password)
+            throws MiException {
+
+        validarrapido(nombre, apellido, email, password);
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setEmail(email);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setRol(Rol.USER);
+        usuario.setEstado(true);
+        usuario.setFecha_alta(new Date());
+
+        usuarioRepositorio.save(usuario);
+      //  return usuario;
+    }
+
 
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
@@ -100,6 +121,10 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarios;
     }
 
+    public Usuario getOne(String id){
+        return usuarioRepositorio.getOne(id);
+    }
+
     public void cambiarestado(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -117,6 +142,54 @@ public class UsuarioServicio implements UserDetailsService {
 
     private void validar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion) throws MiException {
 
+      /*Usuario usuarioDNI = usuarioRepositorio.buscarPorDNI(DNI);
+      Usuario usuarioEmail = usuarioRepositorio.buscarPorEmail(email);*/
+
+
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiException("El nombre no puede ser nulo o estar vacio");
+        }
+
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("El apellido no puede ser nulo o estar vacio");
+        }
+
+        if (email.isEmpty() || email == null) {
+            throw new MiException("El email no puede ser nulo o estar vacio");
+        }
+      /*  if(email.equals(usuarioEmail.getEmail())){
+            throw new MiException("El usuario ya existe. Intente nuevamente");
+        }*/
+
+        if (password.isEmpty() || password == null || password.length() <= 5) {
+            throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
+        }
+
+        if (!password.equals(password2)) {
+            throw new MiException("Las contraseñas no pueden ser diferentes");
+
+        }
+
+        if (DNI.isEmpty() || DNI == null) {
+            throw new MiException("El DNI no puede ser nulo o estar vacio");
+        }
+        /*if(DNI.equals(usuarioDNI.getDNI())){
+            throw new MiException("El usuario ya existe. Intente nuevamente");
+        }*/
+
+        if (telefono.isEmpty() || telefono == null) {
+            throw new MiException("El telefono no puede ser nulo o estar vacio");
+        }
+
+        if (direccion.isEmpty() || direccion == null) {
+            throw new MiException("La direccion no puede ser nulo o estar vacio");
+        }
+
+    }
+
+    private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
+
+
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El nombre no puede ser nulo o estar vacio");
         }
@@ -131,23 +204,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         if (password.isEmpty() || password == null || password.length() <= 5) {
             throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
-        }
-
-        if (!password.equals(password2)) {
-            throw new MiException("Las contraseñas no pueden ser diferentes");
-
-        }
-
-        if (DNI.isEmpty() || DNI == null) {
-            throw new MiException("El DNI no puede ser nulo o estar vacio");
-        }
-
-        if (telefono.isEmpty() || telefono == null) {
-            throw new MiException("El telefono no puede ser nulo o estar vacio");
-        }
-
-        if (direccion.isEmpty() || direccion == null) {
-            throw new MiException("La direccion no puede ser nulo o estar vacio");
         }
 
     }

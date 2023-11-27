@@ -36,11 +36,19 @@ public class OficioServicio {
         return oficios;
     }
 
+    public List<Oficio> listarTodosOficios(){
+
+        List<Oficio> oficios = new ArrayList();
+        oficios = oficioRepositorio.findAll();
+
+        return oficios;
+    }
+
     @Transactional
     public void modificarOficio(String id, String denominacion) throws MiException{
 
         validar(denominacion);
-
+        verificar(denominacion);
         Optional<Oficio> rta = oficioRepositorio.findById(id);
 
         if(rta.isPresent()){
@@ -72,6 +80,16 @@ public class OficioServicio {
 
         if (denominacion == null || denominacion.isEmpty()) {
             throw new MiException("La denominacion no puede ser nula ni estar vacía");
+        }
+    }
+
+
+    public void verificar(String denominacion) throws MiException {
+
+        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
+
+        if (oficio != null) {
+            throw new MiException("El oficio ya existe");
         }
     }
 
