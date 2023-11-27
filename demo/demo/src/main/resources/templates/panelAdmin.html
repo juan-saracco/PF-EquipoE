@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panel Admin</title>
-    <link rel="stylesheet" href="../styles/panelAdmin.css" />
-  </head>
-  <body style="margin: 0; padding: 0; box-sizing: border-box">
-<nav th:replace="/fragmentos/navbar :: nav"></nav>
-    <div style="width: 100%; height: 100vh;">
-      <div style="margin: 20vh auto; height: 30vh ;width: 30%; border: 1px solid black; display: flex; flex-direction: column; align-items: center; justify-content: space-around;">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-        <h1>Panel de Administración</h1>
+    <head th:replace="/fragmentos/head:: head"></head>  
+    <body >
+        <div class="hero_area">
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragmentos/navbar :: nav"></nav>
+                </div>
+            </header>
+        </div>
+        <div class="bg">
+            <section class="service_section layout_padding">
+                <div class="container" >
+                    <div class="custom_heading-container">
+                        <h3 class=" ">
+                            Panel de Administración
+                        </h3>
+                    </div>
+                    <div class="service_container ">
+                        <div class="detail-box" style="align-items: center">
+                            <a target="_blank" th:href="@{/admin/usuario}">Gestión de Usuarios</a>
+                            
+                            <a target="_blank" th:href="@{/admin/feedback}">Gestión de Comentarios</a>
+                            
+                            <a target="_blank" th:href="@{/oficios/lista}">Oficios</a>
+                        </div>
+                    </div>
+                    <section>
+                        <p>                                                      
+                        </p>                           
+                    </section>
+                </div>
+            </section>
+        </div>
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
 
-        <div style="display: flex; align-items: center; justify-content:center; text-align: center;">
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
-        <a target="_blank" th:href="@{/admin/usuario}">Gestión de Usuarios</a>
-        <br />
-        <a target="_blank" th:href="@{/admin/feedback}">Gestión de Comentarios</a>
-        <br />
-        <a target="_blank" th:href="@{/admin/oficios}">Oficios</a>
-       </div>
-
-
-      </div>
-    </div>
-
-
-  </body>
+    </body>
 </html>
