@@ -81,6 +81,12 @@ public class proveedorControlador {
         return "redirect:/proveedor/listaTodos";
     }
     
+     @GetMapping("/modificarOficioProveedor/{id}")
+    public String modifOficioProveedor(@PathVariable String id) {
+
+        return "editarOficioProveedor.html";
+    }
+    
     @GetMapping("/lista") //MUESTRA SOLO LOS PROVEEDORES ACTIVOS (ESTADO: TRUE) ->SIRVE PARA LISTAR LOS OFICIOS PARA LOS USUARIOS
     public String listar(ModelMap modelo, @ModelAttribute("exi") String ex) {
         List<Proveedor> proveedores = proveedorservicio.listarProveedores();

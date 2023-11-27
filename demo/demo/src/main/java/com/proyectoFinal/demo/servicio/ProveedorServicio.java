@@ -98,7 +98,6 @@ public class ProveedorServicio extends UsuarioServicio  {
 
             proveedor.setImagen(img);
 
-
             proveedorRepositorio.save(proveedor);
         }
     }
@@ -126,6 +125,20 @@ public void cambiarestado(String id) {
             proveedorRepositorio.save(proveedor);
         }
 
+    }
+
+public void cambiarOficio(String id, String ofic) {
+
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        
+        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(ofic);
+
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setOficio(oficio);
+
+            proveedorRepositorio.save(proveedor);
+        }
     }
 
     private void validar(Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {

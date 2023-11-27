@@ -24,18 +24,24 @@
                             <th scope="col">Apellido</th>
                             <th scope="col">Oficio</th>
                             <th scope="col">Perfil</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" sec:authorize="hasRole('ADMIN')">Modificar</th>
                             <th scope="col" sec:authorize="hasRole('ADMIN')">Activar/Desactivar</th>                          
                         </tr>
                     </thead>
-                    <tbody th:each="proveedor: ${proveedores}">
+                    <tbody th:each="proveedor : ${proveedores}">
                         <tr>
-                            <th scope="row" th:text="${usuario.proveedor.id}"></th>
-                            <td th:text="${usuario.proveedor.nombre}"></td>
-                            <td th:text="${usuario.proveedor.apellido}"></td>                            
+                            <th scope="row" th:text="${proveedor.id}"></th>
+                            <td th:text="${proveedor.nombre}"></td>
+                            <td th:text="${proveedor.apellido}"></td>                            
                             <td th:text="${proveedor.oficio}"></td>
                             <td>
                                 <a sec:authorize="hasRole('ADMIN')" th:href="@{//__${proveedor.id}__}">Ver Perfil</a>
-                            </td>                        
+                            </td>    
+                            <td th:text="${proveedor.estado}"></td>
+                            <td>
+                                <a sec:authorize="hasRole('ADMIN')" th:href="@{/oficios/modificarOficios/__${oficio.id}__}">Editar</a>
+                            </td>
                             <td>
                                 <a sec:authorize="hasRole('ADMIN')" th:href="@{/proveedor/desactReactProveedores/__${oficio.id}__}">Activar/Desactivar</a>
                             </td>
