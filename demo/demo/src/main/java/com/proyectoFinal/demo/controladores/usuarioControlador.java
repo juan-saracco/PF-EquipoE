@@ -38,7 +38,7 @@ public class usuarioControlador {
     public String registro(@RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
         try {
-            usuarioServicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+            usuarioServicio.registrarUsuario(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
             modelo.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
             return "login.html";

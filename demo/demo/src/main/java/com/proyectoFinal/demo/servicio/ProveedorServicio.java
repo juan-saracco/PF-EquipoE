@@ -5,6 +5,7 @@ import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.repositorios.OficioRepositorio;
 import com.proyectoFinal.demo.repositorios.ProveedorRepositorio;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
@@ -37,17 +38,22 @@ public class ProveedorServicio extends UsuarioServicio  {
     private ProveedorRepositorio proveedorRepositorio;
 
     @Autowired
+    private OficioRepositorio oficioRepositorio;
+
+    @Autowired
     private ImagenServicio imagenServicio;
 
-@Transactional
-       public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo,Oficio oficio, String descripcion, Double tarifaPorHora)
+    @Transactional
+    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String ofic, String descripcion, Double tarifaPorHora)
             throws MiException {
 
+        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(ofic);
+        
     validar(oficio, descripcion, tarifaPorHora);
-    super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
-    Imagen img = imagenServicio.guardar(archivo);
-
     Proveedor proveedor = new Proveedor();
+    super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, proveedor);
+    
+    Imagen img = imagenServicio.guardar(archivo);
 
     proveedor.setImagen(img);
     proveedor.setOficio(oficio);
@@ -63,7 +69,7 @@ public class ProveedorServicio extends UsuarioServicio  {
 
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen, Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
-
+        
         validar(oficio, descripcion, tarifaPorHora);
         super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
 
@@ -97,45 +103,46 @@ public class ProveedorServicio extends UsuarioServicio  {
         }
     }
 
-    public List<Proveedor> listarProveedores() {
+    public List<Proveedor> listarTodosProveedores() {
         List<Proveedor> proveedores = new ArrayList();
         proveedores = (proveedorRepositorio.findAll());
         return proveedores;
     }
 
-
-
-// Revisar si hacen falta todos los parametros o solo ID -RJR-
-public void cambiarestado(String id) throws MiException {
-
-    Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
-
-    if (respuesta.isPresent()) {
-        Proveedor P = respuesta.get();
-        P.setEstado(!P.getEstado());
+    public List<Proveedor> listarProveedores() {
+        List<Proveedor> proveedores = new ArrayList();
+        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        return proveedores;
     }
 
-    if (!respuesta.isPresent()) {
-        throw new MiException("Usuario no encontrado por Id" + id);
+public void cambiarestado(String id) {
+
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setEstado(!proveedor.getEstado());
+
+            proveedorRepositorio.save(proveedor);
+        }
+
     }
-
-}
-
 
     private void validar(Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
 
         if (oficio == null) {
             throw new MiException("El oficio no puede ser nulo o estar vacio");
         }
-        if (descripcion.isEmpty() || descripcion == null) {
+        if (descripcion.isEmpty()) {
             throw new MiException("La descripcion no puede ser nula o estar vacia");
         }
 
-        if (tarifaPorHora.equals(0) || tarifaPorHora == null) {
+        if (tarifaPorHora == null) {
             throw new MiException("La tarifa no puede ser nula o estar vacia");
         }
 
     }
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

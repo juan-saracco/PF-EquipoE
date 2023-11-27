@@ -66,12 +66,8 @@ public class OficioServicio {
 
         if(rta.isPresent()){
             Oficio oficio = rta.get();
-
-            if(oficio.getEstado().equals(Boolean.TRUE)){
-                oficio.setEstado(Boolean.FALSE);
-            }else if(oficio.getEstado().equals(Boolean.FALSE)){
-                oficio.setEstado(Boolean.TRUE);
-            }
+            oficio.setEstado(!oficio.getEstado());
+            
             oficioRepositorio.save(oficio);
         }
     }
