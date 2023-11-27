@@ -36,12 +36,17 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
+    public void registrarUsuario(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
+            throws MiException {
+        Usuario usuario = new Usuario();
+        registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, usuario);
+        usuarioRepositorio.save(usuario);
+    }
+
+    public Usuario registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, Usuario usuario)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
-
-        Usuario usuario = new Usuario();
 
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
@@ -58,7 +63,7 @@ public class UsuarioServicio implements UserDetailsService {
 
         usuario.setImagen(foto);
 
-        usuarioRepositorio.save(usuario);
+        return usuario;
     }
 
     public void registrorapido(String nombre, String apellido, String email, String password)
