@@ -58,7 +58,7 @@ public class portalControlador {
     @GetMapping("/busqueda")
     public String busqueda(String value) {
 
-        return "resultadoBusqueda.html";
+        return "resultadosBusqueda.html";
     }
 
 

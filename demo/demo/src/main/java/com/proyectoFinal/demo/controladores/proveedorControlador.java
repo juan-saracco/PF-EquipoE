@@ -40,8 +40,9 @@ public class proveedorControlador {
         
         try {
             proveedorservicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, oficio, descripcion, tarifaPorHora);
-            redi.addFlashAttribute("Exito", "Usuario registrado correctamente.");
-            return "redirect:/";
+           // redi.addFlashAttribute("Exito", "Usuario registrado correctamente.");
+            ModeloProveedor.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            return "login.html";
 
         } catch (MiException e) {
             List<Oficio> oficios = oficioservicio.listarTodosOficios();
