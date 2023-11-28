@@ -5,12 +5,14 @@ import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -47,6 +49,7 @@ public class UsuarioServicio implements UserDetailsService {
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
+        validarexistencia(DNI, email);
 
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
@@ -82,7 +85,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFecha_alta(new Date());
 
         usuarioRepositorio.save(usuario);
-      //  return usuario;
+        //  return usuario;
     }
 
 
@@ -120,13 +123,13 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    public List<Usuario> listarUsuarios(){
+    public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList();
         usuarios = usuarioRepositorio.findAll();
         return usuarios;
     }
 
-    public Usuario getOne(String id){
+    public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
     }
 
@@ -135,8 +138,8 @@ public class UsuarioServicio implements UserDetailsService {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
 
         if (respuesta.isPresent()) {
-           Usuario U = respuesta.get();
-           U.setEstado(!U.getEstado());
+            Usuario U = respuesta.get();
+            U.setEstado(!U.getEstado());
         }
 
         if (!respuesta.isPresent()) {
@@ -146,10 +149,6 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     private void validar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion) throws MiException {
-
-      /*Usuario usuarioDNI = usuarioRepositorio.buscarPorDNI(DNI);
-      Usuario usuarioEmail = usuarioRepositorio.buscarPorEmail(email);*/
-
 
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El nombre no puede ser nulo o estar vacio");
@@ -162,9 +161,6 @@ public class UsuarioServicio implements UserDetailsService {
         if (email.isEmpty() || email == null) {
             throw new MiException("El email no puede ser nulo o estar vacio");
         }
-      /*  if(email.equals(usuarioEmail.getEmail())){
-            throw new MiException("El usuario ya existe. Intente nuevamente");
-        }*/
 
         if (password.isEmpty() || password == null || password.length() <= 5) {
             throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
@@ -178,9 +174,6 @@ public class UsuarioServicio implements UserDetailsService {
         if (DNI.isEmpty() || DNI == null) {
             throw new MiException("El DNI no puede ser nulo o estar vacio");
         }
-        /*if(DNI.equals(usuarioDNI.getDNI())){
-            throw new MiException("El usuario ya existe. Intente nuevamente");
-        }*/
 
         if (telefono.isEmpty() || telefono == null) {
             throw new MiException("El telefono no puede ser nulo o estar vacio");
@@ -189,7 +182,20 @@ public class UsuarioServicio implements UserDetailsService {
         if (direccion.isEmpty() || direccion == null) {
             throw new MiException("La direccion no puede ser nulo o estar vacio");
         }
+    }
 
+    public void validarexistencia(String DNI, String email) throws MiException {
+
+        Usuario usuarioDNI = usuarioRepositorio.buscarPorDNI(DNI);
+        Usuario usuarioEmail = usuarioRepositorio.buscarPorEmail(email);
+
+        if (usuarioDNI != null && usuarioDNI.getDNI().equals(DNI)) {
+            throw new MiException("El usuario con el DNI ingresado ya existe. Intente nuevamente");
+        }
+
+        if (usuarioEmail != null && usuarioEmail.getEmail().equals(email)) {
+            throw new MiException("El usuario con el EMAIL ingresado ya existe. Intente nuevamente");
+        }
     }
 
     private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
