@@ -1,10 +1,14 @@
 package com.proyectoFinal.demo.controladores;
 
 
+import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.servicio.OficioServicio;
+import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequestMapping("/")
@@ -21,6 +26,13 @@ public class portalControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    
+    @Autowired
+    public OficioServicio oficioServicio;
+    
+    @Autowired
+    public ProveedorServicio proveedorServicio;
+
 
 /*Pagina de presentacion inicial accesible para todos*/
     @GetMapping("/")
@@ -59,11 +71,36 @@ public class portalControlador {
     }
 
     @GetMapping("/busqueda")
-    public String busqueda(String value) {
+    public String busqueda(ModelMap modelo) {
+        List<Oficio> oficios = oficioServicio.listarOficios();
+        modelo.addAttribute("oficios", oficios);
 
-        return "resultadosBusqueda.html";
+        return "filtrosBusqueda.html";
     }
 
+    @PostMapping("/buscarPorOficio")
+    public String buscar(@RequestParam String denominacion, String filtro, ModelMap modelo, @ModelAttribute("Error") String error){
+        try {
+            proveedorServicio.listarProveedoresPorParametro(denominacion, filtro);
+            
+        } catch (Exception e) {
+             List<Oficio> oficios = oficioServicio.listarOficios();
+             modelo.addAttribute("oficios", oficios);
+             
+             modelo.put("Error", e.getMessage());
+             modelo.put("denominacion", denominacion);
+             modelo.put("filtro", filtro);
+             
+             
+        }
+        return "filtrosBusqueda.html";
+    }
+
+
+    @PostMapping("/buscarPorProveedor")
+    public String buscar(@RequestParam String denominacion){
+        return "";
+    }
 
 }
 

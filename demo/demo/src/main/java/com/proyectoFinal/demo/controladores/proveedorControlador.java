@@ -25,7 +25,7 @@ public class proveedorControlador {
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
         
-        List<Oficio> oficios = oficioservicio.listarTodosOficios();
+        List<Oficio> oficios = oficioservicio.listarOficios();
         modelo.addAttribute("oficios", oficios);
         
         return "registroProveedor.html";

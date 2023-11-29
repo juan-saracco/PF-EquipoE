@@ -113,6 +113,12 @@ public class ProveedorServicio extends UsuarioServicio  {
         proveedores = proveedorRepositorio.listarProveedoresActivos();
         return proveedores;
     }
+    
+    public List<Proveedor> listarProveedoresPorParametro(String denominacion, String filtro) {
+        List<Proveedor> proveedores = new ArrayList();
+        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        return proveedores;
+    }
 
     public void cambiarestado(String id) {
 
