@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
             <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/inicio}">Inicio<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -23,7 +23,7 @@
                 </li>
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN')"
-                        href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-expanded="true">
+                       href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-expanded="true" style="color: white">
                         Panel de administración
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="adminDropdown" sec:authorize="hasRole('ADMIN')">
@@ -37,8 +37,8 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"
-                        href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" 
+                        href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white">
                         Perfil
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
@@ -48,10 +48,11 @@
                     </ul>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0" th:action="@{/busqueda}" target="_blank">
-                <input type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn my-2 my-sm-0 nav_search-btn" type="submit"></button>
-            </form>
+            <div>
+                <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0" th:action="@{/busqueda}">
+                    <button class="btn my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
