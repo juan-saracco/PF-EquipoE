@@ -20,6 +20,7 @@ public class OficioServicio {
     public void crearOficio(String denominacion) throws MiException{
 
         validar(denominacion);
+        verificar(denominacion);
 
         Oficio oficio = new Oficio();
         oficio.setDenominacion(denominacion);
@@ -49,6 +50,7 @@ public class OficioServicio {
 
         validar(denominacion);
         verificar(denominacion);
+        
         Optional<Oficio> rta = oficioRepositorio.findById(id);
 
         if(rta.isPresent()){
