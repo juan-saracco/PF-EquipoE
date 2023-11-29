@@ -61,11 +61,11 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-
+        
         Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setImagen(foto);
-
+        
         return usuario;
     }
 

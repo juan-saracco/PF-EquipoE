@@ -113,6 +113,12 @@ public class ProveedorServicio extends UsuarioServicio  {
         proveedores = proveedorRepositorio.listarProveedoresActivos();
         return proveedores;
     }
+    
+    public List<Proveedor> listarProveedoresPorParametro(String denominacion, String filtro) {
+        List<Proveedor> proveedores = new ArrayList();
+        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        return proveedores;
+    }
 
     public void cambiarestado(String id) {
 
@@ -131,9 +137,9 @@ public class ProveedorServicio extends UsuarioServicio  {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
         
-//         if (oficio == null) {
-//            throw new MiException("El oficio no puede ser nulo o estar vacío");
-//        }
+         if (oficio == null) {
+            throw new MiException("El oficio no puede ser nulo o estar vacío");
+        }
          
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         
