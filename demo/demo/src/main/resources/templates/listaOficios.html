@@ -16,8 +16,28 @@
                 <div class="form-group my-3">
                     <h3 class="card-title">Crear nuevo oficio</h3>
                     <button type="button" class=""><a th:href="@{/oficios/registrarOficios/}">Crear</a></button>
+                    
                 </div>
             </div>
+            <div class="container m-5">      
+                <div class="form-group my-3">                    
+                    <div class="form-group my-3">                        
+                        <p>Volver a editar proveedor <a th:href="@{/proveedor/listaTodos/}">click aquí</a></p>                        
+                    </div>
+                </div>
+            </div>
+            <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${Error}"></p>
+                </div>
+            </div>
+            <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${Exito}"></p>
+                </div>
+            </div> 
             <div class="container m-5">      
                 <table class="table table-hover">
                     <div class="form-group my-3">                     
@@ -25,7 +45,6 @@
                     </div> 
                     <thead>
                         <tr>
-                            <th scope="col">Id del oficio</th>
                             <th scope="col">Denominación</th>
                             <th scope="col">Estado</th>
                             <th scope="col" sec:authorize="hasRole('ADMIN')">Modificar</th>
@@ -34,8 +53,7 @@
                     </thead>
                     <tbody th:each="oficio : ${oficios}">
                         <tr>
-                            <th scope="row" th:text="${oficio.id}"></th>
-                            <td th:text="${oficio.denominacion}"></td>
+                            <th scope="row" th:text="${oficio.denominacion}"></td>
                             <td th:text="${oficio.estado}"></td>
                             <td>
                                 <a sec:authorize="hasRole('ADMIN')" th:href="@{/oficios/modificarOficios/__${oficio.id}__}">Editar</a>
@@ -46,19 +64,7 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
-                    <div class="card-body">
-                        <h5 class="card-title">Error</h5>
-                        <p class="card-text" th:text="${Error}"></p>
-                    </div>
-                </div>
-                <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-                    <div class="card-body">
-                        <h5 class="card-title">Exito!</h5>
-                        <p class="card-text" th:text="${Exito}"></p>
-                    </div>
-                </div> 
+                
             </div>
             <footer th:replace="/fragmentos/footer :: footer"></footer>
             <!-- footer section -->
