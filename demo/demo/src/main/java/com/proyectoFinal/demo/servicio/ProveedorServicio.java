@@ -131,9 +131,9 @@ public class ProveedorServicio extends UsuarioServicio  {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
         
-//         if (oficio == null) {
-//            throw new MiException("El oficio no puede ser nulo o estar vacío");
-//        }
+         if (oficio == null) {
+            throw new MiException("El oficio no puede ser nulo o estar vacío");
+        }
          
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         
