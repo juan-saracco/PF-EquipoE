@@ -45,13 +45,14 @@ public class usuarioControlador {
 
         } catch (MiException e) {
             modelo.put("Error", e.getMessage());
-            modelo.put("nombre", nombre);
+        /*    modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("email", email);
             modelo.put("DNI", DNI);
             modelo.put("telefono", telefono);
             modelo.put("direccion", direccion);
             modelo.put("archivo", archivo);
+*/
 
             return "registroUsuario.html";
         }
