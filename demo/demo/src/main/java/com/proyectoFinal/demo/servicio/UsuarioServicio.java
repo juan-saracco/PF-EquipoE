@@ -69,6 +69,8 @@ public class UsuarioServicio implements UserDetailsService {
         return usuario;
     }
 
+ /*   Eliminado debido al cambio de registro rapido del index
+
     public void registrorapido(String nombre, String apellido, String email, String password)
             throws MiException {
 
@@ -86,7 +88,7 @@ public class UsuarioServicio implements UserDetailsService {
 
         usuarioRepositorio.save(usuario);
         //  return usuario;
-    }
+    }*/
 
 
     @Transactional
@@ -168,7 +170,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas no pueden ser diferentes");
-
         }
 
         if (DNI.isEmpty() || DNI == null) {
@@ -198,7 +199,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
+    /*private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
 
 
         if (nombre.isEmpty() || nombre == null) {
@@ -217,7 +218,7 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
         }
 
-    }
+    }*/
 
 
     @Override

@@ -1,34 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-
-    <title>EQUIPO E</title>
-
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
-
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-
-    <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="/css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="/css/responsive.css" rel="stylesheet" />
-    
-</head>
+<head th:replace="/fragmentos/head:: head"></head>
 
 <body>
     <div class="hero_area">
@@ -39,65 +12,58 @@
             </div>
         </header>
         <!-- end header section -->
-        <!-- slider section -->
-        <!-- end slider section -->
     </div>
     <div class="bg">
-
-        <!-- about section -->
-        <!-- end about section -->
-
-        <!-- service section -->
-        <!-- end service section -->
-
-        <!-- work section -->
-        <!-- end work section -->
-
-        <!-- contact section -->
-
         <section class="contact_section layout_padding">
             <div class="custom_heading-container">
                 <h3 class=" ">
-                    Sos un nuevo usuario? Registrate aqui
+                    MODICA TUS DATOS PERSONALES
                 </h3>
             </div>
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action="@{/modificadorapido}" method="POST">
-                            <div>
-                                <input type="text" hidden name="id" th:value="${IDUsuario}">
+                        <form th:action="@{/editando}" method="POST">
+
+                            <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                                <p th:text="${Exito}"></p>
+                            </div>
+                            <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                                <p th:text="${Error}"></p>
                             </div>
                             <div>
-                                <input type="text" placeholder="Nombre" name="nombre" th:value="${NombreUsuario}">
+                                <input type="text" hidden name="id" th:value="${usuarioID.id}">
                             </div>
                             <div>
-                                <input type="text" placeholder="Apellido" name="apellido" th:value="${ApellidoUsuario}">
+                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${nombre}">
                             </div>
                             <div>
-                                <input type="text" placeholder="DNI" name="DNI" th:value="${DNI}">
+                                <input type="text" placeholder="APELLIDO" name="apellido" th:value="${apellido}">
                             </div>
                             <div>
-                                <input type="text" placeholder="Telefono" name="telefono" th:value="${TelefonoUsuario}">
+                                <input type="text" placeholder="DOCUMENTO NACIONAL DE IDENTIDAD" name="DNI"
+                                    th:value="${DNI}">
                             </div>
                             <div>
-                                <input type="text" placeholder="Direccion" name="Direccion" th:value="${direccion}">
+                                <input type="text" placeholder="TELEFONO" name="telefono" th:value="${telefono}">
                             </div>
                             <div>
-                                <input type="email" placeholder="EMAIL" name="email" th:value="${EmailUsuario}">
+                                <input type="text" placeholder="DIRECCION" name="direccion" th:value="${direccion}">
                             </div>
                             <div>
-                                <input type="password" placeholder="Contraseña" name="password" th:value="${password}">
+                                <input type="email" placeholder="EMAIL" name="email" th:value="${email}">
                             </div>
                             <div>
-                                <input type="password" placeholder="Confirmar Contraseña" name="password2"
+                                <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${password}">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="REPITA LA CONTRASEÑA" name="password2"
                                     th:value="${password2}">
                             </div>
-                            <!-- <div>
-                                <label for="">Ingrese una imagen de perfil</label>
-                                <input type="file" placeholder="Añadir imagen" name="archivo">
-                            </div> -->
-                      
+                            <div>
+                                <input type="file" placeholder="INGRESE UNA IMAGEN DE PERFIL" name="archivo">
+                            </div>
+
                             <div class="d-flex justify-content-center ">
                                 <button type="submit">
                                     Registrar
@@ -110,151 +76,20 @@
 
             </div>
         </section>
-    
+
         <!-- end contact section -->
 
         <!-- info section -->
-        <section class="info_section layout_padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="info-logo">
-                            <h2>
-                               Chacras
-                            </h2>
-                            <p>
-                               Somos un sitio de gran trayectoria, recopilando a los mejores profesionales
-                               con el objetivo de brindarle los mejores servicios a los vecinos del barrio
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-nav">
-                            <h4>
-                                Navigacion
-                            </h4>
-                            <ul>
-                                <li>
-                                    <a href="index.html">
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="about.html">
-                                        About
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="service.html">
-                                        Contrataciones
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">
-                                        Contacto
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Login
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-contact">
-                            <h4>
-                                Informacion de contacto
-                            </h4>
-                            <div class="location">
-                                <h6>
-                                   Direccion:
-                                </h6>
-                                <a href="">
-                                    <img src="images/location.png" alt="">
-                                    <span>
-                                        Les Champs-Élysées, PARIS 0612
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="call">
-                                <h6>
-                                    Atencion al cliente:
-                                </h6>
-                                <a href="">
-                                    <img src="images/telephone.png" alt="">
-                                    <span>
-                                        ( +54 385 4567890 )
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="discover">
-                            <h4>
-                                Discover
-                            </h4>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        Help
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        How It Works
-        
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        subscribe
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">
-                                        Contact Us
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="social-box">
-                                <a href="">
-                                    <img src="images/facebook.png" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="images/twitter.png" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="images/google-plus.png" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="images/linkedin.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <!-- end info_section -->
 
         <!-- footer section -->
-        <section class="container-fluid footer_section">
-            <p>
-                Copyright &copy; 2023 All Rights Reserved By
-                <a href="https://html.design/">Equipo E APPEGG</a>
-            </p>
-        </section>
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
         <!-- footer section -->
 
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
-        <!-- Bootstrap de mensajes -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script> -->
+
     </div>
 </body>
 

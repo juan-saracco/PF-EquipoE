@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,7 @@ public class usuarioControlador {
         return "registroUsuario.html";
     }
 
-//Funcionando
+    //Funcionando
     @PostMapping("/registro")
     public String registro(@RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
@@ -45,19 +46,19 @@ public class usuarioControlador {
 
         } catch (MiException e) {
             modelo.put("Error", e.getMessage());
-        /*    modelo.put("nombre", nombre);
+            modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("email", email);
             modelo.put("DNI", DNI);
             modelo.put("telefono", telefono);
             modelo.put("direccion", direccion);
             modelo.put("archivo", archivo);
-*/
 
             return "registroUsuario.html";
         }
     }
 
+/*    Eliminado por el cambio de registrorapido en el index
    @PostMapping("/registrorapido")
    public String registrorapido(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, ModelMap ModeloUsuario) {
        try {
@@ -87,7 +88,7 @@ public class usuarioControlador {
         }
 
         return "index.html";
-    }
+    }*/
 
     /*@GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo2) {
@@ -117,6 +118,45 @@ public class usuarioControlador {
 
         return "modificarUsuario.html";
     }*/
+
+/*    @GetMapping("/perfil")
+    public String perfilid(ModelMap model) {
+
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+
+        model.addAttribute("usuariosID", usuarios);
+        return "modificarUsuario.html";
+    }*/
+
+    @GetMapping("/perfil")
+    public String modificarperfil(ModelMap modelo2, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo2.put("usuarioID", usuario);
+        return "modificarUsuario.html";
+    }
+
+    @PostMapping("/editando")
+    public String modificando(@RequestParam String id, @RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+
+        try {
+            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("email", email);
+            modelo.put("DNI", DNI);
+            modelo.put("telefono", telefono);
+            modelo.put("direccion", direccion);
+            modelo.put("archivo", archivo);
+            modelo.put("Exito", "Se modifico el usuario correctamente");
+        } catch (MiException e) {
+            modelo.put("Error", "Error: No se pudo modificar el usuario.");
+        }
+
+        return "redirect:/";
+    }
+
+
+
 
     @GetMapping("/servicios")
     public String servicios() {

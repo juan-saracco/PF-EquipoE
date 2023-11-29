@@ -37,12 +37,12 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" 
+                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"
                         href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         Perfil
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
-                        <li><a class="dropdown-item" th:href="@{/perfil}">Editar Perfil</a></li>
+                        <li><a class="dropdown-item" th:href="@{/usuario/perfil}">Editar Perfil</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
