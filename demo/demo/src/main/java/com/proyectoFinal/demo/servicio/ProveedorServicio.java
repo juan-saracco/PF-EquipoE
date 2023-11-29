@@ -160,7 +160,7 @@ public class ProveedorServicio extends UsuarioServicio  {
         }
 
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

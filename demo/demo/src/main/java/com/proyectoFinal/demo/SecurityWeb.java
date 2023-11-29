@@ -27,11 +27,12 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests()
-                    .antMatchers("/admin/*").hasRole("ADMIN")
-                    //.antMatchers("/usuario/*").hasRole("USER")
-                    .antMatchers("/css/**", "/js/**", "/img/**", "/**")
-                    .permitAll()
+                .authorizeHttpRequests
+                .antMatchers("/admin/*").hasRole("ADMIN")
+              //  .antMatchers("/usuario/*").hasRole("USER")
+                .antMatchers("/css/**", "/js/**", "/img/**", "/**")
+                .permitAll()
+
                 .and().formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/logincheck")
