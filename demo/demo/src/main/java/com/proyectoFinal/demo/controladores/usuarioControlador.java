@@ -129,13 +129,19 @@ public class usuarioControlador {
     }*/
 
     @GetMapping("/perfil")
-    public String modificarperfil(ModelMap modelo2, HttpSession session) {
+    public String mostrarperfil(ModelMap modelo2, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo2.put("usuarioID", usuario);
         return "modificarUsuario.html";
     }
 
-    @PostMapping("/editando")
+    @GetMapping("/perfil/{id}")
+    public String modificarperfil(@PathVariable String id, ModelMap modelo){
+        modelo.put("usuario", usuarioServicio.getOne(id));
+        return "modificarUsuario.html";
+    }
+
+    @PostMapping("/perfil/{id}")
     public String modificando(@RequestParam String id, @RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
         try {

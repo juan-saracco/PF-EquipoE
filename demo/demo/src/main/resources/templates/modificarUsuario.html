@@ -23,7 +23,7 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action="@{/editando}" method="POST">
+                        <form th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
 
                             <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
                                 <p th:text="${Exito}"></p>
@@ -32,26 +32,26 @@
                                 <p th:text="${Error}"></p>
                             </div>
                             <div>
-                                <input type="text" hidden name="id" th:value="${usuarioID.id}">
+                                <input type="text" hidden name="id" th:value="${id}">
                             </div>
                             <div>
-                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${nombre}">
+                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${usuario.nombre}">
                             </div>
                             <div>
-                                <input type="text" placeholder="APELLIDO" name="apellido" th:value="${apellido}">
+                                <input type="text" placeholder="APELLIDO" name="apellido" th:value="${usuario.apellido}">
                             </div>
                             <div>
                                 <input type="text" placeholder="DOCUMENTO NACIONAL DE IDENTIDAD" name="DNI"
-                                    th:value="${DNI}">
+                                    th:value="${usuario.DNI}">
                             </div>
                             <div>
-                                <input type="text" placeholder="TELEFONO" name="telefono" th:value="${telefono}">
+                                <input type="text" placeholder="TELEFONO" name="telefono" th:value="${usuario.telefono}">
                             </div>
                             <div>
-                                <input type="text" placeholder="DIRECCION" name="direccion" th:value="${direccion}">
+                                <input type="text" placeholder="DIRECCION" name="direccion" th:value="${usuario.direccion}">
                             </div>
                             <div>
-                                <input type="email" placeholder="EMAIL" name="email" th:value="${email}">
+                                <input type="email" placeholder="EMAIL" name="email" th:value="${usuario.email}">
                             </div>
                             <div>
                                 <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${password}">
