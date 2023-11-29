@@ -17,20 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
  
 @Controller
-@RequestMapping("/pedidoUsuario")
-public class pedidoControlador {
+@RequestMapping("/feedbackUsuario")
+public class feedbackControlador {
     
     @GetMapping
     public String mostrarFormulario(Model model){
-        return "pedidoUsuario";
+        return "feedbackUsuario";
     }
     
-    @PostMapping("/enviar-pedido")
-    public String procesarFormulario(Model model, String nombre, String email, String celular, String pedido){
+    @PostMapping("/enviar-feedback")
+    public String enviarFeedback(Model model, int calificacion, String feedback){
         
         return "";
     }
     
 }
-    
-
