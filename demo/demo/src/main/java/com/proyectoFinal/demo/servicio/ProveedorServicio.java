@@ -155,7 +155,7 @@ public void cambiarOficio(String id, String ofic) {
         }
 
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

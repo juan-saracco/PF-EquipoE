@@ -15,4 +15,6 @@ public interface ProveedorRepositorio extends JpaRepository<Proveedor,String> {
     
     @Query("SELECT u FROM Proveedor u WHERE u.estado IS TRUE")
     public List<Proveedor> listarProveedoresActivos();
+
+
 }
