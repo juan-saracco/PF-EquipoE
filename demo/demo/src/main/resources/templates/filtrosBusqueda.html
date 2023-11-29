@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="/fragmentos/head:: head"></head>
+
+    <body>
+        <div class="hero_area">
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragmentos/navbar :: nav"></nav>
+                </div>
+            </header>
+        </div>
+        <!-- service section -->
+        <div class="bg">
+            <section class="contact_section layout_padding">               
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        Qué desea buscar?
+                    </h3>
+                </div>
+                <div class="container layout_padding2-top">
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div>
+                                <form th:action="@{/buscarPorOficio}" method="POST">
+                                    <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                                        <p th:text="${Error}"></p>
+                                    </div>
+                                    <h4>Búsqueda por oficio</h4>
+                                    <div>
+                                        <select name="denominacion">
+                                            <option value="" >Seleccione un oficio</option> 
+                                            <option th:each="oficio: ${oficios}" 
+                                                    th:value="${oficio.denominacion}"
+                                                    th:text="${oficio.denominacion}"></option>
+                                        </select>
+                                    </div> 
+
+                                    <h4> Ordenar los resultados</h4>
+                                    <div>
+                                        <input type="radio" id="nombre" name="filtro" value="nombre"><label for="nombre">Por nombre del proveedor</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="precio" name="filtro" value="precio"><label for="precio">Por precio/hora</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center ">
+                                        <button type="submit">
+                                            BUSCAR
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div>
+                                <form th:action="@{/buscarPorProveedor}"  method="POST">
+                                    <h4>Búsqueda por proveedor</h4>
+
+                                    <div>
+                                        <input type="text" placeholder="Ingrese el nombre" name="nombre" th:value="${nombre}">
+                                    </div>
+
+                                    <div class="d-flex justify-content-center ">
+                                        <button type="submit">
+                                            BUSCAR
+                                        </button>
+                                    </div>
+                                </form>  
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- end service section -->
+
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+        </div>  
+
+    </body>
+
+</html>
