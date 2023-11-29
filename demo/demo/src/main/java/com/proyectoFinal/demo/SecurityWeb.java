@@ -27,7 +27,7 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests
+                .authorizeHttpRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
               //  .antMatchers("/usuario/*").hasRole("USER")
                 .antMatchers("/css/**", "/js/**", "/img/**", "/**")
@@ -47,5 +47,5 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
                 .and().csrf()
                     .disable();
     }
-
+    
 }
