@@ -34,15 +34,14 @@
                                 <figure class="snip1336 col-md-4"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPURG3UNQ8kwDRw0D7oUtHDGnZWMyDKfv3sw&usqp=CAU" alt="sample74" /> 
                                  
                                   <figcaption>
-                                
-                                  <img th:src="${proveedor.imagen.contenido}" alt="profile-sample2" class="profile" /> 
-                                 <h2>
+                                   <img th:href="@{/imagen/perfil/__${proveedor.id}__}" alt="profile-sample5" class="profile"/> 
+                                <h2>
                             <span2 th:text="${proveedor.nombre + ' ' + proveedor.apellido}"></span2>
                             <span th:text="${proveedor.oficio.denominacion}"></span>
                         </h2>
                                         <p th:text="${proveedor.descripcion}"></p>
                                         <a href="#" class="follow" th:text="${proveedor.tarifaPorHora}"></a>
-                                        <a href="#" class="info">Mas info</a>
+                                        <a href="@{'/proveedor/{id}" class="info">CONTRATAR</a>
                                     </figcaption>
                                 </figure>
                             </div>
