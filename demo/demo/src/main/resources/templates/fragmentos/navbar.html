@@ -16,11 +16,13 @@
                     <a class="nav-link" th:href="@{/inicio}">Inicio<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/usuario/servicios}">Servicios</a>
+                    <a class="nav-link" th:href="@{/proveedor/servicios}">Servicios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${session.usuariosession == null}" th:href="@{/login}">Login/Registro</a>
                 </li>
+                
+                <!-- NAVBAR PARA ADMIN -->
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN')"
                        href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-expanded="true" style="color: white">
@@ -36,6 +38,21 @@
                         <li><a class="dropdown-item" th:href="@{/admin/feedback}">Gestión de Comentarios</a></li>
                     </ul>
                 </li>
+                
+                <!-- NAVBAR PARA PROVEEDORES -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROVEEDOR')"
+                       href="#" id="proveedorDropdown" role="button" data-toggle="dropdown" aria-expanded="true" style="color: white">
+                        Panel de administración
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="proveedorDropdown" sec:authorize="hasRole('PROVEEDOR')">
+                        
+                        <li><a class="dropdown-item" th:href="@{/pedido/listaTodos}">Mis Pedidos</a></li>
+                        <hr class="dropdown-divider">
+       
+                    </ul>
+                </li>
+                
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" 
                         href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white">
