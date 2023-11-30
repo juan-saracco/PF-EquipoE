@@ -1,36 +1,68 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.proyectoFinal.demo.controladores;
 
+import com.proyectoFinal.demo.entidades.FeedBack;
+import com.proyectoFinal.demo.entidades.Pedido;
+import com.proyectoFinal.demo.entidades.Proveedor;
+import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.servicio.PedidoServicio;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- *
- * @author LENOVO
- */
- 
 @Controller
 @RequestMapping("/pedidoUsuario")
 public class pedidoControlador {
     
-    @GetMapping
-    public String mostrarFormulario(Model model){
-        return "pedidoUsuario";
+    @Autowired
+    private PedidoServicio pedidoservicio;
+    
+    @GetMapping("/verPedido")
+    public String verPedido(ModelMap modelo){
+        
+        List<Pedido> pedidos = pedidoservicio.listarPedidos();
+        modelo.addAttribute("pedidos", pedidos);
+        
+        return ".html";
     }
     
-    @PostMapping("/enviar-pedido")
-    public String procesarFormulario(Model model, String nombre, String email, String celular, String pedido){
+    @PostMapping("/crearPedido")
+    public String crearPedido(@RequestParam String id, @RequestParam Usuario consumidor, @RequestParam Proveedor proveedor, @RequestParam String solicitud, @RequestParam Boolean estadoPedido, @RequestParam Double cotizacion, @RequestParam FeedBack feedBack, @RequestParam Date alta, ModelMap ModeloPedido){
         
-        return "";
+        try{
+            pedidoservicio.crearPedido(id, id, id, id, Double.NaN);
+            ModeloPedido.addAttribute("Exito", "Pedido creado correctamente.");
+            return "inicio.html";
+        }catch (MiException e) {
+            List<Pedido> pedidos = pedidoservicio.listarPedidos();
+            ModeloPedido.addAttribute("pedidos", pedidos);
+            ModeloPedido.put("Error", e.getMessage());
+        }
+        return "inicio.html";
+    }
+    
+    @PostMapping("/responderPedido")
+    public String responderPedido(@RequestParam String id, @RequestParam Usuario consumidor, @RequestParam Proveedor proveedor, @RequestParam String solicitud, @RequestParam Boolean estadoPedido, @RequestParam Double cotizacion, @RequestParam FeedBack feedBack, @RequestParam Date alta, ModelMap ModeloPedido){
+        
+        try{
+            pedidoservicio.crearPedido(id, id, id, id, Double.NaN);
+            ModeloPedido.addAttribute("Exito", "Pedido creado correctamente.");
+            return "inicio.html";
+        }catch (MiException e) {
+            List<Pedido> pedidos = pedidoservicio.listarPedidos();
+            ModeloPedido.addAttribute("pedidos", pedidos);
+            ModeloPedido.put("Error", e.getMessage());
+        }
+        return "inicio.html";
+        
     }
     
 }
     
-
