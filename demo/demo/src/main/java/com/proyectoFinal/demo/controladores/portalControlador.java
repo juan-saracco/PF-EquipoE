@@ -65,6 +65,12 @@ public class portalControlador {
     }
 
 
+    //======================================================================================
+        @GetMapping("/perfilProveedor")
+    public String perfilProveedor() {
+        return "proveedorPerfil(new).html";
+    }
+    
 }
 
 
