@@ -30,7 +30,6 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 //.antMatchers("/usuario/*").hasRole("USER")
-                //.antMatchers("/inicio", "/").authenticated()  // Permite acceso a /inicio y /
                 .antMatchers("/css/**", "/js/**", "/img/**", "/**")
                 .permitAll()
                 .and().formLogin()
@@ -48,4 +47,5 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
                 .disable();
     }
 
+    
 }

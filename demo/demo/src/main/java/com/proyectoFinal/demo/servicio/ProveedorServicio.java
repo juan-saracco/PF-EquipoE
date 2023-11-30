@@ -44,10 +44,10 @@ public class ProveedorServicio extends UsuarioServicio  {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String ofic, String descripcion, Double tarifaPorHora)
+    public void registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String denominacion, String descripcion, Double tarifaPorHora)
             throws MiException {
 
-        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(ofic);
+        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
         
     validar(oficio, descripcion, tarifaPorHora);
     Proveedor proveedor = new Proveedor();
@@ -113,8 +113,14 @@ public class ProveedorServicio extends UsuarioServicio  {
         proveedores = proveedorRepositorio.listarProveedoresActivos();
         return proveedores;
     }
+    
+    public List<Proveedor> listarProveedoresPorParametro(String denominacion, String filtro) {
+        List<Proveedor> proveedores = new ArrayList();
+        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        return proveedores;
+    }
 
-public void cambiarestado(String id) {
+    public void cambiarestado(String id) {
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
@@ -127,24 +133,29 @@ public void cambiarestado(String id) {
 
     }
 
-public void cambiarOficio(String id, String ofic) {
+    public void cambiarOficio(String id, String denominacion) throws MiException {
 
+        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
+        
+         if (oficio == null) {
+            throw new MiException("El oficio no puede ser nulo o estar vacío");
+        }
+         
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         
-        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(ofic);
-
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
             proveedor.setOficio(oficio);
 
             proveedorRepositorio.save(proveedor);
         }
+        
     }
 
     private void validar(Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
 
         if (oficio == null) {
-            throw new MiException("El oficio no puede ser nulo o estar vacio");
+            throw new MiException("El oficio no puede ser nulo o estar vacio!!");
         }
         if (descripcion.isEmpty()) {
             throw new MiException("La descripcion no puede ser nula o estar vacia");
