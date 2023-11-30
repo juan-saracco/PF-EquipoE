@@ -17,13 +17,13 @@
         <section class="contact_section layout_padding">
             <div class="custom_heading-container">
                 <h3 class=" ">
-                    MODICA TUS DATOS PERSONALES
+                    MODIFICA TUS DATOS PERSONALES
                 </h3>
             </div>
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/usuario/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
 
                             <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
                                 <p th:text="${Exito}"></p>
@@ -31,9 +31,7 @@
                             <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                 <p th:text="${Error}"></p>
                             </div>
-                            <div>
-                                <input type="text" hidden name="id" th:value="${id}">
-                            </div>
+                           
                             <div>
                                 <input type="text" placeholder="NOMBRES" name="nombre" th:value="${usuario.nombre}">
                             </div>
@@ -54,11 +52,11 @@
                                 <input type="email" placeholder="EMAIL" name="email" th:value="${usuario.email}">
                             </div>
                             <div>
-                                <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${password}">
+                                <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${usuario.password}">
                             </div>
                             <div>
                                 <input type="password" placeholder="REPITA LA CONTRASEÑA" name="password2"
-                                    th:value="${password2}">
+                                    th:value="${usuario.password}">
                             </div>
                             <div>
                                 <input type="file" placeholder="INGRESE UNA IMAGEN DE PERFIL" name="archivo">
@@ -66,7 +64,7 @@
 
                             <div class="d-flex justify-content-center ">
                                 <button type="submit">
-                                    Registrar
+                                    Actualizar 
                                 </button>
                             </div>
 

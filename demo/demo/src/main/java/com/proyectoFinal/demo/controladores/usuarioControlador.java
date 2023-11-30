@@ -4,10 +4,12 @@ import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -128,41 +130,41 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }*/
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/perfil")
     public String mostrarperfil(ModelMap modelo2, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo2.put("usuarioID", usuario);
+        modelo2.put("usuario", usuario);
         return "modificarUsuario.html";
     }
 
-    @GetMapping("/perfil/{id}")
-    public String modificarperfil(@PathVariable String id, ModelMap modelo){
-        modelo.put("usuario", usuarioServicio.getOne(id));
-        return "modificarUsuario.html";
-    }
-
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
-    public String modificando(@RequestParam String id, @RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+    public String modificando(@PathVariable String id, MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo, RedirectAttributes redirectAttributes) {
 
         try {
             usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
-            modelo.put("nombre", nombre);
-            modelo.put("apellido", apellido);
-            modelo.put("email", email);
-            modelo.put("DNI", DNI);
-            modelo.put("telefono", telefono);
-            modelo.put("direccion", direccion);
-            modelo.put("archivo", archivo);
-            modelo.put("Exito", "Se modifico el usuario correctamente");
+            redirectAttributes.addFlashAttribute("nombre", nombre);
+            redirectAttributes.addFlashAttribute("apellido", apellido);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("DNI", DNI);
+            redirectAttributes.addFlashAttribute("telefono", telefono);
+            redirectAttributes.addFlashAttribute("direccion", direccion);
+            redirectAttributes.addFlashAttribute("archivo", archivo);
+            redirectAttributes.addFlashAttribute("Exito", "Se modifico el usuario correctamente");
+            return "redirect:../perfil";
         } catch (MiException e) {
-            modelo.put("Error", "Error: No se pudo modificar el usuario.");
+            redirectAttributes.addFlashAttribute("Error", "Error: No se pudo modificar el usuario.");
+            redirectAttributes.addFlashAttribute("nombre", nombre);
+            redirectAttributes.addFlashAttribute("apellido", apellido);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("DNI", DNI);
+            redirectAttributes.addFlashAttribute("telefono", telefono);
+            redirectAttributes.addFlashAttribute("direccion", direccion);
+            redirectAttributes.addFlashAttribute("archivo", archivo);
+            return "redirect:../perfil";
         }
-
-        return "redirect:/";
     }
-
-
-
 
     @GetMapping("/servicios")
     public String servicios() {
