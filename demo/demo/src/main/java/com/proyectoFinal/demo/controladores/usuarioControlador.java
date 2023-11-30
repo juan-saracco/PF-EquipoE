@@ -130,7 +130,7 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }*/
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
     public String mostrarperfil(ModelMap modelo2, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -138,9 +138,10 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
     public String modificando(@PathVariable String id, MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo, RedirectAttributes redirectAttributes) {
+
 
         try {
             usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);

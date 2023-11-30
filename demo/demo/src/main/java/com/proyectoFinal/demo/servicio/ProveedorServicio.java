@@ -68,22 +68,22 @@ public class ProveedorServicio extends UsuarioServicio  {
 }
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen, Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
-        
-        validar(oficio, descripcion, tarifaPorHora);
-        super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String denominacion, Double tarifaPorHora) throws MiException {
+        Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
+        validar(oficio, denominacion, tarifaPorHora);
+        super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,archivo);
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
 
         if (respuesta.isPresent()) {
 
-            super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,imagen);
+            super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,archivo);
 
             Proveedor proveedor = new Proveedor();
 
             proveedor.setOficio(oficio);
-            proveedor.setDescripcion(descripcion);
+            proveedor.setDescripcion(denominacion);
             proveedor.setTarifaPorHora(tarifaPorHora);
             proveedor.setEstado(true);
             proveedor.setRol(Rol.PROVEEDOR);
@@ -94,7 +94,7 @@ public class ProveedorServicio extends UsuarioServicio  {
             if (proveedor.getImagen() != null) {
                 idImagen = proveedor.getImagen().getId();
             }
-            Imagen img = imagenServicio.actualizar(imagen, idImagen);
+            Imagen img = imagenServicio.actualizar(archivo, idImagen);
 
             proveedor.setImagen(img);
 

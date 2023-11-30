@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragmentos/head:: head"></head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+    <div class="bg">
+        <section class="contact_section layout_padding">
+            <div class="custom_heading-container">
+                <h3 class=" ">
+                    MODIFICA TUS DATOS PERSONALES
+                </h3>
+            </div>
+            <div class="container layout_padding2-top">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <form th:action="@{/proveedor/perfil/__${proveedor.id}__}" method="POST"
+                            enctype="multipart/form-data">
+
+                            <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                                <p th:text="${Exito}"></p>
+                            </div>
+                            <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                                <p th:text="${Error}"></p>
+                            </div>
+
+                            <div>
+                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${proveedor.nombre}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="APELLIDO" name="apellido"
+                                    th:value="${proveedor.apellido}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="DOCUMENTO NACIONAL DE IDENTIDAD" name="DNI"
+                                    th:value="${proveedor.DNI}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="TELEFONO" name="telefono"
+                                    th:value="${proveedor.telefono}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="DIRECCION" name="direccion"
+                                    th:value="${proveedor.direccion}">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="EMAIL" name="email" th:value="${proveedor.mail}">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="CONTRASEÑA" name="password"
+                                    th:value="${proveedor.password}">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="REPITA LA CONTRASEÑA" name="password2"
+                                    th:value="${proveedor.password}">
+                            </div>
+                            <div>
+                                <select name="denominacion">
+                                    <option value="">Seleccione un oficio</option>
+                                    <option th:each="oficio: ${oficios}" th:value="${proveedor.oficio.denominacion}"
+                                        th:text="${oficio.denominacion}"></option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="INGRESE UNA BREVE DESCRIPCION" name="descripcion"
+                                    th:value="${proveedor.descripcion}">
+                            </div>
+                            <div>
+                                <input type="number" placeholder="TARIFA POR HORA" name="tarifaPorHora"
+                                    th:value="${proveedor.tarifaPorHora}">
+                            </div>
+                            <div>
+                                <input type="file" placeholder="INGRESE UNA IMAGEN DE PERFIL" name="archivo">
+                            </div>
+                            <div class="d-flex justify-content-center ">
+                                <button type="submit">
+                                    ACTUALIZAR
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- end contact section -->
+
+        <!-- info section -->
+
+        <!-- end info_section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
+        <!-- footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    </div>
+</body>
+
+</html>
