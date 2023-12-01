@@ -4,7 +4,11 @@ package com.proyectoFinal.demo.controladores;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Pedido;
+import com.proyectoFinal.demo.entidades.Proveedor;
+import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.servicio.PedidoServicio;
+import com.proyectoFinal.demo.servicio.ProveedorServicio;
+import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +17,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/pedido")
 public class pedidoControlador {
+    @Autowired 
+    private PedidoServicio pedidoServicio;
+    
+    @Autowired 
+    private UsuarioServicio usuarioServicio;
     @Autowired
-    PedidoServicio pedidoServicio;
+    private ProveedorServicio proveedorServicio;
     
     @GetMapping("/listaTodos") //MUESTRA TODOS LOS PEDIDOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS PEDIDOS AL ADMINISTRADOR
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
@@ -31,40 +41,32 @@ public class pedidoControlador {
         return "listaPedidos.html";
     }
     
-    @GetMapping 
-    public String pedidoUsuario(){
-        return "pedidoUsuario";
+    
+    @GetMapping("/crear")
+    public String crearPedido(ModelMap modelo){
+        
+        List<Usuario> consumidores = usuarioServicio.listarUsuarios();
+        List<Proveedor> proveedores = proveedorServicio.listarProveedores();
+        modelo.addAttribute("consumidores", consumidores);
+        modelo.addAttribute("proveedores", proveedores);
+        return "pedido_form.html";
     }
     
-    @PostMapping("/crear-pedido")
-    public String crearPedido(ModelMap ModeloPedido, String id, String idConsumidor, String idProveedor, String solicitud){
+    @PostMapping("/enviar")
+    public String crearPedido(@RequestParam String idConsumidor,
+            @RequestParam String idProveedor, @RequestParam String solicitud,ModelMap modelo){
         
         try{
-            pedidoServicio.crearPedido(id, idConsumidor, idProveedor, solicitud);
-            ModeloPedido.addAttribute("Exito", "Pedido creado correctamente");
-            return "pedidoUsuario";
-        }catch (MiException e){
-            List<Pedido> pedidos = pedidoServicio.listarPedidos();
+            
+            pedidoServicio.crearPedido(idConsumidor, idProveedor, solicitud);
+            
+            modelo.put("Exito", "Pedido creado correctamente");  
+            
+        }catch (MiException ex){ 
+            modelo.put("Error", ex.getMessage());
+            return "pedidoUsuario.html";
         }
-        return "pedidoUsuario";
+        return "index.html";
     }
-    
-    /*@GetMapping ("/pedidoProveedor")
-    public String pedidoProveedor(){
-        return "pedidoProveedor";
-    }
-    
-    @PostMapping("/responder-pedido")
-    public String responderPedido(ModelMap ModeloPedido, String id, String idConsumidor, String idProveedor, String solicitud, Double cotizacion){
-        
-        try{
-            pedidoServicio.responderPedido(id, idConsumidor, idProveedor, solicitud, cotizacion);
-            ModeloPedido.addAttribute("Exito", "Respuesta enviada correctamente");
-            return "pedidoProveedor";
-        }catch (MiException e){
-            List<Pedido> pedidos = pedidoServicio.listarPedidos();
-        }
-        return "pedidoProveedor";
-    }*/
     
 }  
