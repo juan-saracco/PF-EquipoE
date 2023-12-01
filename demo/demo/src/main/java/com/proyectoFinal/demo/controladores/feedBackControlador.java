@@ -14,18 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/feedbackUsuario")
+@RequestMapping("/feedBackUsuario")
 public class feedBackControlador {
     
     @Autowired
     private FeedBackServicio feedBackServicio;
     
-    @GetMapping ("/verFeedBack")
-    public String verFeedBack(ModelMap modelo){
-        
-        List<FeedBack> feedBacks = feedBackServicio.listarFeedBacks();
-        modelo.addAttribute("feedBacks", feedBacks);
-        return ".html";
+    @GetMapping
+    public String feedBackUsuario(){
+        return "feedBackUsuario";
     }
     
     @PostMapping("/crearFeedBack")
@@ -40,7 +37,7 @@ public class feedBackControlador {
             ModeloFeedBack.put("Error", e.getMessage());
             
         }
-        return "";
+        return "feedBackUsuario";
     }
     
 }

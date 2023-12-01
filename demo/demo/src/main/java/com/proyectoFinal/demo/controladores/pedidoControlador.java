@@ -1,68 +1,59 @@
 
 package com.proyectoFinal.demo.controladores;
 
-import com.proyectoFinal.demo.entidades.FeedBack;
 import com.proyectoFinal.demo.entidades.Pedido;
-import com.proyectoFinal.demo.entidades.Proveedor;
-import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.PedidoServicio;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/pedidoUsuario")
 public class pedidoControlador {
     
     @Autowired
-    private PedidoServicio pedidoservicio;
+    private PedidoServicio pedidoServicio;
     
-    @GetMapping("/verPedido")
-    public String verPedido(ModelMap modelo){
-        
-        List<Pedido> pedidos = pedidoservicio.listarPedidos();
-        modelo.addAttribute("pedidos", pedidos);
-        
-        return ".html";
+    @GetMapping 
+    public String pedidoUsuario(){
+        return "pedidoUsuario";
     }
     
-    @PostMapping("/crearPedido")
-    public String crearPedido(@RequestParam String id, @RequestParam Usuario consumidor, @RequestParam Proveedor proveedor, @RequestParam String solicitud, @RequestParam Boolean estadoPedido, @RequestParam Double cotizacion, @RequestParam FeedBack feedBack, @RequestParam Date alta, ModelMap ModeloPedido){
+    @PostMapping("/crear-pedido")
+    public String crearPedido(ModelMap ModeloPedido, String id, String idConsumidor, String idProveedor, String solicitud){
         
         try{
-            pedidoservicio.crearPedido(id, id, id, id, Double.NaN);
-            ModeloPedido.addAttribute("Exito", "Pedido creado correctamente.");
-            return "inicio.html";
-        }catch (MiException e) {
-            List<Pedido> pedidos = pedidoservicio.listarPedidos();
-            ModeloPedido.addAttribute("pedidos", pedidos);
-            ModeloPedido.put("Error", e.getMessage());
+            pedidoServicio.crearPedido(id, idConsumidor, idProveedor, solicitud);
+            ModeloPedido.addAttribute("Exito", "Pedido creado correctamente");
+            return "pedidoUsuario";
+        }catch (MiException e){
+            List<Pedido> pedidos = pedidoServicio.listarPedidos();
         }
-        return "inicio.html";
+        return "pedidoUsuario";
     }
     
-    @PostMapping("/responderPedido")
-    public String responderPedido(@RequestParam String id, @RequestParam Usuario consumidor, @RequestParam Proveedor proveedor, @RequestParam String solicitud, @RequestParam Boolean estadoPedido, @RequestParam Double cotizacion, @RequestParam FeedBack feedBack, @RequestParam Date alta, ModelMap ModeloPedido){
+    /*@GetMapping ("/pedidoProveedor")
+    public String pedidoProveedor(){
+        return "pedidoProveedor";
+    }
+    
+    @PostMapping("/responder-pedido")
+    public String responderPedido(ModelMap ModeloPedido, String id, String idConsumidor, String idProveedor, String solicitud, Double cotizacion){
         
         try{
-            pedidoservicio.crearPedido(id, id, id, id, Double.NaN);
-            ModeloPedido.addAttribute("Exito", "Pedido creado correctamente.");
-            return "inicio.html";
-        }catch (MiException e) {
-            List<Pedido> pedidos = pedidoservicio.listarPedidos();
-            ModeloPedido.addAttribute("pedidos", pedidos);
-            ModeloPedido.put("Error", e.getMessage());
+            pedidoServicio.responderPedido(id, idConsumidor, idProveedor, solicitud, cotizacion);
+            ModeloPedido.addAttribute("Exito", "Respuesta enviada correctamente");
+            return "pedidoProveedor";
+        }catch (MiException e){
+            List<Pedido> pedidos = pedidoServicio.listarPedidos();
         }
-        return "inicio.html";
-        
-    }
+        return "pedidoProveedor";
+    }*/
     
-}
-    
+}  

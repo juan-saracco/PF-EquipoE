@@ -24,7 +24,7 @@
                 <div class="container layout_padding2-top">
                     <div class="row">
                         <div class="col-md-6 mx-auto">
-                            <form th:action="@{/enviar-feedback}" method="POST">
+                            <form th:action="@{/crear-feedBack}" method="POST">
                                 <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                     <p th:text="${Error}"></p>
                                 </div>
