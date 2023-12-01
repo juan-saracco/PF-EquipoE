@@ -96,7 +96,7 @@ public class proveedorControlador {
         modelo.addAttribute("oficios", oficios);
 
         if (error != null) {
-            modelo.put("Error", error);
+            modelo.put("Error", "No se pudo modificar el oficio");
         }
         return "editarOficioProv.html";
     }
