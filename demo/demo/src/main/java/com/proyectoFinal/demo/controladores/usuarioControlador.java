@@ -1,7 +1,9 @@
 package com.proyectoFinal.demo.controladores;
 
+import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +19,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/usuario")
 public class usuarioControlador {
-
+@Autowired
+    public ProveedorServicio proveedorservicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
 
@@ -121,6 +124,7 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }*/
 
+
 /*    @GetMapping("/perfil")
     public String perfilid(ModelMap model) {
 
@@ -167,8 +171,6 @@ public class usuarioControlador {
         }
     }
 
-    @GetMapping("/servicios")
-    public String servicios() {
-        return "servicios.html";
-    }
+
 }
+

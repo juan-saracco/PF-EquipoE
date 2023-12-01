@@ -146,6 +146,7 @@ public class proveedorControlador {
         return "listarProveedores.html";
     }
 
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
     public String mostrarperfil(ModelMap modelo2, HttpSession session) {
@@ -185,5 +186,17 @@ public class proveedorControlador {
             return "redirect:../perfil";
         }
     }
+
+ @GetMapping("/servicios")
+       public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
+        
+        List<Proveedor> proveedores = proveedorservicio.listarProveedores();
+        modelo.addAttribute("proveedor", proveedores);
+    
+        if (ex != null) {
+            modelo.put("exi", ex);
+        }
+  return "servicios.html";  
+} 
 
 }
