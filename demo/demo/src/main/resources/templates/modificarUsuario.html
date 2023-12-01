@@ -23,7 +23,7 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action="@{/usuario/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
 
                             <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
                                 <p th:text="${Exito}"></p>

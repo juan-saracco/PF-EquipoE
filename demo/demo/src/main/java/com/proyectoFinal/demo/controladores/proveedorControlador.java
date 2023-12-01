@@ -152,6 +152,7 @@ public class proveedorControlador {
     public String mostrarperfil(ModelMap modelo2, HttpSession session) {
         Proveedor proveedor = (Proveedor) session.getAttribute("proveedorsession");
         modelo2.put("proveedor", proveedor);
+
         return "modificarProveedor.html";
     }
 
