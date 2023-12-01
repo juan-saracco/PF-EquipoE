@@ -1,7 +1,9 @@
 package com.proyectoFinal.demo.controladores;
 
+import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import com.proyectoFinal.demo.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/usuario")
 public class usuarioControlador {
-
+    @Autowired
+    public ProveedorServicio proveedorservicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
 
@@ -40,7 +43,7 @@ public class usuarioControlador {
         try {
             usuarioServicio.registrarUsuario(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            modelo.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            modelo.put("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
             return "login.html";
 
         } catch (MiException e) {
@@ -118,8 +121,5 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }*/
 
-    @GetMapping("/servicios")
-    public String servicios() {
-        return "servicios.html";
-    }
 }
+
