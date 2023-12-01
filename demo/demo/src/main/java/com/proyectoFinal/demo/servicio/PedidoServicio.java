@@ -41,7 +41,7 @@ public class PedidoServicio {
         pedidoRepositorio.save(pedido);
     }
     
-    public void responderPedido(String id, String idConsumidor, String idProveedor, String solicitud,Double cotizacion) throws MiException{
+   /* public void responderPedido(String id, String idConsumidor, String idProveedor, String solicitud,Double cotizacion) throws MiException{
 
         validarRespuesta(idConsumidor, idProveedor, solicitud, cotizacion);
 
@@ -55,7 +55,7 @@ public class PedidoServicio {
         pedido.setEstadoPedido(true);
 
         pedidoRepositorio.save(pedido);
-    }
+    }*/
 
     public List<Pedido> listarPedidos(){
         List<Pedido> pedidos = new ArrayList();

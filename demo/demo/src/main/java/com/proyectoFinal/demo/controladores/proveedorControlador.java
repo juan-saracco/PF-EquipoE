@@ -139,5 +139,15 @@ public class proveedorControlador {
         }
         return "listarProveedores.html";
     }
-
+ @GetMapping("/servicios")
+       public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
+        
+        List<Proveedor> proveedores = proveedorservicio.listarProveedores();
+        modelo.addAttribute("proveedor", proveedores);
+    
+        if (ex != null) {
+            modelo.put("exi", ex);
+        }
+  return "servicios.html";  
+} 
 }
