@@ -46,8 +46,8 @@ public class pedidoControlador {
     
     @GetMapping("/crear/{idConsumidor}/{idProveedor}")
     public String crearPedido(
-            @PathVariable(required=false) String idConsumidor, 
-            @PathVariable(required=false) String idProveedor,
+            @PathVariable String idConsumidor, 
+            @PathVariable String idProveedor,
             ModelMap modelo){
         
         modelo.addAttribute("idConsumidor", idConsumidor);
@@ -56,15 +56,18 @@ public class pedidoControlador {
         return "pedido_form.html";
     }
     
-    @PostMapping("/enviar")
-    public String crearPedido(@RequestParam String idConsumidor, @RequestParam String idProveedor, 
-            @RequestParam String solicitud,ModelMap modelo){
+    @PostMapping("/enviar/{idConsumidor}/{idProveedor}")
+    public String crearPedido(
+            @PathVariable String idConsumidor, 
+            @PathVariable String idProveedor, 
+            @RequestParam String solicitud,
+            ModelMap modelo){
         
         try{
             
             pedidoServicio.crearPedido(idConsumidor, idProveedor, solicitud);
             
-            modelo.put("exito", "Pedido creado correctamente");  
+            modelo.put("exito", "pedido creado correctamente");  
             
         }catch (MiException ex){ 
             

@@ -44,8 +44,9 @@
                                 </div>
                                 
                                 <div>
-                                    <p>ID Consumidor: ${idConsumidor}</p>
-                                    <p>ID Proveedor: ${idProveedor}</p>
+                                    <!-- Campos ocultos para idConsumidor e idProveedor -->
+                                    <input type="hidden" name="idConsumidor" th:value="${idConsumidor}" />
+                                    <input type="hidden" name="idProveedor" th:value="${idProveedor}" />
                                 </div>
                                 
                                 <div>
