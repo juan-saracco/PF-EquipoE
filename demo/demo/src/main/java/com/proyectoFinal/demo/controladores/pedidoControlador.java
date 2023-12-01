@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +33,9 @@ public class pedidoControlador {
     
     @GetMapping("/listaTodos") //MUESTRA TODOS LOS PEDIDOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS PEDIDOS AL ADMINISTRADOR
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
+        
         List<Pedido> pedidos = pedidoServicio.listarPedidos();
+        
         modelo.addAttribute("pedidos", pedidos);
 
         if (ex != null) {
@@ -41,30 +44,32 @@ public class pedidoControlador {
         return "listaPedidos.html";
     }
     
-    
-    @GetMapping("/crear")
-    public String crearPedido(ModelMap modelo){
+    @GetMapping("/crear/{idConsumidor}/{idProveedor}")
+    public String crearPedido(
+            @PathVariable(required=false) String idConsumidor, 
+            @PathVariable(required=false) String idProveedor,
+            ModelMap modelo){
         
-        List<Usuario> consumidores = usuarioServicio.listarUsuarios();
-        List<Proveedor> proveedores = proveedorServicio.listarProveedores();
-        modelo.addAttribute("consumidores", consumidores);
-        modelo.addAttribute("proveedores", proveedores);
+        modelo.addAttribute("idConsumidor", idConsumidor);
+        modelo.addAttribute("idProveedor", idProveedor);
+        
         return "pedido_form.html";
     }
     
     @PostMapping("/enviar")
-    public String crearPedido(@RequestParam String idConsumidor,
-            @RequestParam String idProveedor, @RequestParam String solicitud,ModelMap modelo){
+    public String crearPedido(@RequestParam String idConsumidor, @RequestParam String idProveedor, 
+            @RequestParam String solicitud,ModelMap modelo){
         
         try{
             
             pedidoServicio.crearPedido(idConsumidor, idProveedor, solicitud);
             
-            modelo.put("Exito", "Pedido creado correctamente");  
+            modelo.put("exito", "Pedido creado correctamente");  
             
         }catch (MiException ex){ 
-            modelo.put("Error", ex.getMessage());
-            return "pedidoUsuario.html";
+            
+            modelo.put("error", ex.getMessage());
+            return "pedido_form.html";
         }
         return "index.html";
     }
