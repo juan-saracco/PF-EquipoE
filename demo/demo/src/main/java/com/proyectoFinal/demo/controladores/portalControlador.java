@@ -35,7 +35,8 @@ public class portalControlador {
 
 
 /*Pagina de presentacion inicial accesible para todos*/
-    @GetMapping("/")
+
+    @GetMapping("/inicio")
     public String inicio() {
         return "index.html";
     }
@@ -49,19 +50,19 @@ public class portalControlador {
     }
 
     /*Pagina inicial solo accesible para usuarios consumidores*/
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_PROVEEDOR', 'ROLE_ADMIN')")
-    @GetMapping("/inicio")
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
+    @GetMapping("/iniciado")
     public String inicioAdmin(HttpSession session){
 
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuariosession");
         Proveedor proveedorLogueado = (Proveedor) session.getAttribute("proveedorsession");
 
-//        if(usuarioLogueado.getRol().toString().equals("USER") ){
-//            return "redirect:/user/dashboard";
-//        }
-//        if(usuarioLogueado.getRol().toString().equals("PROVEEDOR") ){
-//            return "redirect:/proveedor/dashboard";
-//        }
+
+        if(usuarioLogueado.getRol().toString().equals("USER") ){
+            return "redirect:/inicio";
+        }
+
 
         if(usuarioLogueado.getRol().toString().equals("ADMIN") ){
            return "redirect:/admin/dashboard";
