@@ -19,7 +19,10 @@ public class FeedBack {
 
     @Temporal(TemporalType.DATE)
     private Date alta;
-
+    
+    @Temporal(TemporalType.DATE)
+    private Date fecha_modificacion;
+    
     private Boolean estado;
 
     public FeedBack() {
@@ -55,6 +58,14 @@ public class FeedBack {
 
     public void setAlta(Date alta) {
         this.alta = alta;
+    }
+    
+    public Date getFecha_modificacion() {
+        return fecha_modificacion;
+    }
+
+    public void setFecha_modificacion(Date fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
     }
 
     public Boolean getEstado() {

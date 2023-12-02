@@ -24,11 +24,11 @@
                 <div class="container layout_padding2-top">
                     <div class="row">
                         <div class="col-md-6 mx-auto">
-                            <form th:action="@{/crear-feedBack}" method="POST">
+                            <form th:action="@{/feedBack/creado}" method="POST">
                                 <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                     <p th:text="${Error}"></p>
                                 </div>
-                               
+                                
                                 <div>
                                     <input type="number" placeholder="CALIFICACION" name="calificacion" min="1" max="5" th:value="${calificacion}"  >
                                 </div>
