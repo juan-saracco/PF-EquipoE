@@ -44,7 +44,8 @@ public class usuarioControlador {
         try {
             usuarioServicio.registrarUsuario(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            redi.addFlashAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            modelo.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+
             return "login.html";
 
         } catch (MiException e) {

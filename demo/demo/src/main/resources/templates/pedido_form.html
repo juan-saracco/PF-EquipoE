@@ -24,11 +24,14 @@
                 <div class="container layout_padding2-top">
                     <div class="row">
                         <div class="col-md-6 mx-auto">
-                            <form th:action="@{/crear-pedido}" method="POST">
+                            <form th:action="@{/pedido/creado}" method="POST">
                                 <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                     <p th:text="${Error}"></p>
                                 </div>
-                                
+                               
+                                <input type="hidden" name="idUsuario" th:value="${idUsuario}" />
+                                <input type="hidden" name="idProveedor" th:value="${idProveedor}" />
+                             
                                 <div>
                                     <textarea placeholder="MENSAJE" name="pedido" th:value="${pedido}" maxlength="280" style="width: 100%; height: 100px;" ></textarea>
                                 </div>                                
