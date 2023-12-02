@@ -31,10 +31,7 @@
                     <div class="row">
                         <div class="col-md-6 mx-auto">
                             <form th:action="@{/logincheck}" method="POST">
-                                <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
-                                    <p th:text="${Error}"></p>
-                                </div>
-                                
+                                                            
                                 <div>
                                     <input type="email" placeholder="EMAIL" name="email" th:value="${email}" >
                                 </div>
