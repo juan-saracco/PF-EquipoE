@@ -12,8 +12,8 @@
             </header>
         </div>
         <div class="bg">
-            
-            
+
+
             <div class="container m-5">      
                 <table class="table table-hover">
                     <div class="form-group my-3">                     
@@ -22,26 +22,66 @@
                     <thead>
                         <tr>
                             <th scope="col">Usuario</th>
-                            <th scope="col">Usuario</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">Proveedor</th>
+                            <th scope="col">Solicitud</th>
+                             <th scope="col">Estado</th>
+                            <th scope="col">Finalizado</th>
                             <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Modificar</th>
-                            <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th>
+                        <!--    <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th> -->
                         </tr>
                     </thead>
-                    <tbody th:each="oficio : ${oficios}">
+                    <tbody th:each="pedido : ${pedido}">
                         <tr>
-                            <th scope="row" th:text="${oficio.denominacion}"></td>
-                            <td th:text="${oficio.estado}"></td>
+                            <th scope="row" th:text="${pedido.usuario.id}"></td>
+                            <th scope="row" th:text="${pedido.proveedor.id}"></td>
+                            <td th:text="${pedido.solicitud}"></td>
+                            <td th:text="${pedido.estadoPedido}"></td>
+                            <td th:text="${pedido.finalizado}"></td>
+                            
                             <td>
-                                <a sec:authorize="hasRole('ADMIN')" th:href="@{/oficios/modificarOficios/__${oficio.id}__}">Editar</a>
-                            </td>                        
-                            <td>
-                                <a sec:authorize="hasRole('ADMIN')" th:href="@{/oficios/desactReactOficios/__${oficio.id}__}">Activar/Desactivar</a>
+                                <a sec:authorize="hasRole('PROVEEDOR')" th:href="@{/pedidos/modificarPedidos/__${pedido.id}__}">Editar</a>
                             </td>
+                            <!--
+                            <td>
+                                <a sec:authorize="hasRole('PROVEEDOR')" th:href="@{/oficios/desactReactOficios/__${oficio.id}__}">Activar/Desactivar</a>
+                            </td> -->
                         </tr>
+
+                        <!-- ESPACIO PARA CARGAR COTIZACION      
+                             =======================================
+    <div class="bg">
+        <div class="container m-5">
+            <form th:action="@{/oficios/registroOficio}" method="POST" class="d-flex justify-content-center mt-4">
+
+                <div class="card border-2 w-75 d-flex flex-column align-items-center">
+
+                    <h2 class="text-center">Cargar Cotización</h2>
+
+                    <input type="text" aria-label="Denominacion" placeholder="Denominacion"
+                        class="form-control form-control-lg mt-3 w-75" name="denominacion">
+                    <button type="submit" class="btn btn-success mt-5 mb-3 w-auto">Crear</button>
+                </div>
+            </form>
+            <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${Error}"></p>
+                </div>
+            </div>
+            <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${Exito}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+                        
+                        
+                        -->
                     </tbody>
                 </table>
-                
+
             </div>
             <footer th:replace="/fragmentos/footer :: footer"></footer>
             <!-- footer section -->
