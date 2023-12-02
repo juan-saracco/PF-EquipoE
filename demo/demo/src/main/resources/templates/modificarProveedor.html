@@ -23,6 +23,7 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
+
                         <form th:action="@{/proveedor/perfil/__${proveedor.id}__}" method="POST"
                             enctype="multipart/form-data">
 
@@ -32,7 +33,10 @@
                             <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                 <p th:text="${Error}"></p>
                             </div>
-
+                            <div>
+                                <img th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="No se puede mostrar la imagen"
+                                    class="profile">
+                            </div>
                             <div>
                                 <input type="text" placeholder="NOMBRES" name="nombre" th:value="${proveedor.nombre}">
                             </div>
@@ -53,7 +57,7 @@
                                     th:value="${proveedor.direccion}">
                             </div>
                             <div>
-                                <input type="email" placeholder="EMAIL" name="email" th:value="${proveedor.mail}">
+                                <input type="email" placeholder="EMAIL" name="email" th:value="${proveedor.email}">
                             </div>
                             <div>
                                 <input type="password" placeholder="CONTRASEÑA" name="password"
@@ -65,9 +69,10 @@
                             </div>
                             <div>
                                 <select name="denominacion">
-                                    <option value="">Seleccione un oficio</option>
-                                    <option th:each="oficio: ${oficios}" th:value="${proveedor.oficio.denominacion}"
-                                        th:text="${oficio.denominacion}"></option>
+                                    <!-- <option value="">Seleccione un oficio</option> -->
+                                    <option th:each="oficio: ${oficios}" 
+                                    th:value="${oficio.denominacion}"
+                                    th:text="${oficio.denominacion}"></option>
                                 </select>
                             </div>
                             <div>

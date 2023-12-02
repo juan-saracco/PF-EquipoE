@@ -134,21 +134,36 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }*/
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
+    //FUNCIONA PERO NO ACTUALIZA
+   /* @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
     public String mostrarperfil(ModelMap modelo2, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo2.put("usuario", usuario);
+        modelo2.addAttribute("usuario", usuario);
+        return "modificarUsuario.html";
+    }*/
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @GetMapping("/perfil")
+    public String mostrarperfil(ModelMap modelo2, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo2.addAttribute("usuario", usuario);
         return "modificarUsuario.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
-    public String modificando(@PathVariable String id, MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo, RedirectAttributes redirectAttributes) {
+    public String modificando(@PathVariable String id, MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo, RedirectAttributes redirectAttributes, HttpSession session) {
 
 
         try {
-            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+            // Actualizar el usuario en la base de datos
+            Usuario usuarioActualizado = usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+
+            // Almacenar el usuario actualizado en la sesión
+            session.setAttribute("usuariosession", usuarioActualizado);
+
+            // Agregar atributos para mostrar en la vista
+            modelo.addAttribute("usuario", usuarioActualizado);
             redirectAttributes.addFlashAttribute("nombre", nombre);
             redirectAttributes.addFlashAttribute("apellido", apellido);
             redirectAttributes.addFlashAttribute("email", email);

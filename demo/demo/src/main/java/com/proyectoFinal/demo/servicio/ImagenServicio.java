@@ -9,15 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author ILIANA
- */
 @Service
 public class ImagenServicio {
 
     @Autowired
     private ImagenRepositorio imagenRepositorio;
+
+    public Imagen buscarimagen(String idImagen) throws MiException{
+        Imagen img = new Imagen();
+        if (idImagen !=null){
+            Optional<Imagen> respuesta =imagenRepositorio.findById(idImagen);
+
+            if(respuesta.isPresent()) {
+                img = respuesta.get();
+            }
+        }
+        return img;
+    }
 
     public Imagen guardar(MultipartFile archivo) throws MiException {
        // if (archivo != null) {

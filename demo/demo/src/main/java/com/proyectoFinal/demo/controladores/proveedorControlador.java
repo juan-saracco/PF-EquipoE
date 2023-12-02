@@ -1,9 +1,11 @@
 package com.proyectoFinal.demo.controladores;
 
+import com.proyectoFinal.demo.entidades.Imagen;
 import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.servicio.ImagenServicio;
 import com.proyectoFinal.demo.servicio.OficioServicio;
 import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class proveedorControlador {
     public ProveedorServicio proveedorservicio;
     @Autowired
     public OficioServicio oficioservicio;
+    @Autowired
+    public ImagenServicio imagenservicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -147,20 +151,33 @@ public class proveedorControlador {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
-    public String mostrarperfil(ModelMap modelo2, HttpSession session) {
-        Proveedor proveedor = (Proveedor) session.getAttribute("proveedorsession");
+    public String mostrarperfil(ModelMap modelo2, HttpSession session) throws MiException {
+
+        Proveedor proveedor = (Proveedor) session.getAttribute("usuariosession");
         modelo2.put("proveedor", proveedor);
+
+        List<Oficio> oficios = oficioservicio.listarTodosOficios();
+        modelo2.addAttribute("oficios", oficios);
 
         return "modificarProveedor.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
-    public String modificando(@PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, @RequestParam String DNI, @RequestParam String telefono, @RequestParam String direccion, MultipartFile archivo, @RequestParam String oficio, @RequestParam String denominacion, @RequestParam Double tarifaPorHora, ModelMap modelo, RedirectAttributes redirectAttributes) {
+    public String modificando(@PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, @RequestParam String DNI, @RequestParam String telefono, @RequestParam String direccion, MultipartFile archivo, @RequestParam String denominacion, @RequestParam Double tarifaPorHora, ModelMap Modeloproveedor, RedirectAttributes redirectAttributes, HttpSession session) {
 
         try {
+            // Actualizar el usuario en la base de datos
+            Proveedor proveedorActualizado = (Proveedor) proveedorservicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+
+            // Almacenar el usuario actualizado en la sesión
+            session.setAttribute("usuariosession", proveedorActualizado);
+
+            // Agregar atributos para mostrar en la vista
+            Modeloproveedor.addAttribute("proveedor", proveedorActualizado);
+
             proveedorservicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, tarifaPorHora);
             redirectAttributes.addFlashAttribute("nombre", nombre);
             redirectAttributes.addFlashAttribute("apellido", apellido);
@@ -188,16 +205,16 @@ public class proveedorControlador {
         }
     }
 
- @GetMapping("/servicios")
-       public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
-        
+    @GetMapping("/servicios")
+    public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
+
         List<Proveedor> proveedores = proveedorservicio.listarProveedores();
         modelo.addAttribute("proveedor", proveedores);
-    
+
         if (ex != null) {
             modelo.put("exi", ex);
         }
-  return "servicios.html";  
-} 
+        return "servicios.html";
+    }
 
 }

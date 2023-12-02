@@ -61,11 +61,11 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-        
+
         Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setImagen(foto);
-        
+
         return usuario;
     }
 
@@ -92,7 +92,7 @@ public class UsuarioServicio implements UserDetailsService {
 
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
+    public Usuario actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -106,7 +106,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
-          //  usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            //  usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             usuario.setDNI(DNI);
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
@@ -122,7 +122,9 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setImagen(foto);
 
             usuarioRepositorio.save(usuario);
+            return usuario;
         }
+        return null;
     }
 
     public List<Usuario> listarUsuarios() {

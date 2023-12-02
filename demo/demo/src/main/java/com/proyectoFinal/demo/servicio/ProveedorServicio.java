@@ -8,12 +8,14 @@ import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.OficioRepositorio;
 import com.proyectoFinal.demo.repositorios.ProveedorRepositorio;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
-public class ProveedorServicio extends UsuarioServicio  {
+public class ProveedorServicio extends UsuarioServicio {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -49,39 +51,40 @@ public class ProveedorServicio extends UsuarioServicio  {
             throws MiException {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
-        
-    validar(oficio, descripcion, tarifaPorHora);
-    Proveedor proveedor = new Proveedor();
-    super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, proveedor);
-    
-    Imagen img = imagenServicio.guardar(archivo);
 
-    proveedor.setImagen(img);
-    proveedor.setOficio(oficio);
-    proveedor.setDescripcion(descripcion);
-    proveedor.setTarifaPorHora(tarifaPorHora);
-    proveedor.setEstado(true);
-    proveedor.setRol(Rol.PROVEEDOR);
-    proveedor.setFecha_alta(new Date());
+        validar(oficio, descripcion, tarifaPorHora);
+        Proveedor proveedor = new Proveedor();
+        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, proveedor);
 
-    proveedorRepositorio.save(proveedor);
+        Imagen img = imagenServicio.guardar(archivo);
 
-}
+        proveedor.setImagen(img);
+        proveedor.setOficio(oficio);
+        proveedor.setDescripcion(descripcion);
+        proveedor.setTarifaPorHora(tarifaPorHora);
+        proveedor.setEstado(true);
+        proveedor.setRol(Rol.PROVEEDOR);
+        proveedor.setFecha_alta(new Date());
+
+        proveedorRepositorio.save(proveedor);
+
+    }
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String denominacion, Double tarifaPorHora) throws MiException {
+    public Proveedor actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String denominacion, Double tarifaPorHora) throws MiException {
+
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
         validar(oficio, denominacion, tarifaPorHora);
-        super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,archivo);
+     /*   super.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);*/
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
 
         if (respuesta.isPresent()) {
 
-            super.actualizar(id, nombre, apellido, email, password, password2, DNI,telefono, direccion,archivo);
+            super.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            Proveedor proveedor = new Proveedor();
+            Proveedor proveedor = respuesta.get();
 
             proveedor.setOficio(oficio);
             proveedor.setDescripcion(denominacion);
@@ -95,12 +98,16 @@ public class ProveedorServicio extends UsuarioServicio  {
             if (proveedor.getImagen() != null) {
                 idImagen = proveedor.getImagen().getId();
             }
+
             Imagen img = imagenServicio.actualizar(archivo, idImagen);
 
             proveedor.setImagen(img);
 
             proveedorRepositorio.save(proveedor);
+
+            return proveedor;
         }
+        return null;
     }
 
     public List<Proveedor> listarTodosProveedores() {
@@ -114,44 +121,44 @@ public class ProveedorServicio extends UsuarioServicio  {
         proveedores = proveedorRepositorio.listarProveedoresActivos();
         return proveedores;
     }
-    
+
     public List<Proveedor> listarProveedoresPorParametro(String denominacion, String filtro) throws MiException {
-        
+
         if (denominacion.isEmpty()) {
             throw new MiException("Debe seleccionar un oficio");
         }
-               
+
         List<Proveedor> proveedores = new ArrayList();
-        
-        if(filtro.equalsIgnoreCase("nombre")) {           
+
+        if (filtro.equalsIgnoreCase("nombre")) {
             proveedores = proveedorRepositorio.listarProvPorParamApellido(denominacion);
-        }else if(filtro.equalsIgnoreCase("tarifa")){
+        } else if (filtro.equalsIgnoreCase("tarifa")) {
             proveedores = proveedorRepositorio.listarProvPorParamTarifa(denominacion);
-        }       
+        }
         if (proveedores.isEmpty() || proveedores == null) {
             throw new MiException("La búsqueda no arroja resultados");
         }
         return proveedores;
     }
-    
-     public List<Proveedor> listarProveedoresPorNombre(String nombre) throws MiException {
-       
+
+    public List<Proveedor> listarProveedoresPorNombre(String nombre) throws MiException {
+
         if (nombre.isEmpty()) {
             throw new MiException("Debe ingresar un nombre");
         }
-               
+
         String nombreAux = "%" + nombre + "%";
-        List<Proveedor> proveedores = new ArrayList();        
-       
-            proveedores = proveedorRepositorio.listarProvPorParamNombre(nombreAux);
-            
-            if (proveedores.isEmpty() || proveedores == null) {
+        List<Proveedor> proveedores = new ArrayList();
+
+        proveedores = proveedorRepositorio.listarProvPorParamNombre(nombreAux);
+
+        if (proveedores.isEmpty() || proveedores == null) {
             throw new MiException("La búsqueda no arroja resultados");
         }
         return proveedores;
     }
 
-    
+
     public void cambiarestado(String id) {
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
@@ -168,20 +175,20 @@ public class ProveedorServicio extends UsuarioServicio  {
     public void cambiarOficio(String id, String denominacion) throws MiException {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
-        
-         if (oficio == null) {
+
+        if (oficio == null) {
             throw new MiException("El oficio no puede ser nulo o estar vacío");
         }
-         
+
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
-        
+
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
             proveedor.setOficio(oficio);
 
             proveedorRepositorio.save(proveedor);
         }
-        
+
     }
 
     private void validar(Oficio oficio, String descripcion, Double tarifaPorHora) throws MiException {
@@ -199,10 +206,10 @@ public class ProveedorServicio extends UsuarioServicio  {
 
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+  /*  @Override
+    public UserDetails loadUserByUsername(String emailproveedor) throws UsernameNotFoundException {
 
-        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(email);
+        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(emailproveedor);
 
         if (proveedor != null) {
 
@@ -223,7 +230,7 @@ public class ProveedorServicio extends UsuarioServicio  {
         } else {
             return null;
         }
-    }
+    }*/
 }
 
 
