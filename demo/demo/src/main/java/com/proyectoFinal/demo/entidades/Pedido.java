@@ -19,9 +19,18 @@ public class Pedido {
     private Proveedor proveedor;
     private String solicitud;
     private Boolean estadoPedido;
+    private Boolean finalizado;
     private Double cotizacion;
     @OneToOne
     private FeedBack feedBack;
+
+    public Boolean getFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
+    }
     @Temporal(TemporalType.DATE)
     private Date alta;
 

@@ -37,6 +37,7 @@ public class PedidoServicio {
         pedido.setProveedor(proveedorRepositorio.findById(idProveedor).get());
         pedido.setCotizacion(cotizacion);
         pedido.setSolicitud(solicitud);
+        pedido.setFinalizado(Boolean.FALSE);
         pedido.setEstadoPedido(true);
 
         pedidoRepositorio.save(pedido);
@@ -81,6 +82,25 @@ public class PedidoServicio {
             throw new MiException("Usuario no encontrado por Id" + id);
         }
     }
+    
+    public void cambiarFinalizado(String id) throws MiException {
+
+        Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Pedido p = respuesta.get();
+            p.setFinalizado(!p.getFinalizado());
+        }
+
+        if (!respuesta.isPresent()) {
+            throw new MiException("Usuario no encontrado por Id" + id);
+        }
+    }
+    
+    public Pedido getReferenceById(String id){
+        return pedidoRepositorio.getReferenceById(id);
+    }
+    
     public void validar(String idConsumidor, String idProveedor, String solicitud,Double cotizacion)throws MiException {
 
         if(idConsumidor.isEmpty() || idConsumidor == null){
