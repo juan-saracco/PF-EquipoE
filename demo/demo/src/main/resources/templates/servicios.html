@@ -2,18 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:replace="/fragmentos/head:: head">        
+<head th:replace="/fragmentos/head:: head">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
 
-    <body>
-        <div class="hero_area">
-            <!-- header section strats -->
-            <header class="header_section">
-                <div class="container-fluid">
-                    <nav th:replace="/fragmentos/navbar :: nav"></nav>
-                </div>
-            </header>
-        </div>
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
         <!-- end header section -->
 
+    </div>
+    <!-- service section -->
+    <div class="bg">
+        <section class="contact_section layout_padding">
+            <div class="custom_heading-container">
+                <h3 class=" ">
+                    NUESTROS SERVICIOS
+                </h3>
+            </div>
 
         <!-- service section -->
         <div class="bg" >
@@ -40,7 +51,7 @@
                                         </h2>
                                         <p th:text="${proveedor.descripcion}"></p>
                                         <a href="#" class="follow" th:text="${proveedor.tarifaPorHora}"></a>
-                                        <a href="@{'/proveedor/{id}" class="info">CONTRATAR</a>
+                                        <a href="@{'/proveedor/{id}}" class="info">CONTRATAR</a>
                                     </figcaption>
                                 </figure>
                             </div>

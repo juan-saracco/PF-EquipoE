@@ -21,14 +21,17 @@
                         LOGIN
                     </h3>
                 </div>
+                <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                    <p th:text="${Exito}"></p>
+                </div>
+                <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                    <p th:text="${Error}"></p>
+                </div>
                 <div class="container layout_padding2-top">
                     <div class="row">
                         <div class="col-md-6 mx-auto">
                             <form th:action="@{/logincheck}" method="POST">
-                                <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
-                                    <p th:text="${Error}"></p>
-                                </div>
-                                
+                                                            
                                 <div>
                                     <input type="email" placeholder="EMAIL" name="email" th:value="${email}" >
                                 </div>
