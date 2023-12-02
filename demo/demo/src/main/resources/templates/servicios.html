@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="/fragmentos/head:: head">
+    <head th:replace="/fragmentos/head:: head">        
+
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     </head>
 
@@ -15,10 +16,10 @@
             </header>
             <!-- end header section -->
 
-
-            <!-- service section -->
-            <div class="bg" >
-
+        </div>
+        <!-- service section -->
+        <div class="bg">
+            <section class="contact_section layout_padding">
                 <div class="custom_heading-container">
                     <h3 class=" ">
                         NUESTROS SERVICIOS
@@ -29,92 +30,55 @@
                 <section class="contact_section layout_padding">
                     <div class="container">
                         <div class="row">
-
                             <div th:each="proveedor : ${proveedor}">
                                 <figure class="snip1336 col-md-4"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPURG3UNQ8kwDRw0D7oUtHDGnZWMyDKfv3sw&usqp=CAU" alt="sample74" /> 
-                                 
-                                  <figcaption>
-                                     <img th:src="@{/imagen/perfil/__${proveedor.id}__}" 
-                                          alt="profile-sample2" class="profile"/> 
-                                <h2>
-                            <span2 th:text="${proveedor.nombre + ' ' + proveedor.apellido}"></span2>
-                            <span th:text="${proveedor.oficio.denominacion}"></span>
-                        </h2>
+                                    <figcaption>
+                                        <img th:src="@{/imagen/perfil/__${proveedor.id}__}" 
+                                             alt="profile-sample2" class="profile"/> 
+                                        <h2>
+                                            <span2 th:text="${proveedor.nombre + ' ' + proveedor.apellido}"></span2>
+                                            <span th:text="${proveedor.oficio.denominacion}"></span>
+                                        </h2>
                                         <p th:text="${proveedor.descripcion}"></p>
                                         <a class="follow" th:text="${proveedor.tarifaPorHora}"></a>
                                         <a th:href="@{/pedido/crear/__${proveedor.id}__}" class="info">CONTRATAR</a>
                                     </figcaption>
                                 </figure>
                             </div>
-                             <!-- Tarjeta MODELO 
-                            <figure class="snip1336 col-md-4"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample74.jpg" alt="sample74" />
-                                      <figcaption>
-                                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample2.jpg" 
-                                               alt="profile-sample2" class="profile" />
-                                          <h2>Wisteria Widget<span>Photographer</span></h2>
-                                          <p>Calvin: I'm a genius, but I'm a misunderstood genius. Hobbes: What's misunderstood about you? Calvin: Nobody thinks I'm a genius.</p>
-                                          <a href="#" class="follow">Follow</a>
-                                          <a href="#" class="info">More Info</a>
-                                      </figcaption>
-                                  </figure>
-                             -->
-                                  <figure class="snip1336 col-md-4"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample69.jpg" alt="sample69" />
-                                      <figcaption>
-                                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample5.jpg" alt="profile-sample5" class="profile" />
-                                          <h2>Desmond Eagle<span>Accountant</span></h2>
-                                          <p>If you want to stay dad you've got to polish your image. I think the image we need to create for you is "repentant but learning".</p>
-                                          <a href="#" class="follow">Follow</a>
-                                          <a href="#" class="info">More Info</a>
-                                      </figcaption>
-                                  </figure>
-                              </div>
-                          </div>
-                      </section>
-                           
-
-                            <!-- end service section -->
-
-                            <footer th:replace="/fragmentos/footer :: footer"></footer>
-<!--COMPROBACION DE VISUALIZACION DE IMAGEN -->
-   <script th:inline="javascript">
-    console.log('${proveedor.archivo.contenido}');
-</script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    function arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    }
-
-    function showImage(data) {
-        var base64 = arrayBufferToBase64(data);
-        var imageUrl = 'data:image/png;base64,' + base64; // Ajusta el tipo MIME según tu necesidad
-        document.getElementById('profileImage').src = imageUrl;
-    }
-    /*]]>*/
-</script>
-
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    showImage(/*[[${proveedor.imagen.contenido}]]*/); // Asegúrate de ajustar el nombre del campo según tu entidad
-    /*]]>*/
-</script>
-                            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-                            <script type="text/javascript" src="js/bootstrap.js"></script>
-                            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                            crossorigin="anonymous"></script>
-                            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                            crossorigin="anonymous"></script>
+                            <!-- Tarjeta MODELO 
+                           <figure class="snip1336 col-md-4"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample74.jpg" alt="sample74" />
+                                     <figcaption>
+                                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample2.jpg" 
+                                              alt="profile-sample2" class="profile" />
+                                         <h2>Wisteria Widget<span>Photographer</span></h2>
+                                         <p>Calvin: I'm a genius, but I'm a misunderstood genius. Hobbes: What's misunderstood about you? Calvin: Nobody thinks I'm a genius.</p>
+                                         <a href="#" class="follow">Follow</a>
+                                         <a href="#" class="info">More Info</a>
+                                     </figcaption>
+                                 </figure>
+                            -->
 
                         </div>
                     </div>
-                    </body>
+                </section>
+            </section>
 
-                    </html>
+            <!-- end service section -->
+
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+        </div>
+
+    </body>
+
+</html>

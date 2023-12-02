@@ -22,6 +22,9 @@ public class Imagen {
     public Imagen() {
     }
 
+    public Imagen(String s) {
+    }
+
     public String getId() {
         return id;
     }

@@ -18,14 +18,16 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/proveedor/servicios}">Servicios</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" >
                     <a class="nav-link" th:if="${session.usuariosession == null}" th:href="@{/login}">Login/Registro</a>
+                 
                 </li>
                 
                 <!-- NAVBAR PARA ADMIN -->
                 <li class="dropdown">
-                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN')"
-                       href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-expanded="true" style="color: white">
+                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"
+                        sec:authorize="hasRole('ADMIN')" href="#" id="adminDropdown" role="button"
+                        data-toggle="dropdown" aria-expanded="true" style="color: white">
                         Panel de administración
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="adminDropdown" sec:authorize="hasRole('ADMIN')">
@@ -51,18 +53,23 @@
                         <hr class="dropdown-divider">
        
                     </ul>
+                    
                 </li>
                 
                 <li class="dropdown">
-                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" 
-                        href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white">
+                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null} or ${session.proveedorsession != null}" href="#"
+                        id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false"
+                        style="color: white"  >
                         Perfil
                     </a>
+                   
                     <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
-                        <li><a class="dropdown-item" th:href="@{/perfil}">Editar Perfil</a></li>
+                        <li><a th:if="${#request.isUserInRole('ROLE_USER')} or ${#request.isUserInRole('ROLE_ADMIN')}" class="dropdown-item" th:href="@{/usuario/perfil}">Editar Perfil</a></li>
+                        <li><a th:if="${#request.isUserInRole('ROLE_PROVEEDOR')}" class="dropdown-item" th:href="@{/proveedor/perfil}">Editar Perfil</a></li>                
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
+                    
                 </li>
             </ul>
             <div>

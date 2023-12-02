@@ -5,6 +5,7 @@ import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.servicio.OficioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class oficioControlador {
         return "listaOficios.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
     @GetMapping("/listaTodos") //MUESTRA TODOS LOS OFICIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
         List<Oficio> oficios = oficioServicio.listarTodosOficios();
@@ -43,6 +45,7 @@ public class oficioControlador {
         return "listaOficios.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
     @GetMapping("/registrarOficios")
     public String registrarOficio() {
         return "registroOficio.html";
@@ -64,6 +67,7 @@ public class oficioControlador {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
     @GetMapping("/desactReactOficios/{id}")
     public String estadoOficio(@PathVariable String id) {
         oficioServicio.cambiarEstadoOficio(id);

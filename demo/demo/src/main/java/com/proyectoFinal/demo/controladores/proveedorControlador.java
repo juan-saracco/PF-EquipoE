@@ -1,18 +1,27 @@
 package com.proyectoFinal.demo.controladores;
 
+import com.proyectoFinal.demo.entidades.Imagen;
 import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Proveedor;
+import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
+import com.proyectoFinal.demo.servicio.ImagenServicio;
 import com.proyectoFinal.demo.servicio.OficioServicio;
 import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/proveedor")
@@ -21,34 +30,35 @@ public class proveedorControlador {
     public ProveedorServicio proveedorservicio;
     @Autowired
     public OficioServicio oficioservicio;
+    @Autowired
+    public ImagenServicio imagenservicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
-        
+
         List<Oficio> oficios = oficioservicio.listarOficios();
         modelo.addAttribute("oficios", oficios);
-        
+
         return "registroProveedor.html";
     }
 
     @PostMapping("/registro")
-    public String registro(MultipartFile archivo, @RequestParam String nombre, 
-            @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, 
-            @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, 
-            @RequestParam String password2, @RequestParam String denominacion, @RequestParam String descripcion, 
-            @RequestParam(required=false) Double tarifaPorHora, RedirectAttributes redi, ModelMap ModeloProveedor,
-            @ModelAttribute("Err") String err) {
-        
+    public String registro(MultipartFile archivo, @RequestParam String nombre,
+                           @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email,
+                           @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password,
+                           @RequestParam String password2, @RequestParam String denominacion, @RequestParam String descripcion,
+                           @RequestParam(required = false) Double tarifaPorHora, RedirectAttributes redirectAttributes, ModelMap ModeloProveedor,
+                           @ModelAttribute("Err") String err) {
+
         try {
             proveedorservicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, descripcion, tarifaPorHora);
-           // redi.addFlashAttribute("Exito", "Usuario registrado correctamente.");
-            ModeloProveedor.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
-            return "login.html";  
+            redirectAttributes.addFlashAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            return "redirect:../login";
 
         } catch (MiException e) {
             List<Oficio> oficios = oficioservicio.listarTodosOficios();
             ModeloProveedor.addAttribute("oficios", oficios);
-            
+
             ModeloProveedor.put("Error", e.getMessage());
             ModeloProveedor.put("nombre", nombre);
             ModeloProveedor.put("apellido", apellido);
@@ -75,14 +85,14 @@ public class proveedorControlador {
         }
         return "modificarUsuario.html";
     }
-    
+
     @GetMapping("/desactReactProveedores/{id}")
     public String estadoProveedor(@PathVariable String id) {
         proveedorservicio.cambiarestado(id);
 
         return "redirect:/proveedor/listaTodos";
     }
-    
+
     @GetMapping("/modificarOficioProveedor/{id}")
     public String modifOficioProveedor(@PathVariable String id, ModelMap modelo, @ModelAttribute("Error") String error) {
 
@@ -90,13 +100,13 @@ public class proveedorControlador {
 
         List<Oficio> oficios = oficioservicio.listarOficios();
         modelo.addAttribute("oficios", oficios);
-        
+
         if (error != null) {
             modelo.put("Error", "No se pudo modificar el oficio");
         }
         return "editarOficioProv.html";
     }
-    
+
     @PostMapping("/editorOficio/{id}")
     public String editorOficio(@PathVariable String id, String denominacion, RedirectAttributes redi, ModelMap modelo) {
 
@@ -108,17 +118,20 @@ public class proveedorControlador {
         } catch (MiException ex) {
             List<Oficio> oficios = oficioservicio.listarTodosOficios();
             modelo.addAttribute("oficios", oficios);
-            
+
             redi.addFlashAttribute("Error", ex.getMessage());
             redi.addFlashAttribute("denominacion", denominacion);
-            
+
             return "redirect:/proveedor/listaTodos";
         }
     }
+
     
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
     @GetMapping("/lista") //MUESTRA SOLO LOS PROVEEDORES ACTIVOS (ESTADO: TRUE) ->SIRVE PARA LISTAR LOS OFICIOS PARA LOS USUARIOS
+
     public String listar(ModelMap modelo, @ModelAttribute("exi") String ex) {
-        
+
         List<Proveedor> proveedores = proveedorservicio.listarProveedores();
         modelo.addAttribute("proveedores", proveedores);
 
@@ -128,9 +141,12 @@ public class proveedorControlador {
         return "listarProveedores.html";
     }
 
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
     @GetMapping("/listaTodos") //MUESTRA TODOS LOS OFICIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
+
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
-        
+
         List<Proveedor> proveedores = proveedorservicio.listarTodosProveedores();
         modelo.addAttribute("proveedores", proveedores);
 
@@ -139,15 +155,77 @@ public class proveedorControlador {
         }
         return "listarProveedores.html";
     }
+
+
+
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
+    @GetMapping("/perfil")
+    public String mostrarperfil(ModelMap modelo2, HttpSession session) throws MiException {
+
+        Proveedor proveedor = (Proveedor) session.getAttribute("usuariosession");
+        modelo2.put("proveedor", proveedor);
+
+        List<Oficio> oficios = oficioservicio.listarTodosOficios();
+        modelo2.addAttribute("oficios", oficios);
+
+        return "modificarProveedor.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
+    @PostMapping("/perfil/{id}")
+    public String modificando(@PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, @RequestParam String DNI, @RequestParam String telefono, @RequestParam String direccion, MultipartFile archivo, @RequestParam String denominacion,@RequestParam String descripcion, @RequestParam Double tarifaPorHora, ModelMap Modeloproveedor, RedirectAttributes redirectAttributes, HttpSession session) {
+
+        try {
+            // Actualizar el usuario en la base de datos
+            Proveedor proveedorActualizado = (Proveedor) proveedorservicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
+
+            // Almacenar el usuario actualizado en la sesión
+            session.setAttribute("usuariosession", proveedorActualizado);
+
+            // Agregar atributos para mostrar en la vista
+            Modeloproveedor.addAttribute("proveedor", proveedorActualizado);
+
+            proveedorservicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, descripcion, tarifaPorHora);
+            redirectAttributes.addFlashAttribute("nombre", nombre);
+            redirectAttributes.addFlashAttribute("apellido", apellido);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("DNI", DNI);
+            redirectAttributes.addFlashAttribute("telefono", telefono);
+            redirectAttributes.addFlashAttribute("direccion", direccion);
+            redirectAttributes.addFlashAttribute("archivo", archivo);
+            redirectAttributes.addFlashAttribute("denominacion", denominacion);
+            redirectAttributes.addFlashAttribute("descripcion", descripcion);
+            redirectAttributes.addFlashAttribute("tarifaPorHora", tarifaPorHora);
+            redirectAttributes.addFlashAttribute("Exito", "Se modifico el usuario correctamente");
+            return "redirect:../perfil";
+        } catch (MiException e) {
+            redirectAttributes.addFlashAttribute("Error", "Error: No se pudo modificar el usuario.");
+            redirectAttributes.addFlashAttribute("nombre", nombre);
+            redirectAttributes.addFlashAttribute("apellido", apellido);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("DNI", DNI);
+            redirectAttributes.addFlashAttribute("telefono", telefono);
+            redirectAttributes.addFlashAttribute("direccion", direccion);
+            redirectAttributes.addFlashAttribute("archivo", archivo);
+            redirectAttributes.addFlashAttribute("denominacion", denominacion);
+            redirectAttributes.addFlashAttribute("descripcion", descripcion);
+            redirectAttributes.addFlashAttribute("tarifaPorHora", tarifaPorHora);
+            return "redirect:../perfil";
+        }
+    }
+
+    
  @GetMapping("/servicios")
        public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
         
+
         List<Proveedor> proveedores = proveedorservicio.listarProveedores();
         modelo.addAttribute("proveedor", proveedores);
-    
+
         if (ex != null) {
             modelo.put("exi", ex);
         }
-  return "servicios.html";  
-} 
+        return "servicios.html";
+    }
+
 }

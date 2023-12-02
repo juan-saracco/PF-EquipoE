@@ -45,6 +45,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    @Transactional
     public Usuario registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, Usuario usuario)
             throws MiException {
 
@@ -61,13 +62,15 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-        
+
         Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setImagen(foto);
-        
+
         return usuario;
     }
+
+ /*   Eliminado debido al cambio de registro rapido del index
 
     public void registrorapido(String nombre, String apellido, String email, String password)
             throws MiException {
@@ -86,11 +89,11 @@ public class UsuarioServicio implements UserDetailsService {
 
         usuarioRepositorio.save(usuario);
         //  return usuario;
-    }
+    }*/
 
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
+    public Usuario actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
@@ -104,23 +107,30 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            //  usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             usuario.setDNI(DNI);
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
-            usuario.setRol(Rol.USER);
+            /*      usuario.setRol(Rol.USER);*/
 
             String idImagen = null;
 
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
             }
-            Imagen foto = imagenServicio.actualizar(imagen, idImagen);
 
-            usuario.setImagen(foto);
+            if (imagen.isEmpty()) {
+                usuario.setImagen(usuario.getImagen());
+            } else {
+                Imagen foto = imagenServicio.actualizar(imagen, idImagen);
+
+                usuario.setImagen(foto);
+            }
 
             usuarioRepositorio.save(usuario);
+            return usuario;
         }
+        return null;
     }
 
     public List<Usuario> listarUsuarios() {
@@ -133,6 +143,7 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.getOne(id);
     }
 
+    @Transactional
     public void cambiarestado(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -168,7 +179,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas no pueden ser diferentes");
-
         }
 
         if (DNI.isEmpty() || DNI == null) {
@@ -198,7 +208,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
+    /*private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
 
 
         if (nombre.isEmpty() || nombre == null) {
@@ -217,7 +227,7 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
         }
 
-    }
+    }*/
 
 
     @Override
