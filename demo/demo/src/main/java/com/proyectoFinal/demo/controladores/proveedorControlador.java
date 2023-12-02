@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -124,8 +126,10 @@ public class proveedorControlador {
         }
     }
 
-    @GetMapping("/lista")
-    //MUESTRA SOLO LOS PROVEEDORES ACTIVOS (ESTADO: TRUE) ->SIRVE PARA LISTAR LOS OFICIOS PARA LOS USUARIOS
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
+    @GetMapping("/lista") //MUESTRA SOLO LOS PROVEEDORES ACTIVOS (ESTADO: TRUE) ->SIRVE PARA LISTAR LOS OFICIOS PARA LOS USUARIOS
+
     public String listar(ModelMap modelo, @ModelAttribute("exi") String ex) {
 
         List<Proveedor> proveedores = proveedorservicio.listarProveedores();
@@ -137,8 +141,10 @@ public class proveedorControlador {
         return "listarProveedores.html";
     }
 
-    @GetMapping("/listaTodos")
-    //MUESTRA TODOS LOS OFICIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
+    @GetMapping("/listaTodos") //MUESTRA TODOS LOS OFICIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
+
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
 
         List<Proveedor> proveedores = proveedorservicio.listarTodosProveedores();
@@ -149,6 +155,7 @@ public class proveedorControlador {
         }
         return "listarProveedores.html";
     }
+
 
 
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
@@ -207,8 +214,10 @@ public class proveedorControlador {
         }
     }
 
-    @GetMapping("/servicios")
-    public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
+    
+ @GetMapping("/servicios")
+       public String servicios(ModelMap modelo, @ModelAttribute("exi") String ex) {
+        
 
         List<Proveedor> proveedores = proveedorservicio.listarProveedores();
         modelo.addAttribute("proveedor", proveedores);
