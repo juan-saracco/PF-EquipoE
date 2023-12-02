@@ -30,7 +30,6 @@ public class imagenControlador {
 
         headers.setContentType(MediaType.IMAGE_JPEG);
 
-
         return new ResponseEntity<>(imagen,headers, HttpStatus.OK);
 
     }
