@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuario")
@@ -38,12 +39,12 @@ public class usuarioControlador {
 
 //Funcionando
     @PostMapping("/registro")
-    public String registro(@RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+    public String registro(@RequestParam MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, ModelMap modelo, RedirectAttributes redi) {
 
         try {
             usuarioServicio.registrarUsuario(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            modelo.put("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            redi.addFlashAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
             return "login.html";
 
         } catch (MiException e) {
