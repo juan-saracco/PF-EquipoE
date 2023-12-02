@@ -11,6 +11,7 @@ import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,20 +40,28 @@ public class pedidoControlador {
         }
         return "listaPedidos.html";
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping("/crear/{idProveedor}")
     public String crearPedido(@PathVariable String idProveedor, ModelMap modelo, HttpSession session){
         
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuario);
         
+        /* AGREGAMOS ESTA PARTE PARA COMPROBAR QUE PROVEEDOR ES UNA INSTANCIA DE USUARIO. LO REQUIERE EL IDE */
+        if (usuario instanceof Proveedor) {
         Proveedor proveedor = (Proveedor) proveedorServicio.getOne(idProveedor);
         
         modelo.addAttribute(proveedor);
-        
+        } else {
+       
+            return "pedido_form.html";
+}
         return "pedido_form.html";
     }
     
-    @PostMapping("/creado")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PostMapping("/creado/{idProveedor}")
     public String pedidoCreado(String id, String idConsumidor, String idProveedor, String solicitud, ModelMap modelo){
         
         try{
