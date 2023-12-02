@@ -14,7 +14,7 @@ public class Pedido {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     @OneToOne
-    private Usuario consumidor;
+    private Usuario usuario;
     @OneToOne
     private Proveedor proveedor;
     private String solicitud;
@@ -49,11 +49,11 @@ public class Pedido {
     }
 
     public Usuario getConsumidor() {
-        return consumidor;
+        return usuario;
     }
 
     public void setConsumidor(Usuario consumidor) {
-        this.consumidor = consumidor;
+        this.usuario = consumidor;
     }
 
     public Proveedor getProveedor() {

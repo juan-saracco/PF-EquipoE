@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/usuario")
 public class usuarioControlador {
-@Autowired
+    @Autowired
     public ProveedorServicio proveedorservicio;
     @Autowired
     private UsuarioServicio usuarioServicio;

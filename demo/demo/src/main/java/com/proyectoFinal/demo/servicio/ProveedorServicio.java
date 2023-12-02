@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,12 +115,43 @@ public class ProveedorServicio extends UsuarioServicio  {
         return proveedores;
     }
     
-    public List<Proveedor> listarProveedoresPorParametro(String denominacion, String filtro) {
+    public List<Proveedor> listarProveedoresPorParametro(String denominacion, String filtro) throws MiException {
+        
+        if (denominacion.isEmpty()) {
+            throw new MiException("Debe seleccionar un oficio");
+        }
+               
         List<Proveedor> proveedores = new ArrayList();
-        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        
+        if(filtro.equalsIgnoreCase("nombre")) {           
+            proveedores = proveedorRepositorio.listarProvPorParamApellido(denominacion);
+        }else if(filtro.equalsIgnoreCase("tarifa")){
+            proveedores = proveedorRepositorio.listarProvPorParamTarifa(denominacion);
+        }       
+        if (proveedores.isEmpty() || proveedores == null) {
+            throw new MiException("La búsqueda no arroja resultados");
+        }
+        return proveedores;
+    }
+    
+     public List<Proveedor> listarProveedoresPorNombre(String nombre) throws MiException {
+       
+        if (nombre.isEmpty()) {
+            throw new MiException("Debe ingresar un nombre");
+        }
+               
+        String nombreAux = "%" + nombre + "%";
+        List<Proveedor> proveedores = new ArrayList();        
+       
+            proveedores = proveedorRepositorio.listarProvPorParamNombre(nombreAux);
+            
+            if (proveedores.isEmpty() || proveedores == null) {
+            throw new MiException("La búsqueda no arroja resultados");
+        }
         return proveedores;
     }
 
+    
     public void cambiarestado(String id) {
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);

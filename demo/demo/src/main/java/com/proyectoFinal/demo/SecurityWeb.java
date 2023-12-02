@@ -29,23 +29,23 @@ public class SecurityWeb extends WebSecurityConfigurerAdapter {
         http
                 .authorizeHttpRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
-              //  .antMatchers("/usuario/*").hasRole("USER")
+                //.antMatchers("/usuario/*").hasRole("USER")
                 .antMatchers("/css/**", "/js/**", "/img/**", "/**")
                 .permitAll()
-
                 .and().formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/logincheck")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .defaultSuccessUrl("/inicio")
-                    .permitAll()
+                .loginPage("/login")
+                .loginProcessingUrl("/logincheck")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/iniciado")
+                .permitAll()
                 .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/")
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
                 .and().csrf()
-                    .disable();
+                .disable();
     }
+
     
 }

@@ -1,34 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.proyectoFinal.demo.controladores;
 
+import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Pedido;
+import com.proyectoFinal.demo.entidades.Proveedor;
+import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.servicio.PedidoServicio;
+import com.proyectoFinal.demo.servicio.ProveedorServicio;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- *
- * @author LENOVO
- */
- 
 @Controller
 @RequestMapping("/pedido")
 public class pedidoControlador {
     @Autowired
     PedidoServicio pedidoServicio;
+    
+    @Autowired
+    ProveedorServicio proveedorServicio;
     
     @GetMapping("/listaTodos") //MUESTRA TODOS LOS PEDIDOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS PEDIDOS AL ADMINISTRADOR
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
@@ -40,29 +39,30 @@ public class pedidoControlador {
         }
         return "listaPedidos.html";
     }
-    
-    @GetMapping
-    public String mostrarFormulario(Model model){
-        return "pedidoUsuario";
-    }
-    
-    @GetMapping("/modificarPedidos/{id}")
-    public String editarOficio(@PathVariable String id, ModelMap modelo, @ModelAttribute("Err") String err) {
-
-        modelo.put("oficio", pedidoServicio.getReferenceById(id));
-
-        if (err != null) {
-            modelo.put("Err", err);
-        }
-        return "redirect:../listaPedidos.html";
-    }
-    
-    @PostMapping("/enviar-pedido")
-    public String enviarFormulario(Model model, String nombre, String email, String celular, String pedido){
+    @GetMapping("/crear/{idProveedor}")
+    public String crearPedido(@PathVariable String idProveedor, ModelMap modelo, HttpSession session){
         
-        return "";
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuario);
+        
+        Proveedor proveedor = (Proveedor) proveedorServicio.getOne(idProveedor);
+        
+        modelo.addAttribute(proveedor);
+        
+        return "pedido_form.html";
     }
     
-}
-    
-
+    @PostMapping("/creado")
+    public String pedidoCreado(String id, String idConsumidor, String idProveedor, String solicitud, ModelMap modelo){
+        
+        try{
+            pedidoServicio.crearPedido(idConsumidor, idProveedor, solicitud);
+            modelo.addAttribute("Exito", "Pedido creado correctamente");
+            
+        }catch (MiException ex){
+            modelo.put("error", ex.getMessage());
+            return "pedido_form.html";
+        }
+        return "pedido_form.html";
+    }
+}  
