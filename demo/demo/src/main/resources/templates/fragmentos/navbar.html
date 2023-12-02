@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/proveedor/servicios}">Servicios</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" >
                     <a class="nav-link" th:if="${session.usuariosession == null}" th:href="@{/login}">Login/Registro</a>
                 </li>
                 
@@ -53,12 +53,12 @@
                     </ul>
                 </li>
                 
-                <li class="dropdown">
-                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" 
-                        href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white">
+                <li class="dropdown"  >
+                    <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" sec:authorize="hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN', 'ROLE_USER')"
+                       href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white">
                         Perfil
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="perfilDropdown" sec:authorize="hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN', 'ROLE_USER')">
                         <li><a class="dropdown-item" th:href="@{/perfil}">Editar Perfil</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
