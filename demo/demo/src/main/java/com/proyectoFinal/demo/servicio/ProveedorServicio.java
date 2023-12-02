@@ -71,39 +71,35 @@ public class ProveedorServicio extends UsuarioServicio {
     }
 
     @Transactional
-    public Proveedor actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String denominacion, Double tarifaPorHora) throws MiException {
+    public Proveedor actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, String denominacion, String descripcion, Double tarifaPorHora) throws MiException {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
         validar(oficio, denominacion, tarifaPorHora);
-     /*   super.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);*/
+        /*super.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);*/
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
 
         if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
 
             super.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);
 
-            Proveedor proveedor = respuesta.get();
-
             proveedor.setOficio(oficio);
-            proveedor.setDescripcion(denominacion);
+            proveedor.setDescripcion(descripcion);
             proveedor.setTarifaPorHora(tarifaPorHora);
-            proveedor.setEstado(true);
+
+            // TODO ESTO NO HACE FALTA PORQUE LO HACE DESDE EL SUPERACTUALIZAR
+        /*    proveedor.setEstado(true);
             proveedor.setRol(Rol.PROVEEDOR);
-            proveedor.setFecha_alta(new Date());
-
-            String idImagen = null;
-
+            proveedor.setFecha_alta(new Date());*/
+           /* String idImagen = null;
             if (proveedor.getImagen() != null) {
                 idImagen = proveedor.getImagen().getId();
             }
-
             Imagen img = imagenServicio.actualizar(archivo, idImagen);
-
             proveedor.setImagen(img);
-
-            proveedorRepositorio.save(proveedor);
+            proveedorRepositorio.save(proveedor);*/
 
             return proveedor;
         }
@@ -158,7 +154,7 @@ public class ProveedorServicio extends UsuarioServicio {
         return proveedores;
     }
 
-
+    @Transactional
     public void cambiarestado(String id) {
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
@@ -172,6 +168,7 @@ public class ProveedorServicio extends UsuarioServicio {
 
     }
 
+    @Transactional
     public void cambiarOficio(String id, String denominacion) throws MiException {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);

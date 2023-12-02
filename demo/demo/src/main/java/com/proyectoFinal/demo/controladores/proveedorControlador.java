@@ -166,7 +166,7 @@ public class proveedorControlador {
 
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
-    public String modificando(@PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, @RequestParam String DNI, @RequestParam String telefono, @RequestParam String direccion, MultipartFile archivo, @RequestParam String denominacion, @RequestParam Double tarifaPorHora, ModelMap Modeloproveedor, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String modificando(@PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, @RequestParam String DNI, @RequestParam String telefono, @RequestParam String direccion, MultipartFile archivo, @RequestParam String denominacion,@RequestParam String descripcion, @RequestParam Double tarifaPorHora, ModelMap Modeloproveedor, RedirectAttributes redirectAttributes, HttpSession session) {
 
         try {
             // Actualizar el usuario en la base de datos
@@ -178,7 +178,7 @@ public class proveedorControlador {
             // Agregar atributos para mostrar en la vista
             Modeloproveedor.addAttribute("proveedor", proveedorActualizado);
 
-            proveedorservicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, tarifaPorHora);
+            proveedorservicio.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, descripcion, tarifaPorHora);
             redirectAttributes.addFlashAttribute("nombre", nombre);
             redirectAttributes.addFlashAttribute("apellido", apellido);
             redirectAttributes.addFlashAttribute("email", email);
@@ -187,6 +187,7 @@ public class proveedorControlador {
             redirectAttributes.addFlashAttribute("direccion", direccion);
             redirectAttributes.addFlashAttribute("archivo", archivo);
             redirectAttributes.addFlashAttribute("denominacion", denominacion);
+            redirectAttributes.addFlashAttribute("descripcion", descripcion);
             redirectAttributes.addFlashAttribute("tarifaPorHora", tarifaPorHora);
             redirectAttributes.addFlashAttribute("Exito", "Se modifico el usuario correctamente");
             return "redirect:../perfil";
@@ -200,6 +201,7 @@ public class proveedorControlador {
             redirectAttributes.addFlashAttribute("direccion", direccion);
             redirectAttributes.addFlashAttribute("archivo", archivo);
             redirectAttributes.addFlashAttribute("denominacion", denominacion);
+            redirectAttributes.addFlashAttribute("descripcion", descripcion);
             redirectAttributes.addFlashAttribute("tarifaPorHora", tarifaPorHora);
             return "redirect:../perfil";
         }

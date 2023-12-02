@@ -45,6 +45,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    @Transactional
     public Usuario registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, Usuario usuario)
             throws MiException {
 
@@ -110,16 +111,21 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setDNI(DNI);
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
-            usuario.setRol(Rol.USER);
+            /*      usuario.setRol(Rol.USER);*/
 
             String idImagen = null;
 
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
             }
-            Imagen foto = imagenServicio.actualizar(imagen, idImagen);
 
-            usuario.setImagen(foto);
+            if (imagen.isEmpty()) {
+                usuario.setImagen(usuario.getImagen());
+            } else {
+                Imagen foto = imagenServicio.actualizar(imagen, idImagen);
+
+                usuario.setImagen(foto);
+            }
 
             usuarioRepositorio.save(usuario);
             return usuario;
@@ -137,6 +143,7 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.getOne(id);
     }
 
+    @Transactional
     public void cambiarestado(String id) throws MiException {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);

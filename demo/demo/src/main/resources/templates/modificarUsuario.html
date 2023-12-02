@@ -31,7 +31,10 @@
                             <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                 <p th:text="${Error}"></p>
                             </div>
-                           
+                            <div>
+                                <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="No se puede mostrar la imagen"
+                                    class="profile">
+                            </div>
                             <div>
                                 <input type="text" placeholder="NOMBRES" name="nombre" th:value="${usuario.nombre}">
                             </div>

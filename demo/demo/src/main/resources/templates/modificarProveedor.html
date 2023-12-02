@@ -70,8 +70,7 @@
                             <div>
                                 <select name="denominacion">
                                     <!-- <option value="">Seleccione un oficio</option> -->
-                                    <option th:each="oficio: ${oficios}" 
-                                    th:value="${oficio.denominacion}"
+                                    <option th:each="oficio: ${oficios}" th:value="${oficio.denominacion}"
                                     th:text="${oficio.denominacion}"></option>
                                 </select>
                             </div>

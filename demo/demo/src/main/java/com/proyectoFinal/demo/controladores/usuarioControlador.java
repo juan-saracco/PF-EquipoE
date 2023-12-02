@@ -144,7 +144,7 @@ public class usuarioControlador {
     }*/
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/perfil")
-    public String mostrarperfil(ModelMap modelo2, HttpSession session) {
+    public String mostrarperfil(ModelMap modelo2, HttpSession session) throws MiException {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo2.addAttribute("usuario", usuario);
         return "modificarUsuario.html";
