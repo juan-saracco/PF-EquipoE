@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="/fragmentos/head:: head"></head>
+<head th:replace="/fragmentos/head:: head"></head>
 
-    <body>
-        <div class="hero_area">
-            <header class="header_section">
-                <div class="container-fluid">
-                    <nav th:replace="/fragmentos/navbar :: nav"></nav>
+<body>
+    <div class="hero_area">
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+    </div>
+    <div class="bg">
+        <div class="container m-5">
+            <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${Error}"></p>
                 </div>
-            </header>
-        </div>
-        <div class="bg">
+            </div>
+            <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${Exito}"></p>
+                </div>
+            </div> 
+            <table class="table table-hover">
+                <div class="form-group my-3">
+                    <h3 class="card-title">Listado de Pedidos</h3>
+                </div>      
 
+                <thead>
+                    <tr>
+                        <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Usuario</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Solicitud</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Finalizado</th>
+                        <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Modificar</th>
+                        <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th>
+                    </tr>
+                </thead>
+                <tbody th:each="pedidoUsuario : ${pedido}">
+                    <tr>
+                        <!-- <th th:value="${pedido.usuario.id}"></td>
+                       <th th:value="${pedido.proveedor.id}"></td> -->
+                        <td th:text="${pedidoUsuario.solicitud}"></td>
+                        <td th:text="${pedidoUsuario.estadoPedido}"></td>
+                        <td th:text="${pedidoUsuario.finalizado}"></td>
 
-            <div class="container m-5">      
-                <table class="table table-hover">
-                    <div class="form-group my-3">                     
-                        <h3 class="card-title">Listado de Pedidos</h3>
-                    </div> 
-                    <thead>
-                        <tr>
-                            <th scope="col">Usuario</th>
-                            <th scope="col">Proveedor</th>
-                            <th scope="col">Solicitud</th>
-                             <th scope="col">Estado</th>
-                            <th scope="col">Finalizado</th>
-                            <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Modificar</th>
-                           <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th>
-                        </tr>
-                    </thead>
-                    <tbody th:each="pedido : ${pedido}">
-                        <tr>
-                            <th scope="row" th:text="${pedido.usuario.id}"></td>
-                            <th scope="row" th:text="${pedido.proveedor.id}"></td>
-                            <td th:text="${pedido.solicitud}"></td>
-                            <td th:text="${pedido.estadoPedido}"></td>
-                            <td th:text="${pedido.finalizado}"></td>
-                            
-                            <td>
-                                <a sec:authorize="hasRole('PROVEEDOR')" th:href="@{/pedidos/modificarPedidos/__${pedido.id}__}">Editar</a>
-                            </td>
-                            <!--
+                        <td>
+                            <a sec:authorize="hasRole('PROVEEDOR')"
+                                th:href="@{/pedidos/modificarPedidos/__${pedido.id}__}">Editar</a>
+                        </td>
+                        <!--
                             <td>
                                 <a sec:authorize="hasRole('PROVEEDOR')" th:href="@{/oficios/desactReactOficios/__${oficio.id}__}">Activar/Desactivar</a>
                             </td> -->
-                        </tr>
+                    </tr>
 
-                        <!-- ESPACIO PARA CARGAR COTIZACION      
+                    <!-- ESPACIO PARA CARGAR COTIZACION      
                              =======================================
     <div class="bg">
         <div class="container m-5">
@@ -79,20 +91,23 @@
                         
                         
                         -->
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-            </div>
-            <footer th:replace="/fragmentos/footer :: footer"></footer>
-            <!-- footer section -->
-            <!-- footer section -->
-
-            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-            <script type="text/javascript" src="js/bootstrap.js"></script>
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         </div>
-    </body>
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
+        <!-- footer section -->
+        <!-- footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    </div>
+</body>
+
 </html>

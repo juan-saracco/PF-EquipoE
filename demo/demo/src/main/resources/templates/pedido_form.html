@@ -25,16 +25,20 @@
                     <div class="row">
                         <div class="col-md-6 mx-auto">
                             <!-- el th:action tiene proveedor.id con signo de ?, x verificacion necesaria del compilador-->
-                            <form th:action="@{/pedido/creado/__${proveedor?.id}__}" method="POST">
+                            <form th:action="@{/pedido/creado}" method="POST">
+
+                                <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                                    <p th:text="${Exito}"></p>
+                                </div>
                                 <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                     <p th:text="${Error}"></p>
                                 </div>
-                               
-                                <input type="hidden" name="idUsuario" th:value="${idUsuario}" />
-                                <input type="hidden" name="idProveedor" th:value="${idProveedor}" />
+
+                                <input type="hidden" name="idConsumidor" th:value="${usuario.id}" />
+                                <input type="hidden" name="idProveedor" th:value="${proveedor.id}" />
                              
                                 <div>
-                                    <textarea placeholder="MENSAJE" name="pedido" th:value="${pedido}" maxlength="280" style="width: 100%; height: 100px;" ></textarea>
+                                    <textarea placeholder="MENSAJE" name="solicitud" th:value="${solicitud}" maxlength="280" style="width: 100%; height: 100px;" ></textarea>
                                 </div>                                
 
                                 <div class="d-flex justify-content-center ">

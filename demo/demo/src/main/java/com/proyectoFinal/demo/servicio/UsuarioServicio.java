@@ -62,7 +62,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setDireccion(direccion);
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
-        usuario.setFecha_alta(new Date());
+        usuario.setFechaalta(new Date());
         usuario.setImagen(foto);
 
         return usuario;

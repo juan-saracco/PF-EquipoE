@@ -25,7 +25,7 @@ private Rol rol;
 private Imagen archivo;
 private Boolean estado;
 @Temporal(TemporalType.DATE)
-private Date fecha_alta;
+private Date fechaalta;
 
     public Usuario() {
     }
@@ -118,12 +118,12 @@ private Date fecha_alta;
         this.estado = estado;
     }
 
-    public Date getFecha_alta() {
-        return fecha_alta;
+    public Date getFechaalta() {
+        return fechaalta;
     }
 
-    public void setFecha_alta(Date fecha_alta) {
-        this.fecha_alta = fecha_alta;
+    public void setFechaalta(Date fechaalta) {
+        this.fechaalta = fechaalta;
     }
 
 

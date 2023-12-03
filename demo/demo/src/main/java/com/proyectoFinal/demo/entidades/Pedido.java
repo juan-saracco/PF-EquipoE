@@ -23,19 +23,9 @@ public class Pedido {
     private Double cotizacion;
     @OneToOne
     private FeedBack feedBack;
-
-    public Boolean getFinalizado() {
-        return finalizado;
-    }
-
-    public void setFinalizado(Boolean finalizado) {
-        this.finalizado = finalizado;
-    }
-    @Temporal(TemporalType.DATE)
     private Date alta;
-
     @Temporal(TemporalType.DATE)
-    private Date fecha_modificacion;
+    private Date fechamodificacion;
 
     public Pedido() {
     }
@@ -48,12 +38,12 @@ public class Pedido {
         this.id = id;
     }
 
-    public Usuario getConsumidor() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setConsumidor(Usuario consumidor) {
-        this.usuario = consumidor;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Proveedor getProveedor() {
@@ -80,6 +70,14 @@ public class Pedido {
         this.estadoPedido = estadoPedido;
     }
 
+    public Boolean getFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
+    }
+
     public Double getCotizacion() {
         return cotizacion;
     }
@@ -104,11 +102,11 @@ public class Pedido {
         this.alta = alta;
     }
 
-    public Date getFecha_modificacion() {
-        return fecha_modificacion;
+    public Date getFechamodificacion() {
+        return fechamodificacion;
     }
 
-    public void setFecha_modificacion(Date fecha_modificacion) {
-        this.fecha_modificacion = fecha_modificacion;
+    public void setFechamodificacion(Date fechamodificacion) {
+        this.fechamodificacion = fechamodificacion;
     }
 }

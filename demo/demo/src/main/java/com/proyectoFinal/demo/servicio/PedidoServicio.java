@@ -33,12 +33,14 @@ public class PedidoServicio {
         Pedido pedido = new Pedido();
 
         pedido.setAlta(new Date());
-        pedido.setConsumidor(usuarioRepositorio.findById(idConsumidor).get());
-        pedido.setProveedor(proveedorRepositorio.findById(idProveedor).get());
+        pedido.setUsuario(usuarioRepositorio.buscarPorId(idConsumidor));
+        pedido.setProveedor(proveedorRepositorio.buscarPorId(idProveedor));
         pedido.setSolicitud(solicitud);
         pedido.setEstadoPedido(true);
+        pedido.setFinalizado(false);
 
         pedidoRepositorio.save(pedido);
+
     }
     
    /* public void responderPedido(String id, String idConsumidor, String idProveedor, String solicitud,Double cotizacion) throws MiException{
@@ -65,6 +67,13 @@ public class PedidoServicio {
         return pedidos;
     }
 
+    public List<Pedido> listarPedidosUsuario(String id){
+
+        List<Pedido> pedidos = pedidoRepositorio.buscarPorIdUsuario(id);
+
+        return pedidos;
+    }
+
     @Transactional
     public void modificarPedido(String id, String idConsumidor, String idProveedor, String solicitud) throws MiException {
         validar(idConsumidor, idProveedor, solicitud);
@@ -75,10 +84,10 @@ public class PedidoServicio {
 
             Pedido pedido = respuesta.get();
 
-            pedido.setConsumidor(usuarioRepositorio.findById(idConsumidor).get());
+            pedido.setUsuario(usuarioRepositorio.findById(idConsumidor).get());
             pedido.setProveedor(proveedorRepositorio.findById(idProveedor).get());
             pedido.setSolicitud(solicitud);
-            pedido.setFecha_modificacion(new Date());
+            pedido.setFechamodificacion(new Date());
 
             pedidoRepositorio.save(pedido);
         }
