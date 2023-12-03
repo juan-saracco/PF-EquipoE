@@ -154,6 +154,16 @@ public class ProveedorServicio extends UsuarioServicio {
         return proveedores;
     }
 
+    public Proveedor buscarPorId(String id) throws MiException {
+        Proveedor proveedor = new Proveedor();
+        if (id.isEmpty()) {
+            throw new MiException("Debe ingresar un ID");
+        } else {
+            proveedor = proveedorRepositorio.buscarPorId(id);
+        }
+        return proveedor;
+    }
+
     @Transactional
     public void cambiarestado(String id) {
 
