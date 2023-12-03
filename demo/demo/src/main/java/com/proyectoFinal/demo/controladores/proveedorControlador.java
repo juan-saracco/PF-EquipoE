@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/proveedor")
 public class proveedorControlador {
+
     @Autowired
     public ProveedorServicio proveedorservicio;
     @Autowired
@@ -36,7 +37,11 @@ public class proveedorControlador {
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
 
+<<<<<<< HEAD
         List<Oficio> oficios = oficioservicio.listarOficios();
+=======
+        List<Oficio> oficios = oficioservicio.listarTodosOficios();
+>>>>>>> refs/remotes/origin/nahuel
         modelo.addAttribute("oficios", oficios);
 
         return "registroProveedor.html";
@@ -44,6 +49,7 @@ public class proveedorControlador {
 
     @PostMapping("/registro")
     public String registro(MultipartFile archivo, @RequestParam String nombre,
+<<<<<<< HEAD
                            @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email,
                            @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password,
                            @RequestParam String password2, @RequestParam String denominacion, @RequestParam String descripcion,
@@ -54,6 +60,19 @@ public class proveedorControlador {
             proveedorservicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, descripcion, tarifaPorHora);
             redirectAttributes.addFlashAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
             return "redirect:../login";
+=======
+            @RequestParam String apellido, @RequestParam String DNI, @RequestParam String email,
+            @RequestParam String direccion, @RequestParam String telefono, @RequestParam String password,
+            @RequestParam String password2, @RequestParam String denominacion, @RequestParam String descripcion,
+            @RequestParam(required = false) Double tarifaPorHora, RedirectAttributes redi, ModelMap ModeloProveedor,
+            @ModelAttribute("Err") String err) {
+
+        try {
+            proveedorservicio.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, denominacion, descripcion, tarifaPorHora);
+            // redi.addFlashAttribute("Exito", "Usuario registrado correctamente.");
+            ModeloProveedor.addAttribute("Exito", "Usuario registrado correctamente. Ingrese nuevamente su usuario");
+            return "login.html";
+>>>>>>> refs/remotes/origin/nahuel
 
         } catch (MiException e) {
             List<Oficio> oficios = oficioservicio.listarTodosOficios();
@@ -126,8 +145,11 @@ public class proveedorControlador {
         }
     }
 
+<<<<<<< HEAD
     
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
+=======
+>>>>>>> refs/remotes/origin/nahuel
     @GetMapping("/lista") //MUESTRA SOLO LOS PROVEEDORES ACTIVOS (ESTADO: TRUE) ->SIRVE PARA LISTAR LOS OFICIOS PARA LOS USUARIOS
 
     public String listar(ModelMap modelo, @ModelAttribute("exi") String ex) {
@@ -156,6 +178,7 @@ public class proveedorControlador {
         return "listarProveedores.html";
     }
 
+<<<<<<< HEAD
 
 
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
@@ -226,6 +249,13 @@ public class proveedorControlador {
             modelo.put("exi", ex);
         }
         return "servicios.html";
+=======
+    @GetMapping("/perfil/{id}")
+    public String verPerfil(@PathVariable String id, ModelMap modelo) throws MiException{
+        Proveedor proveedor = (Proveedor) proveedorservicio.getOne(id); // Manejar el caso en que no se pueda encontrar el proveedor
+        modelo.addAttribute("proveedor", proveedor);
+        return "perfilProveedor.html";
+>>>>>>> refs/remotes/origin/nahuel
     }
 
 }

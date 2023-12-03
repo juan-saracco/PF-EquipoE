@@ -94,8 +94,20 @@ public class portalControlador {
             List<Proveedor> proveedores = proveedorServicio.listarProveedoresPorParametro(denominacion, filtro);
             modelo.addAttribute("proveedores", proveedores);
 
+<<<<<<< HEAD
         } catch (MiException ex) {
             modelo.put("Error", ex.getMessage());
+=======
+    //======================================================================================
+        @GetMapping("/perfilProveedor")
+    public String perfilProveedor() {
+        return "proveedorPerfil(new).html";
+    }
+    
+}
+
+
+>>>>>>> refs/remotes/origin/nahuel
 
         }
         return "/filtrosBusqueda.html";
