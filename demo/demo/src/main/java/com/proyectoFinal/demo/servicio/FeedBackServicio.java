@@ -59,6 +59,7 @@ public class FeedBackServicio {
         }
     }
 
+    @Transactional
     public void moderarFeedBack(String id, Integer calificacion, String comentario) throws MiException{
 
         validar(calificacion, comentario);
@@ -76,14 +77,13 @@ public class FeedBackServicio {
         }
     }
 
-    public void eliminarFeedBack(String id, Integer calificacion, String comentario) throws MiException {
+    @Transactional
+    public void eliminarFeedBack(String id) throws MiException {
         
-        validar(calificacion, comentario);
+        Optional<FeedBack> respuesta = feedBackRepositorio.findById(id);
 
-        Optional<FeedBack> rta = feedBackRepositorio.findById(id);
-
-        if(rta.isPresent()){
-            FeedBack feedBack = rta.get();
+        if(respuesta.isPresent()){
+            FeedBack feedBack = respuesta.get();
 
             if(feedBack.getEstado().equals(Boolean.TRUE)){
                 feedBack.setEstado(Boolean.FALSE);
@@ -97,12 +97,12 @@ public class FeedBackServicio {
 
     private void validar(Integer calificacion, String comentario) throws MiException {
 
-        if (calificacion == null) {
-            throw new MiException("la calificación no puede ser nula");
-        }
-
         if (comentario.isEmpty() || comentario == null) {
             throw new MiException("el comentario no puede ser nulo o estar vacio");
+        }
+        
+        if (calificacion == null) {
+            throw new MiException("la calificación no puede ser nula");
         }
     }
 

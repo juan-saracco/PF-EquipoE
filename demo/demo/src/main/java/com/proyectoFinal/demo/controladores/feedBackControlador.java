@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/feedBack")
@@ -50,8 +51,8 @@ public class feedBackControlador {
     }
     
     @PreAuthorize("hasAnyRole('ROLE_USER')")
-    @PostMapping("/creado/{idPedido}")
-    public String feedBackCreado(String id, String idPedido, int calificacion, String comentario, ModelMap modelo){
+    @PostMapping("/creado")
+    public String feedBackCreado(String id, int calificacion, String comentario, ModelMap modelo){
         
         try{
             feedBackServicio.crearFeedBack(calificacion, comentario);
@@ -59,14 +60,14 @@ public class feedBackControlador {
             
             
         }catch (MiException ex){
-            modelo.put("error", ex.getMessage());
+            modelo.addAttribute("error", ex.getMessage());
             return "feedBack_form.html";
         }
         return "feedBack_form.html";
     }
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @PostMapping("/moderar}")
+    @PostMapping("/moderar")
     public String moderarFeedBack(String id, String idPedido, int calificacion, String comentario, ModelMap modelo){
         
         try{
@@ -74,7 +75,7 @@ public class feedBackControlador {
             modelo.addAttribute("Exito", "El FeedBack se moderó correctamente.");
             
         }catch (MiException ex){
-            modelo.put("error", ex.getMessage());
+            modelo.addAttribute("error", ex.getMessage());
             return "feedBack_form.html";
         }
         return "feedBack_form.html";
@@ -89,7 +90,7 @@ public class feedBackControlador {
             modelo.addAttribute("Exito", "El FeedBack se modificó correctamente.");
             
         }catch (MiException ex){
-            modelo.put("error", ex.getMessage());
+            modelo.addAttribute("error", ex.getMessage());
             return "feedBack_form.html";
         }
         return "feedBack_form.html";
@@ -97,14 +98,14 @@ public class feedBackControlador {
     
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping("/eliminar")
-    public String eliminarFeedBack(String id, int calificacion, String comentario, ModelMap modelo){
+    public String eliminarFeedBack(@RequestParam String id, ModelMap modelo){
         
         try{
-            feedBackServicio.eliminarFeedBack(id, calificacion, comentario);
+            feedBackServicio.eliminarFeedBack(id);
             modelo.addAttribute("Exito", "El FeedBack se eliminó correctamente.");
             
         }catch (MiException ex){
-            modelo.put("error", ex.getMessage());
+            modelo.addAttribute("error", ex.getMessage());
             return "feedBack_form.html";
         }
         return "feedBack_form.html";

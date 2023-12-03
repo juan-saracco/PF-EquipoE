@@ -27,12 +27,12 @@
                             <th scope="col" sec:authorize="hasRole('ADMIN')">Moderar</th>
                         </tr>
                     </thead>
-                    <tbody th:each="feedBack : ${feedBack}">
+                    <tbody th:each="feedBack : ${feedBacks}">
                         <tr>
                             <th scope="row" th:text="${feedBack.alta}"></td>
                             <td th:text="${feedBack.calificacion}"></td>
-                            <td th:text="${feedback.comentario}"></td>
-                            <td th:text="${feedback.estado}"></td>
+                            <td th:text="${feedBack.comentario}"></td>
+                            <td th:text="${feedBack.estado}"></td>
 
                             <td>
                                 <a sec:authorize="hasRole('ADMIN')" th:href="@{/feedBack/moderar}">Moderar</a>
