@@ -38,12 +38,12 @@ public class pedidoControlador {
     //MUESTRA TODOS LOS PEDIDOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS PEDIDOS AL ADMINISTRADOR
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
         List<Pedido> pedidos = pedidoServicio.listarPedidos();
-        modelo.addAttribute("pedidos", pedidos);
+        modelo.addAttribute("pedido", pedidos);
 
         if (ex != null) {
             modelo.put("exi", ex);
         }
-        return "listaPedidos.html";
+        return "listarPedidosProveedor.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER')")//Esto no estaba en MARESCA
@@ -94,4 +94,21 @@ public class pedidoControlador {
         return "listaPedidos.html";
 
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @GetMapping("/desactReactPedido/{id}")
+    public String estadoPedido(@PathVariable String id) throws MiException {
+        pedidoServicio.cambiarestado(id);
+
+        return "redirect:/pedido/listaTodos";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @GetMapping("/aceptadoRechazadoPedido/{id}")
+    public String aceptarPedido(@PathVariable String id) throws MiException {
+        pedidoServicio.cambiaraceptado(id);
+
+        return "redirect:/pedido/listaTodos";
+    }
+    
 }  

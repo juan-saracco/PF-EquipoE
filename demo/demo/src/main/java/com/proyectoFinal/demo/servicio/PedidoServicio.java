@@ -108,6 +108,21 @@ public class PedidoServicio {
         }
     }
 
+    @Transactional
+    public void cambiaraceptado(String id) throws MiException {
+
+        Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Pedido p = respuesta.get();
+            p.setFinalizado(!p.getFinalizado());
+        }
+
+        if (!respuesta.isPresent()) {
+            throw new MiException("Usuario no encontrado por Id" + id);
+        }
+    }
+    
       public void validar(String idConsumidor, String idProveedor, String solicitud)throws MiException {
 
         if(idConsumidor.isEmpty() || idConsumidor == null){
