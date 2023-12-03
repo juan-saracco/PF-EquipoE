@@ -36,7 +36,7 @@ public class pedidoControlador {
 
     @GetMapping("/listaTodos")
     //MUESTRA TODOS LOS PEDIDOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS PEDIDOS AL ADMINISTRADOR
-    public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
+    public String listarPedidosAdmin(ModelMap modelo, @ModelAttribute("exi") String ex) {
         List<Pedido> pedidos = pedidoServicio.listarPedidos();
         modelo.addAttribute("pedidos", pedidos);
 
@@ -81,17 +81,46 @@ public class pedidoControlador {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/listarpedidos")
+    @GetMapping("/listarpedidosUsuario")
     public String listarPedidosUsuario(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo.put("usuario", usuario);
+     //   modelo.put("usuario", usuario);
 
         List<Pedido> pedidosUsuario = pedidoServicio.listarPedidosUsuario(usuario.getId());
-        modelo.put("pedido", pedidosUsuario);
+        modelo.put("pedidos", pedidosUsuario);
 
-
-        return "listaPedidos.html";
-
+        return "listaPedidosUsuario.html";
     }
+
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
+    @GetMapping("/listarpedidosProveedor")
+    public String listarPedidosProveedor(ModelMap modelo, HttpSession session) {
+
+        Proveedor proveedor = (Proveedor) session.getAttribute("usuariosession");
+     //   modelo.put("proveedor", proveedor);
+
+        List<Pedido> pedidosProveedor = pedidoServicio.listarPedidosProveedor(proveedor.getId());
+        modelo.put("pedidos", pedidosProveedor);
+
+        return "listaPedidosProveedor.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @GetMapping("/desactReactPedido/{id}")
+    public String estadoPedido(@PathVariable String id) throws MiException {
+        pedidoServicio.cambiarestado(id);
+
+        return "redirect:/pedido/listarpedidos";
+    }
+
+
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @GetMapping("/aceptadoRechazadoPedido/{id}")
+    public String aceptarPedido(@PathVariable String id) throws MiException {
+        pedidoServicio.cambiaraceptado(id);
+
+        return "redirect:/pedido/listarpedidos";
+    }
+
 }  

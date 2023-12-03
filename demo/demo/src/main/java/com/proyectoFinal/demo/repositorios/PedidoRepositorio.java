@@ -25,4 +25,7 @@ public interface PedidoRepositorio extends JpaRepository <Pedido, String > {
 
     @Query("SELECT p from Pedido p WHERE p.usuario.id = :aux")
     public List <Pedido> buscarPorIdUsuario(@Param("aux")String id);
+
+    @Query("SELECT p from Pedido p WHERE p.proveedor.id = :aux")
+    public List <Pedido>  buscarPorIdProveedor(@Param("aux") String id);
 }

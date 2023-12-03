@@ -13,6 +13,7 @@
     </div>
     <div class="bg">
         <div class="container m-5">
+
             <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
                 <div class="card-body">
                     <h5 class="card-title">Error</h5>
@@ -25,6 +26,7 @@
                     <p class="card-text" th:text="${Exito}"></p>
                 </div>
             </div> 
+
             <table class="table table-hover">
                 <div class="form-group my-3">
                     <h3 class="card-title">Listado de Pedidos</h3>
@@ -32,26 +34,25 @@
 
                 <thead>
                     <tr>
-                        <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Usuario</th>
                         <th scope="col">Proveedor</th>
                         <th scope="col">Solicitud</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Finalizado</th>
-                        <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Modificar</th>
+                        <th scope="col" sec:authorize="hasRole('USER')">Modificar</th>
                         <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th>
                     </tr>
                 </thead>
-                <tbody th:each="pedidoUsuario : ${pedido}">
+                <tbody th:each="pedidoUsuario : ${pedidos}">
                     <tr>
-                        <!-- <th th:value="${pedido.usuario.id}"></td>
-                       <th th:value="${pedido.proveedor.id}"></td> -->
+                        <th sec:authorize="hasRole('PROVEEDOR')" th:text="${pedidoUsuario.usuario.nombre+''+pedidoUsuario.usuario.apellido}"></td>
+                       <th sec:authorize="hasRole('USER')" th:text="${pedidoUsuario.proveedor.nombre+''+pedidoUsuario.proveedor.apellido}"></td>
                         <td th:text="${pedidoUsuario.solicitud}"></td>
                         <td th:text="${pedidoUsuario.estadoPedido}"></td>
                         <td th:text="${pedidoUsuario.finalizado}"></td>
 
                         <td>
-                            <a sec:authorize="hasRole('PROVEEDOR')"
-                                th:href="@{/pedidos/modificarPedidos/__${pedido.id}__}">Editar</a>
+                            <a sec:authorize="hasRole('USER')"
+                                th:href="@{/pedidos/modificarPedidos/__${pedidoUsuario.id}__}">Editar</a>
                         </td>
                         <!--
                             <td>

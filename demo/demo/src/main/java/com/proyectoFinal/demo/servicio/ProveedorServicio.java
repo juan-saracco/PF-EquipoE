@@ -56,10 +56,10 @@ public class ProveedorServicio extends UsuarioServicio {
         validar(oficio, descripcion, tarifaPorHora);
 
         Proveedor proveedor = new Proveedor();
-        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, foto);
+        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, proveedor);
 
-        //   proveedor.setImagen(img);
-        //  proveedor.setOficio(oficio);
+
+        proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
         proveedor.setTarifaPorHora(tarifaPorHora);
         //  proveedor.setEstado(true);

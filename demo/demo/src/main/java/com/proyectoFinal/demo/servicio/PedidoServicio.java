@@ -68,14 +68,18 @@ public class PedidoServicio {
     }
 
     public List<Pedido> listarPedidosUsuario(String id){
-
         List<Pedido> pedidos = pedidoRepositorio.buscarPorIdUsuario(id);
+        return pedidos;
+    }
 
+    public List<Pedido> listarPedidosProveedor(String id){
+        List<Pedido> pedidos = pedidoRepositorio.buscarPorIdProveedor(id);
         return pedidos;
     }
 
     @Transactional
     public void modificarPedido(String id, String idConsumidor, String idProveedor, String solicitud) throws MiException {
+
         validar(idConsumidor, idProveedor, solicitud);
 
         Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
@@ -84,8 +88,8 @@ public class PedidoServicio {
 
             Pedido pedido = respuesta.get();
 
-            pedido.setUsuario(usuarioRepositorio.findById(idConsumidor).get());
-            pedido.setProveedor(proveedorRepositorio.findById(idProveedor).get());
+            pedido.setUsuario(usuarioRepositorio.buscarPorId(idConsumidor));
+            pedido.setProveedor(proveedorRepositorio.buscarPorId(idProveedor));
             pedido.setSolicitud(solicitud);
             pedido.setFechamodificacion(new Date());
 
@@ -108,6 +112,21 @@ public class PedidoServicio {
         }
     }
 
+    @Transactional
+    public void cambiaraceptado(String id) throws MiException {
+
+        Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Pedido p = respuesta.get();
+            p.setFinalizado(!p.getFinalizado());
+        }
+
+        if (!respuesta.isPresent()) {
+            throw new MiException("Usuario no encontrado por Id" + id);
+        }
+    }
+
       public void validar(String idConsumidor, String idProveedor, String solicitud)throws MiException {
 
         if(idConsumidor.isEmpty() || idConsumidor == null){
@@ -121,20 +140,7 @@ public class PedidoServicio {
         }
     }
     
-        
-    public void cambiarFinalizado(String id) throws MiException {
 
-        Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
-
-        if (respuesta.isPresent()) {
-            Pedido p = respuesta.get();
-            p.setFinalizado(!p.getFinalizado());
-        }
-
-        if (!respuesta.isPresent()) {
-            throw new MiException("Usuario no encontrado por Id" + id);
-        }
-    }
     
     public Pedido getReferenceById(String id){
         return pedidoRepositorio.getReferenceById(id);

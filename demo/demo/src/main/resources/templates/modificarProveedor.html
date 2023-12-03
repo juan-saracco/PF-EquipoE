@@ -69,11 +69,11 @@
                             </div>
                             <div>
                                 <select name="denominacion">
-                                    <!-- <option value="">Seleccione un oficio</option> -->
+                                    <option th:value="${proveedor.oficio.denominacion}" th:text="${proveedor.oficio.denominacion}" selected></option> 
                                     <option th:each="oficio: ${oficios}" th:value="${oficio.denominacion}"
                                     th:text="${oficio.denominacion}"></option>
                                 </select>
-                            </div>
+                            </div>
                             <div>
                                 <input type="text" placeholder="INGRESE UNA BREVE DESCRIPCION" name="descripcion"
                                     th:value="${proveedor.descripcion}">

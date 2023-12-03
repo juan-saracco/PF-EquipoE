@@ -23,6 +23,8 @@ public class Pedido {
     private Double cotizacion;
     @OneToOne
     private FeedBack feedBack;
+
+    @Temporal(TemporalType.DATE)
     private Date alta;
     @Temporal(TemporalType.DATE)
     private Date fechamodificacion;

@@ -38,20 +38,22 @@ public class UsuarioServicio implements UserDetailsService {
     public void registrarUsuario(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
             throws MiException {
 
-        Imagen foto = imagenServicio.guardar(archivo);
-        Usuario usuario = registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, foto);
+        Usuario usuario = new Usuario();
+        registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, usuario);
 
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public Usuario registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, Imagen foto)
+    public Usuario registrar(String nombre, String apellido, String email,
+                             String password, String password2, String DNI, String telefono,
+                             String direccion, MultipartFile archivo, Usuario usuario)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
         validarexistencia(DNI, email);
 
-        Usuario usuario = new Usuario();
+        Imagen foto = imagenServicio.guardar(archivo);
 
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
