@@ -123,7 +123,7 @@ public class PedidoServicio {
         }
 
         if (!respuesta.isPresent()) {
-            throw new MiException("Usuario no encontrado por Id" + id);
+            throw new MiException("Pedido no encontrado por Id" + id);
         }
     }
     

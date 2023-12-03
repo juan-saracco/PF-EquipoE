@@ -30,7 +30,7 @@
                         <!--    <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th> -->
                         </tr>
                     </thead>
-                    <tbody th:each="pedido : ${pedido}">
+                    <tbody th:each="pedido : ${pedidos}">
                         <tr>
                             <th scope="row" th:text="${pedido.usuario.id}"></td>
                             <th scope="row" th:text="${pedido.proveedor.id}"></td>
