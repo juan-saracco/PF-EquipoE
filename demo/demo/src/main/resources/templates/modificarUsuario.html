@@ -31,9 +31,10 @@
                             <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                 <p th:text="${Error}"></p>
                             </div>
-                            <div>
+                            <div >
                                 <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="No se puede mostrar la imagen"
-                                    class="profile">
+                                     class="profile" 
+                                     style="object-fit: contain; width: 250px; height: 250px; margin: 0 auto; display: flex; justify-content: center">
                             </div>
                             <div>
                                 <input type="text" placeholder="NOMBRES" name="nombre" th:value="${usuario.nombre}">
@@ -90,7 +91,12 @@
 
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
-
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     </div>
 </body>
 
