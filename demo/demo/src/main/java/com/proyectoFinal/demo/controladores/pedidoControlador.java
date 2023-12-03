@@ -41,7 +41,7 @@ public class pedidoControlador {
         return "listaPedidos.html";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")//Esto no estaba en MARESCA
     @GetMapping("/crear/{idProveedor}")
     public String crearPedido(@PathVariable String idProveedor, ModelMap modelo, HttpSession session){
         

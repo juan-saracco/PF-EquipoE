@@ -188,6 +188,25 @@ public class usuarioControlador {
         }
     }
 
+    @GetMapping("/desactReactUsuarios/{id}")
+    public String estadoUsuario(@PathVariable String id) throws MiException {
+        usuarioServicio.cambiarestado(id);
+
+        return "redirect:/usuario/listaTodos";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listaTodos") //MUESTRA TODOS LOS USUARIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
+    public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
+
+        List<Usuario> usuarios = usuarioServicio.listarTodosUsuarios();
+        modelo.addAttribute("usuarios", usuarios);
+
+        if (ex != null) {
+            modelo.put("exi", ex);
+        }
+        return "listarUsuarios.html";
+    }
 
 }
 

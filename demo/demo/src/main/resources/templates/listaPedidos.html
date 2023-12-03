@@ -27,7 +27,7 @@
                              <th scope="col">Estado</th>
                             <th scope="col">Finalizado</th>
                             <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Modificar</th>
-                        <!--    <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th> -->
+                           <th scope="col" sec:authorize="hasRole('PROVEEDOR')">Activar/Desactivar</th>
                         </tr>
                     </thead>
                     <tbody th:each="pedido : ${pedido}">

@@ -51,20 +51,20 @@ public class ProveedorServicio extends UsuarioServicio {
             throws MiException {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
+        Imagen foto = imagenServicio.guardar(archivo);
 
         validar(oficio, descripcion, tarifaPorHora);
+
         Proveedor proveedor = new Proveedor();
-        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, proveedor);
+        super.registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, foto);
 
-        Imagen img = imagenServicio.guardar(archivo);
-
-        proveedor.setImagen(img);
-        proveedor.setOficio(oficio);
+        //   proveedor.setImagen(img);
+        //  proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
         proveedor.setTarifaPorHora(tarifaPorHora);
-        proveedor.setEstado(true);
+        //  proveedor.setEstado(true);
         proveedor.setRol(Rol.PROVEEDOR);
-        proveedor.setFecha_alta(new Date());
+        //  proveedor.setFecha_alta(new Date());
 
         proveedorRepositorio.save(proveedor);
 

@@ -126,8 +126,8 @@ public class proveedorControlador {
         }
     }
 
-    
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
+    //ELIMINÉ ROLES AUTORIZADOS PORQUE ESTA LISTA DEBE MOSTRARSE A TODOS, INCLUSO A LOS VISITANTES, YA QUE CUALQUIERA PUEDE USAR LOS FILTROS DE BUSQUEDA
+
     @GetMapping("/lista") //MUESTRA SOLO LOS PROVEEDORES ACTIVOS (ESTADO: TRUE) ->SIRVE PARA LISTAR LOS OFICIOS PARA LOS USUARIOS
 
     public String listar(ModelMap modelo, @ModelAttribute("exi") String ex) {
@@ -141,8 +141,8 @@ public class proveedorControlador {
         return "listarProveedores.html";
     }
 
-
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROVEEDOR','ROLE_ADMIN')")
+    //ESTA LISTA ES SOLO PARA EL ADMIN, YA QUE MUESTRA TODOS LOS PROVEEDORES, INCLUSO LOS DADOS DE BAJA
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/listaTodos") //MUESTRA TODOS LOS OFICIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
 
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {

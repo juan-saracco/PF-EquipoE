@@ -4,9 +4,10 @@ import com.proyectoFinal.demo.entidades.Imagen;
 import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.ImagenRepositorio;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,21 +34,27 @@ public class ImagenServicio {
 
     @Transactional
     public Imagen guardar(MultipartFile archivo) throws MiException {
-        // if (archivo != null) {
+
+        Imagen foto = new Imagen();
         try {
-            Imagen foto = new Imagen();
+            if (archivo.isEmpty() || archivo == null) {
+                byte[] bytes = Files.readAllBytes(Paths.get("src/main/resources/static/imagenes/user2.jpg"));
+                foto.setMime("image/jpeg");
+                foto.setNombre("user2.jpg");
+                foto.setContenido(bytes);
 
-            foto.setMime(archivo.getContentType());
-            foto.setNombre(archivo.getName());
-            foto.setContenido(archivo.getBytes());
+            } else {
+                foto.setMime(archivo.getContentType());
+                foto.setNombre(archivo.getOriginalFilename());
+                foto.setContenido(archivo.getBytes());
+            }
 
-            return imagenRepositorio.save(foto);
+            foto = imagenRepositorio.save(foto);
 
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        //  }
-        return null;
+        return foto;
     }
 
     public Imagen actualizar(MultipartFile archivo, String idImagen) throws MiException {

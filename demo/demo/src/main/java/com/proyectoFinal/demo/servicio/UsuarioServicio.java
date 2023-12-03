@@ -5,16 +5,13 @@ import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.enumeraciones.Rol;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -40,17 +37,21 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void registrarUsuario(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo)
             throws MiException {
-        Usuario usuario = new Usuario();
-        registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo, usuario);
+
+        Imagen foto = imagenServicio.guardar(archivo);
+        Usuario usuario = registrar(nombre, apellido, email, password, password2, DNI, telefono, direccion, foto);
+
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public Usuario registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile archivo, Usuario usuario)
+    public Usuario registrar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, Imagen foto)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, DNI, telefono, direccion);
         validarexistencia(DNI, email);
+
+        Usuario usuario = new Usuario();
 
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
@@ -62,9 +63,6 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USER);
         usuario.setEstado(true);
         usuario.setFecha_alta(new Date());
-
-        Imagen foto = imagenServicio.guardar(archivo);
-
         usuario.setImagen(foto);
 
         return usuario;
@@ -157,6 +155,12 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiException("Usuario no encontrado por Id" + id);
         }
 
+    }
+
+    public List<Usuario> listarTodosUsuarios() {
+        List<Usuario> usuarios = new ArrayList();
+        usuarios = (usuarioRepositorio.listarTodosUsuarios());
+        return usuarios;
     }
 
     private void validar(String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion) throws MiException {
