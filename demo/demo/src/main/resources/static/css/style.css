@@ -774,3 +774,18 @@ a:focus {
 
 
 /*# sourceMappingURL=style.css.map */
+
+
+/*
+    NAHUEL
+*/
+.imagen-container {
+  width: 100%; 
+  height: auto; 
+}
+
+.imagen-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

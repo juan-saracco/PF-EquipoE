@@ -24,8 +24,7 @@
                 <div class="row">
                     <div class="col-md-6 mx-auto">
 
-                        <form th:action="@{/proveedor/perfil/__${proveedor.id}__}" method="POST"
-                            enctype="multipart/form-data">
+                        <form th:action="@{/proveedor/perfil/__${proveedor.id}__}" method="POST" enctype="multipart/form-data">
 
                             <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
                                 <p th:text="${Exito}"></p>
@@ -33,7 +32,7 @@
                             <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
                                 <p th:text="${Error}"></p>
                             </div>
-                            <div>
+                            <div class="imagen-container">
                                 <img th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="No se puede mostrar la imagen"
                                     class="profile">
                             </div>
@@ -71,7 +70,7 @@
                                 <select name="denominacion">
                                     <!-- <option value="">Seleccione un oficio</option> -->
                                     <option th:each="oficio: ${oficios}" th:value="${oficio.denominacion}"
-                                    th:text="${oficio.denominacion}"></option>
+                                        th:text="${oficio.denominacion}"></option>
                                 </select>
                             </div>
                             <div>
