@@ -11,4 +11,7 @@ public interface FeedbackRepositorio extends JpaRepository <FeedBack, String>{
 
     @Query("SELECT f FROM FeedBack f WHERE f.estado IS TRUE")
     public List<FeedBack> listarFeedbacksActivos();
+
+    @Query("SELECT f FROM FeedBack f")
+    public List<FeedBack> listarFeedbacks();
 }

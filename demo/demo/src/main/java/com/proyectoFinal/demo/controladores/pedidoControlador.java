@@ -6,6 +6,7 @@ import com.proyectoFinal.demo.entidades.Oficio;
 import com.proyectoFinal.demo.entidades.Pedido;
 import com.proyectoFinal.demo.entidades.Proveedor;
 import com.proyectoFinal.demo.entidades.Usuario;
+import com.proyectoFinal.demo.servicio.FeedBackServicio;
 import com.proyectoFinal.demo.servicio.PedidoServicio;
 import com.proyectoFinal.demo.servicio.ProveedorServicio;
 
@@ -33,17 +34,22 @@ public class pedidoControlador {
     @Autowired
     ProveedorServicio proveedorServicio;
 
+    @Autowired
+    FeedBackServicio feedBackservicio;
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/listaTodos")
     //MUESTRA TODOS LOS PEDIDOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS PEDIDOS AL ADMINISTRADOR
     public String listarPedidosAdmin(ModelMap modelo, @ModelAttribute("exi") String ex) {
+
         List<Pedido> pedidos = pedidoServicio.listarPedidos();
         modelo.addAttribute("pedidos", pedidos);
 
         if (ex != null) {
             modelo.put("exi", ex);
         }
-        return "listaPedidos.html";
+        return "listaPedidosAdmin.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER')")//Esto no estaba en MARESCA
@@ -77,7 +83,7 @@ public class pedidoControlador {
 
             return "listaPedidos.html";
         }
-        return "listaPedidos.html";
+        return "redirect:/pedido/listarpedidosUsuario";
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -85,7 +91,7 @@ public class pedidoControlador {
     public String listarPedidosUsuario(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-     //   modelo.put("usuario", usuario);
+         modelo.put("usuario", usuario);
 
         List<Pedido> pedidosUsuario = pedidoServicio.listarPedidosUsuario(usuario.getId());
         modelo.put("pedidos", pedidosUsuario);
@@ -98,7 +104,7 @@ public class pedidoControlador {
     public String listarPedidosProveedor(ModelMap modelo, HttpSession session) {
 
         Proveedor proveedor = (Proveedor) session.getAttribute("usuariosession");
-     //   modelo.put("proveedor", proveedor);
+        modelo.put("proveedor", proveedor);
 
         List<Pedido> pedidosProveedor = pedidoServicio.listarPedidosProveedor(proveedor.getId());
         modelo.put("pedidos", pedidosProveedor);
@@ -106,21 +112,47 @@ public class pedidoControlador {
         return "listaPedidosProveedor.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/desactReactPedido/{id}")
     public String estadoPedido(@PathVariable String id) throws MiException {
         pedidoServicio.cambiarestado(id);
 
-        return "redirect:/pedido/listarpedidos";
+    return "redirect:/pedido/listarpedidosUsuario";
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @GetMapping("/aceptadoRechazadoPedido/{id}")
-    public String aceptarPedido(@PathVariable String id) throws MiException {
-        pedidoServicio.cambiaraceptado(id);
+    public String finalizarPedido(@PathVariable String id) throws MiException {
+        pedidoServicio.cambiarFinalizado(id);
 
-        return "redirect:/pedido/listarpedidos";
+        return "redirect:/pedido/listarpedidosProveedor";
     }
 
-}  
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/feedback/{id}")
+    public String calificarPedido(@PathVariable String id, ModelMap modelo) {
+
+        Pedido pedido = pedidoServicio.buscarPedidoporID(id);
+        modelo.addAttribute("pedido", pedido);
+
+        return "feedbackForm.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/feedback/creado")
+    public String pedidoCalificado(String id, Integer calificacion, String comentario, RedirectAttributes redirectAttributes) throws MiException {
+
+        try {
+            feedBackservicio.crearFeedBack(id, calificacion, comentario);
+            redirectAttributes.addFlashAttribute("Exito", "Se califico el pedido correctamente");
+            return "redirect:../listarpedidosUsuario";
+        }catch (MiException e) {
+            redirectAttributes.addFlashAttribute("Error", "Error: No se pudo calificar el pedido.");
+            redirectAttributes.addFlashAttribute("calificacion", calificacion);
+            redirectAttributes.addFlashAttribute("comentario", comentario);
+
+            return "feedbackForm.html";
+        }
+    }
+}

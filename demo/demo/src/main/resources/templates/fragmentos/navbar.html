@@ -34,13 +34,15 @@
                     <ul class="dropdown-menu" aria-labelledby="adminDropdown" sec:authorize="hasRole('ADMIN')">
                         <li><a class="dropdown-item" th:href="@{/admin/dashboard}">Panel Administración</a></li>
                         <hr class="dropdown-divider">
-                        <li><a class="dropdown-item" th:href="@{/oficios/listaTodos}">Gestión de Oficios</a></li>
+                        <li><a class="dropdown-item" th:href="@{/usuario/listaTodos}">Gestion de Usuarios</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" th:href="@{/proveedor/listaTodos}">Gestión de Proveedores</a></li>
                         <hr class="dropdown-divider">
+                        <li><a class="dropdown-item" th:href="@{/oficios/listaTodos}">Gestión de Oficios</a></li>
+                        <hr class="dropdown-divider">
                         <li><a class="dropdown-item" th:href="@{/pedido/listaTodos}">Gestión de Pedidos</a></li>
                         <hr class="dropdown-divider">
-                        <li><a class="dropdown-item" th:href="@{/admin/feedback}">Gestión de Comentarios</a></li>
+                        <li><a class="dropdown-item" th:href="@{/feedback/listaTodos}">Gestión de Comentarios</a></li>
                     </ul>
                 </li>
 

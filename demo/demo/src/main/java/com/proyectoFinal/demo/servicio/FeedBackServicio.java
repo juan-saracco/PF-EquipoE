@@ -5,11 +5,13 @@ import com.proyectoFinal.demo.entidades.FeedBack;
 import com.proyectoFinal.demo.entidades.Pedido;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.FeedbackRepositorio;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,27 +19,36 @@ import org.springframework.stereotype.Service;
 public class FeedBackServicio {
 
     @Autowired
-    private FeedbackRepositorio feedbackRepositorio;
+    FeedbackRepositorio feedbackRepositorio;
+
+    @Autowired
+    PedidoServicio pedidoservicio;
 
     @Transactional
-    public void crearFeedBack(Integer calificacion, String comentario) throws MiException {
+    public void crearFeedBack(String idPedido, Integer calificacion, String comentario) throws MiException {
 
         validar(calificacion, comentario);
 
         FeedBack feedBack = new FeedBack();
 
+        Pedido pedido = pedidoservicio.buscarPedidoporID(idPedido);
+
+        feedBack.setPedido(pedido);
         feedBack.setCalificacion(calificacion);
         feedBack.setComentario(comentario);
         feedBack.setAlta(new Date());
-        feedBack.setEstado(Boolean.TRUE);
+        feedBack.setEstado(true);
 
         feedbackRepositorio.save(feedBack);
     }
 
-    public List<FeedBack> listarFeedBacks(){
-        List<FeedBack> feedBacks = new ArrayList();
+    public List<FeedBack> listarFeedBacks() {
+        List<FeedBack> feedback = feedbackRepositorio.findAll();
+        return feedback;
+    }
 
-        feedBacks = feedbackRepositorio.listarFeedbacksActivos();
+    public List<FeedBack> listarFeedBacksActivos() {
+        List<FeedBack> feedBacks = feedbackRepositorio.listarFeedbacksActivos();
 
         return feedBacks;
     }
@@ -59,7 +70,7 @@ public class FeedBackServicio {
         }
     }
 
-    public void moderarFeedBack(String id, Integer calificacion, String comentario) throws MiException{
+    public void moderarFeedBack(String id, Integer calificacion, String comentario) throws MiException {
 
         validar(calificacion, comentario);
 
@@ -75,20 +86,17 @@ public class FeedBackServicio {
         }
     }
 
-    public void eliminarFeedBack(String id){
+    @Transactional
+    public void restringirFeedBack(String id)throws MiException  {
 
         Optional<FeedBack> rta = feedbackRepositorio.findById(id);
 
-        if(rta.isPresent()){
+        if (rta.isPresent()) {
             FeedBack feedBack = rta.get();
-
-            if(feedBack.getEstado().equals(Boolean.TRUE)){
-                feedBack.setEstado(Boolean.FALSE);
-            }else if(feedBack.getEstado().equals(Boolean.FALSE)){
-                feedBack.setEstado(Boolean.TRUE);
-            }
-
-            feedbackRepositorio.delete(feedBack);
+            feedBack.setEstado(!feedBack.getEstado());
+        }
+        if (!rta.isPresent()) {
+            throw new MiException("Feedback no encontrado por Id" + id);
         }
     }
 

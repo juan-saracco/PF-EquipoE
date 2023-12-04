@@ -12,16 +12,13 @@ public class FeedBack {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2" )
     private String id;
-
     private Integer calificacion;
-
     private String comentario;
-
     @Temporal(TemporalType.DATE)
     private Date alta;
-
     private Boolean estado;
-
+    @OneToOne
+    private Pedido pedido;
     public FeedBack() {
     }
 
@@ -64,5 +61,12 @@ public class FeedBack {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 }

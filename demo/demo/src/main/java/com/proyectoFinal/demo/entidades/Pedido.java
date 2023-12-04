@@ -21,9 +21,6 @@ public class Pedido {
     private Boolean estadoPedido;
     private Boolean finalizado;
     private Double cotizacion;
-    @OneToOne
-    private FeedBack feedBack;
-
     @Temporal(TemporalType.DATE)
     private Date alta;
     @Temporal(TemporalType.DATE)
@@ -86,14 +83,6 @@ public class Pedido {
 
     public void setCotizacion(Double cotizacion) {
         this.cotizacion = cotizacion;
-    }
-
-    public FeedBack getFeedBack() {
-        return feedBack;
-    }
-
-    public void setFeedBack(FeedBack feedBack) {
-        this.feedBack = feedBack;
     }
 
     public Date getAlta() {

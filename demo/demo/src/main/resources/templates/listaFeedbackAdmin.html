@@ -13,7 +13,6 @@
     </div>
     <div class="bg">
         <div class="container m-5">
-
             <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
                 <div class="card-body">
                     <h5 class="card-title">Error</h5>
@@ -26,58 +25,52 @@
                     <p class="card-text" th:text="${Exito}"></p>
                 </div>
             </div>
-
             <table class="table table-hover">
                 <div class="form-group my-3">
-                    <h3 class="card-title">Listado de Pedidos</h3>
+                    <h3 class="card-title">Listado de Feedbacks</h3>
                 </div>
 
                 <thead>
                     <tr>
+                        <th scope="col">Usuario</th>
                         <th scope="col">Proveedor</th>
                         <th scope="col">Solicitud</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Cambiar Estado</th>
+                        <!-- <th scope="col">Cotización</th> -->
+                        <th scope="col">Estado Proveedor</th>
                         <th scope="col">Finalizado</th>
-                        <th scope="col">Modificar</th>
-                        <th scope="col">FeedBack</th>
+                        <th scope="col">Alta</th>
+                        <th scope="col">Fecha de modificacion</th>
+                        <th scope="col">Puntaje</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Anular comentario</th>
                     </tr>
                 </thead>
-                <tbody th:each="pedidoUsuario : ${pedidos}">
+                <tbody th:each="feedback : ${feedbacks}">
                     <tr>
-                        <th sec:authorize="hasRole('USER')"
-                            th:text="${pedidoUsuario.proveedor.nombre + ' ' + pedidoUsuario.proveedor.apellido}">
+                        <th th:text="${feedback.pedido.usuario.nombre+' '+feedback.pedido.usuario.apellido}">
                             </td>
-                        <td th:text="${pedidoUsuario.solicitud}"></td>
-                        <td>
-                            <span th:if="${pedidoUsuario.estadoPedido}">Aceptado</span>
-                            <span th:if="${!pedidoUsuario.estadoPedido}">Rechazado</span>
+                        <th th:text="${feedback.pedido.proveedor.nombre+' '+feedback.pedido.proveedor.apellido}">
+                            </td>
+                        <td th:text="${feedback.pedido.solicitud}"></td>
+                        <!-- <td th:text="${feedback.pedido.cotización}"></td> -->
+                        <td th:if="${feedback.pedido.estadoPedido}">Aceptado</td>
+                        <td th:if="${!feedback.pedido.estadoPedido}">Rechazado</td>
+                        <td th:if="${feedback.pedido.finalizado}">Finalizado</td>
+                        <td th:if="${!feedback.pedido.finalizado}">En curso</td>
+                        <td th:text="${feedback.pedido.alta}"></td>
+                        <td th:text="${feedback.pedido.fechamodificacion}"></td>
+                        <td th:text="${feedback.calificacion}"></td>
+                        <td th:if="${feedback.estado}">
+                            <a th:text="${feedback.comentario}"></a>
                         </td>
-                        <td>
-                            <a sec:authorize="hasRole('USER')"
-                                th:href="@{/pedido/desactReactPedido/__${pedidoUsuario.id}__}">Modificar</a>
+                        <td th:if="${!feedback.estado}">
+                            <a>Restringido</a>
                         </td>
-                        <td>
-                            <span th:if="${pedidoUsuario.finalizado}">Finalizado</span>
-                            <span th:if="${!pedidoUsuario.finalizado}">En curso</span>
+                        <td th:if="${!feedback.estado}">
+                            <a th:href="@{/feedback/restringirfeedback/__${feedback.id}__}">Mostrar</a>
                         </td>
-
-                        <td>
-                            <!--<a sec:authorize="hasRole('USER')"
-                                th:href="@{/pedidos/modificarPedidos/__${pedidoUsuario.id}__}">Editar</a>-->
-                            <a sec:authorize="hasRole('USER')" th:href="@{/enConstruccion}">Editar</a>
-                        </td>
-
-                        <td>
-                            <a sec:authorize="hasRole('USER')" th:href="@{/pedido/feedback/__${pedidoUsuario.id}__}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                                    <g>
-                                        <path fill="none" d="M0 0h24v24H0z" />
-                                        <path
-                                            d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z" />
-                                    </g>
-                                </svg>
-                            </a>
+                        <td th:if="${feedback.estado}">
+                            <a th:href="@{/feedback/restringirfeedback/__${feedback.id}__}">Restringir</a>
                         </td>
                     </tr>
                 </tbody>

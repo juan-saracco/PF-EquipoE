@@ -42,28 +42,14 @@ public class PedidoServicio {
         pedidoRepositorio.save(pedido);
 
     }
-    
-   /* public void responderPedido(String id, String idConsumidor, String idProveedor, String solicitud,Double cotizacion) throws MiException{
 
-        validarRespuesta(idConsumidor, idProveedor, solicitud, cotizacion);
-
-        Pedido pedido = new Pedido();
-
-        pedido.setAlta(new Date());
-        pedido.setConsumidor(usuarioRepositorio.findById(idConsumidor).get());
-        pedido.setProveedor(proveedorRepositorio.findById(idProveedor).get());
-        pedido.setCotizacion(cotizacion);
-        pedido.setSolicitud(solicitud);
-        pedido.setFinalizado(Boolean.FALSE);
-        pedido.setEstadoPedido(true);
-
-        pedidoRepositorio.save(pedido);
-    }*/
-
+    public  Pedido buscarPedidoporID(String id){
+        Pedido pedido = pedidoRepositorio.buscarPorId(id);
+        return pedido;
+    }
     public List<Pedido> listarPedidos(){
-        List<Pedido> pedidos = new ArrayList();
 
-        pedidos = pedidoRepositorio.findAll();
+        List<Pedido> pedidos = pedidoRepositorio.findAll();
         return pedidos;
     }
 
@@ -113,7 +99,7 @@ public class PedidoServicio {
     }
 
     @Transactional
-    public void cambiaraceptado(String id) throws MiException {
+    public void cambiarFinalizado(String id) throws MiException {
 
         Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
 
@@ -139,26 +125,6 @@ public class PedidoServicio {
             throw new MiException ("la solicitud no puede ser nula o estar vacia");
         }
     }
-    
 
-    
-    public Pedido getReferenceById(String id){
-        return pedidoRepositorio.getReferenceById(id);
-    }
-    
-    /*private void validarRespuesta(String idConsumidor, String idProveedor, String solicitud, Double cotizacion) throws MiException {
-        if(idConsumidor.isEmpty() || idConsumidor == null){
-            throw new MiException ("la solicitud no puede ser nula o estar vacia");
-        }
-        if(idProveedor.isEmpty() || idProveedor == null){
-            throw new MiException ("la solicitud no puede ser nula o estar vacia");
-        }
-        if(solicitud.isEmpty() || solicitud == null){
-            throw new MiException ("la solicitud no puede ser nula o estar vacia");
-        }
-        if(cotizacion.equals(0) || cotizacion == null){
-            throw new MiException ("la solicitud no puede ser nula o estar vacia");
-        }
-    }*/
     }
 

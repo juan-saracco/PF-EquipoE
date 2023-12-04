@@ -34,54 +34,32 @@
 
                 <thead>
                     <tr>
+                        <th scope="col">Usuario</th>
                         <th scope="col">Proveedor</th>
                         <th scope="col">Solicitud</th>
+                        <!-- <th scope="col">Cotización</th> -->
                         <th scope="col">Estado</th>
-                        <th scope="col">Cambiar Estado</th>
                         <th scope="col">Finalizado</th>
-                        <th scope="col">Modificar</th>
-                        <th scope="col">FeedBack</th>
+                        <th scope="col">Alta</th>
+                        <th scope="col">Fecha de modificacion</th>
+                    
                     </tr>
                 </thead>
-                <tbody th:each="pedidoUsuario : ${pedidos}">
+                <tbody th:each="pedido : ${pedidos}">
                     <tr>
-                        <th sec:authorize="hasRole('USER')"
-                            th:text="${pedidoUsuario.proveedor.nombre + ' ' + pedidoUsuario.proveedor.apellido}">
-                            </td>
-                        <td th:text="${pedidoUsuario.solicitud}"></td>
-                        <td>
-                            <span th:if="${pedidoUsuario.estadoPedido}">Aceptado</span>
-                            <span th:if="${!pedidoUsuario.estadoPedido}">Rechazado</span>
-                        </td>
-                        <td>
-                            <a sec:authorize="hasRole('USER')"
-                                th:href="@{/pedido/desactReactPedido/__${pedidoUsuario.id}__}">Modificar</a>
-                        </td>
-                        <td>
-                            <span th:if="${pedidoUsuario.finalizado}">Finalizado</span>
-                            <span th:if="${!pedidoUsuario.finalizado}">En curso</span>
-                        </td>
+                        <th th:text="${pedido.usuario.nombre+' '+pedido.usuario.apellido}"></td>
+                        <th th:text="${pedido.proveedor.nombre+' '+pedido.proveedor.apellido}"></td>
+                        <td th:text="${pedido.solicitud}"></td>
+                       <!-- <td th:text="${pedido.cotización}"></td> -->
+                        <td th:text="${pedido.estadoPedido}"></td>
+                        <td th:text="${pedido.finalizado}"></td>
+                        <td th:text="${pedido.alta}"></td>    
+                        <td th:text="${pedido.fechamodificacion}"></td> 
+                        
 
-                        <td>
-                            <!--<a sec:authorize="hasRole('USER')"
-                                th:href="@{/pedidos/modificarPedidos/__${pedidoUsuario.id}__}">Editar</a>-->
-                            <a sec:authorize="hasRole('USER')" th:href="@{/enConstruccion}">Editar</a>
-                        </td>
-
-                        <td>
-                            <a sec:authorize="hasRole('USER')" th:href="@{/pedido/feedback/__${pedidoUsuario.id}__}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                                    <g>
-                                        <path fill="none" d="M0 0h24v24H0z" />
-                                        <path
-                                            d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z" />
-                                    </g>
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
+
         </div>
         <footer th:replace="/fragmentos/footer :: footer"></footer>
         <!-- footer section -->
