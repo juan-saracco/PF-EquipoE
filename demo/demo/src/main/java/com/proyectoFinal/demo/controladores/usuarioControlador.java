@@ -136,14 +136,7 @@ public class usuarioControlador {
         return "modificarUsuario.html";
     }*/
 
-    //FUNCIONA PERO NO ACTUALIZA
-   /* @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROVEEDOR')")
-    @GetMapping("/perfil")
-    public String mostrarperfil(ModelMap modelo2, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo2.addAttribute("usuario", usuario);
-        return "modificarUsuario.html";
-    }*/
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/perfil")
     public String mostrarperfil(ModelMap modelo2, HttpSession session) throws MiException {

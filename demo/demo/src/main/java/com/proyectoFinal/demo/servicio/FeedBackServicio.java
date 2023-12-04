@@ -53,6 +53,13 @@ public class FeedBackServicio {
         return feedBacks;
     }
 
+    public  FeedBack buscarFeedbackPorIdPedido(String id){
+
+        FeedBack feedback = feedbackRepositorio.buscarFeedbackPorId(id);
+
+        return feedback;
+    }
+
     @Transactional
     public void editarFeedBack(String id, Integer calificacion, String comentario) throws MiException {
 
@@ -110,5 +117,7 @@ public class FeedBackServicio {
             throw new MiException("el comentario no puede ser nulo o estar vacio");
         }
     }
+
+
 
 }

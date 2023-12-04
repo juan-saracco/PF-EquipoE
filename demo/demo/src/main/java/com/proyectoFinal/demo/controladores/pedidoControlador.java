@@ -52,7 +52,7 @@ public class pedidoControlador {
         return "listaPedidosAdmin.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")//Esto no estaba en MARESCA
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping("/crear/{idProveedor}")
     public String crearPedido(@PathVariable String idProveedor, ModelMap modelo, HttpSession session) throws MiException {
 
@@ -81,10 +81,40 @@ public class pedidoControlador {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
             redirectAttributes.addFlashAttribute("solicitud", "La solicitud no puede estar vacia");
 
-            return "listaPedidos.html";
+            return "listapedidosUsuario.html";
         }
         return "redirect:/pedido/listarpedidosUsuario";
     }
+
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/modificar/{id}")
+    public String modificarPedido(@PathVariable String id,String solicitud, ModelMap modelo) {
+
+        Pedido pedido = pedidoServicio.buscarPedidoporID(id);
+        modelo.addAttribute("pedido", pedido);
+
+        return "Modificarpedido_form.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/modificado")
+    public String modificado(String id, String solicitud,ModelMap modelo, RedirectAttributes redirectAttributes ){
+
+        try {
+
+            pedidoServicio.modificarPedido(id, solicitud);
+            redirectAttributes.addFlashAttribute("Exito", "Pedido editada correctamente");
+
+        } catch (MiException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("solicitud", "La solicitud no puede estar vacia");
+
+            return "Modificarpedido_form.html";
+        }
+        return "redirect:/pedido/listarpedidosUsuario";
+    }
+
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/listarpedidosUsuario")
@@ -113,7 +143,7 @@ public class pedidoControlador {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/desactReactPedido/{id}")
+    @GetMapping("/aceptadoRechazadoPedido/{id}")
     public String estadoPedido(@PathVariable String id) throws MiException {
         pedidoServicio.cambiarestado(id);
 
@@ -122,14 +152,14 @@ public class pedidoControlador {
 
 
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
-    @GetMapping("/aceptadoRechazadoPedido/{id}")
+    @GetMapping("/finalizarPedido/{id}")
     public String finalizarPedido(@PathVariable String id) throws MiException {
         pedidoServicio.cambiarFinalizado(id);
 
         return "redirect:/pedido/listarpedidosProveedor";
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+/*    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/feedback/{id}")
     public String calificarPedido(@PathVariable String id, ModelMap modelo) {
 
@@ -137,9 +167,9 @@ public class pedidoControlador {
         modelo.addAttribute("pedido", pedido);
 
         return "feedbackForm.html";
-    }
+    }*/
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    /*@PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/feedback/creado")
     public String pedidoCalificado(String id, Integer calificacion, String comentario, RedirectAttributes redirectAttributes) throws MiException {
 
@@ -154,5 +184,5 @@ public class pedidoControlador {
 
             return "feedbackForm.html";
         }
-    }
+    }*/
 }

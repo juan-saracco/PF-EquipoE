@@ -37,11 +37,12 @@ public class PedidoServicio {
         pedido.setProveedor(proveedorRepositorio.buscarPorId(idProveedor));
         pedido.setSolicitud(solicitud);
         pedido.setEstadoPedido(true);
-        pedido.setFinalizado(false);
+        //pedido.setFinalizado(false);
 
         pedidoRepositorio.save(pedido);
-
     }
+
+
 
     public  Pedido buscarPedidoporID(String id){
         Pedido pedido = pedidoRepositorio.buscarPorId(id);
@@ -64,9 +65,7 @@ public class PedidoServicio {
     }
 
     @Transactional
-    public void modificarPedido(String id, String idConsumidor, String idProveedor, String solicitud) throws MiException {
-
-        validar(idConsumidor, idProveedor, solicitud);
+    public void modificarPedido(String id, String solicitud) throws MiException {
 
         Optional<Pedido> respuesta = pedidoRepositorio.findById(id);
 
@@ -74,8 +73,6 @@ public class PedidoServicio {
 
             Pedido pedido = respuesta.get();
 
-            pedido.setUsuario(usuarioRepositorio.buscarPorId(idConsumidor));
-            pedido.setProveedor(proveedorRepositorio.buscarPorId(idProveedor));
             pedido.setSolicitud(solicitud);
             pedido.setFechamodificacion(new Date());
 

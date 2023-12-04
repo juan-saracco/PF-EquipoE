@@ -24,7 +24,7 @@
                 <div class="container layout_padding2-top">
                     <div class="row">
                         <div class="col-md-6 mx-auto">
-                            <form th:action="@{/pedido/feedback/creado}" method="POST">
+                            <form th:action="@{/feedback/creado}" method="POST">
                                 
                                 <div th:if="${Exito != null}" class="alert alert-success" role="alert">
                                     <p th:text="${Exito}"></p>
@@ -41,7 +41,7 @@
                                     <input type="number" placeholder="CALIFICACION" name="calificacion" min="1" max="5" th:value="${calificacion}"  >
                                 </div>
                                 <div>
-                                    <textarea placeholder="COMENTARIOS" name="comentario" th:value="${comentario}" maxlength="280" style="width: 100%; height: 100px;"></textarea>
+                                    <textarea placeholder="COMENTARIOS" name="comentario" maxlength="280" style="width: 100%; height: 100px;"></textarea>
                                 </div>                               
 
                                 <div class="d-flex justify-content-center ">

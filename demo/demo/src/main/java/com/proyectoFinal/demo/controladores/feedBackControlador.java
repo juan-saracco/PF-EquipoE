@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,6 +26,42 @@ public class feedBackControlador {
     FeedBackServicio feedBackservicio;
 
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/{id}")
+    public String calificarPedido(@PathVariable String id, ModelMap modelo) {
+
+        Pedido pedido = pedidoServicio.buscarPedidoporID(id);
+        modelo.addAttribute("pedido", pedido);
+
+        return "feedbackForm.html";
+    }
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
+    @GetMapping("/mostrarcalificacion/{id}")
+    public String mostrarcalificacion(@PathVariable String id, ModelMap modelo) {
+
+       FeedBack feedback = feedBackservicio.buscarFeedbackPorIdPedido(id);
+        modelo.addAttribute("feedback", feedback);
+
+        return "verfeedbackForm.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/creado")
+    public String pedidoCalificado(String id, Integer calificacion, String comentario, RedirectAttributes redirectAttributes) throws MiException {
+
+        try {
+            feedBackservicio.crearFeedBack(id, calificacion, comentario);
+            redirectAttributes.addFlashAttribute("Exito", "Se califico el pedido correctamente");
+            return "redirect:/pedido/listarpedidosUsuario";
+        } catch (MiException e) {
+            redirectAttributes.addFlashAttribute("Error", "Error: No se pudo calificar el pedido.");
+            redirectAttributes.addFlashAttribute("calificacion", calificacion);
+            redirectAttributes.addFlashAttribute("comentario", comentario);
+
+            return "feedbackForm.html";
+        }
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/listaTodos")
     public String listarFeedbackssAdmin(ModelMap modelo, @ModelAttribute("exi") String ex) {
@@ -40,13 +74,24 @@ public class feedBackControlador {
         }
         return "listaFeedbackAdmin.html";
     }
-@PreAuthorize("hasRole('ROLE_ADMIN')")
-@GetMapping("/restringirfeedback/{id}")
-public String restringirfeedback(@PathVariable String id) throws MiException {
-    feedBackservicio.restringirFeedBack(id);
 
-    return "redirect:/feedback/listaTodos";
-}
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/restringirfeedback/{id}")
+    public String restringirfeedback(@PathVariable String id) throws MiException {
+        feedBackservicio.restringirFeedBack(id);
+
+        return "redirect:/feedback/listaTodos";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/verifFeedback/{id}")
+    public String verifFeedback(@PathVariable String id, ModelMap modelo) {
+
+        feedBackservicio.buscarFeedbackPorIdPedido(id);
+
+        return "feedbackForm.html";
+
+    }
 }
 /*
 

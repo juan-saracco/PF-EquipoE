@@ -53,10 +53,14 @@
                             </td>
                         <td th:text="${feedback.pedido.solicitud}"></td>
                         <!-- <td th:text="${feedback.pedido.cotización}"></td> -->
-                        <td th:if="${feedback.pedido.estadoPedido}">Aceptado</td>
-                        <td th:if="${!feedback.pedido.estadoPedido}">Rechazado</td>
-                        <td th:if="${feedback.pedido.finalizado}">Finalizado</td>
-                        <td th:if="${!feedback.pedido.finalizado}">En curso</td>
+                        <td>
+                            <span th:if="${feedback.pedido.estadoPedido}">Aceptado</span>
+                            <span th:if="${!feedback.pedido.estadoPedido}">Rechazado</span>
+                        </td>
+                        <td>
+                            <span th:if="${feedback.pedido.finalizado}">Finalizado</span>
+                            <span th:if="${!feedback.pedido.finalizado}">En curso</span>
+                        </td>
                         <td th:text="${feedback.pedido.alta}"></td>
                         <td th:text="${feedback.pedido.fechamodificacion}"></td>
                         <td th:text="${feedback.calificacion}"></td>

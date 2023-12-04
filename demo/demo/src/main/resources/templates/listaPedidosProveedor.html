@@ -36,57 +36,42 @@
                     <tr>
                         <th scope="col">Usuario</th>
                         <th scope="col">Solicitud</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Finalizado</th>
-                        <th scope="col">Modificar</th>
-                        <th scope="col">Activar/Desactivar</th>
+                        <th scope="col">Estado Usuario</th>
+                        <th scope="col">Estado Proveedor</th>
+                        <th scope="col">Aceptar/Rechazar</th>
+                        <th scope="col">FeedBack</th>
                     </tr>
                 </thead>
                 <tbody th:each="pedidoProveedor : ${pedidos}">
                     <tr>
-                        <th th:text="${pedidoProveedor.proveedor.nombre+''+pedidoProveedor.proveedor.apellido}">
+                        <th th:text="${pedidoProveedor.usuario.nombre+' '+pedidoProveedor.usuario.apellido}">
                             </td>
                         <td th:text="${pedidoProveedor.solicitud}"></td>
-                        <td th:text="${pedidoProveedor.estadoPedido}"></td>
-                        <td th:text="${pedidoProveedor.finalizado}"></td>
+                        <td>
+                           <span th:if="${pedidoProveedor.estadoPedido}">Aceptado</span>
+                            <span th:if="${!pedidoProveedor.estadoPedido}">Rechazado</span>
+                        </td>
+                        <td>
+                            <span th:if="${pedidoProveedor.finalizado}">Finalizado</span>
+                            <span th:if="${!pedidoProveedor.finalizado}">En curso</span>
+                        </td>
                         <td><a sec:authorize="hasRole('PROVEEDOR')"
-                                th:href="@{/pedido/desactReactPedido/__${pedidoProveedor.id}__}">Cambiar</a></td>
+                                th:href="@{/pedido/finalizarPedido/__${pedidoProveedor.id}__}">Modificar</a>
+                        </td>
+
+                        
                         <td><a sec:authorize="hasRole('PROVEEDOR')"
-                                th:href="@{/pedido/aceptadoRechazadoPedido/__${pedidoProveedor.id}__}">Cambiar</a></td>
+                               th:href="@{/feedback/mostrarcalificacion/__${pedidoProveedor.id}__}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                    <g>
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path
+                                            d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z" />
+                                    </g>
+                                </svg>
+                            </a>
+                        </td>
                     </tr>
-
-                    <!-- ESPACIO PARA CARGAR COTIZACION      
-                             =======================================
-    <div class="bg">
-        <div class="container m-5">
-            <form th:action="@{/oficios/registroOficio}" method="POST" class="d-flex justify-content-center mt-4">
-
-                <div class="card border-2 w-75 d-flex flex-column align-items-center">
-
-                    <h2 class="text-center">Cargar Cotización</h2>
-
-                    <input type="text" aria-label="Denominacion" placeholder="Denominacion"
-                        class="form-control form-control-lg mt-3 w-75" name="denominacion">
-                    <button type="submit" class="btn btn-success mt-5 mb-3 w-auto">Crear</button>
-                </div>
-            </form>
-            <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
-                <div class="card-body">
-                    <h5 class="card-title">Error</h5>
-                    <p class="card-text" th:text="${Error}"></p>
-                </div>
-            </div>
-            <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${Exito}"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-                        
-                        
-                        -->
                 </tbody>
             </table>
 
