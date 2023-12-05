@@ -37,7 +37,7 @@ public class PedidoServicio {
         pedido.setProveedor(proveedorRepositorio.buscarPorId(idProveedor));
         pedido.setSolicitud(solicitud);
         pedido.setEstadoPedido(true);
-        //pedido.setFinalizado(false);
+        pedido.setFinalizado(false);
 
         pedidoRepositorio.save(pedido);
     }
