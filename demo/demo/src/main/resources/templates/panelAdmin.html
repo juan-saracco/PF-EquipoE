@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:replace="/fragmentos/head:: head"></head>
+
+<body>
+    <div class="hero_area">
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+
+        <div class="bg">
+            <section class="service_section layout_padding">
+                <div class="container">
+                    <div class="custom_heading-container">
+                        <h3 class=" ">
+                            Panel de Administracion
+                        </h3>
+                    </div>
+                    <p class="">
+                    </p>
+                    <div class="service_container ">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="box b-1">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarUsuario.jpeg" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Usuarios
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/usuario/listaTodos}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-2">
+                                    <div class="img-box">
+                                        <img src="/imagenes/electricidad.jpg" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Proveedores
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/proveedor/listaTodos/}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-3">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarOficio.png" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Oficios
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/oficios/listaTodos}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-4">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarpedido.png" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de Pedidos
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/pedido/listaTodos}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="box b-5">
+                                    <div class="img-box">
+                                        <img src="/imagenes/editarFeedback.png" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h6>
+                                            Gestion de FeedBacks
+                                        </h6>
+
+                                        <div class="btn-box">
+                                            <a th:href="@{/feedback/listaTodos}">
+                                                Ingresar
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- end service section -->
+
+            <!-- work section -->
+
+            <!-- end work section -->
+
+            <!-- contact section -->
+
+            <!-- end contact section -->
+
+            <!-- info section -->
+
+            <!-- end info_section -->
+
+            <!-- footer section -->
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+            <!-- footer section -->
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </div>
+    </div>
+</body>
+
+</html>

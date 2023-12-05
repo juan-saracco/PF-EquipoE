@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragmentos/head:: head"></head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+        <!-- end header section -->
+
+        <div class="bg">
+            <section class="contact_section layout_padding">
+
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        CALIFICA AL PROVEEDOR
+                    </h3>
+                </div>
+                <div class="container layout_padding2-top">
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <form th:action="@{/crear-feedBack}" method="POST">
+                                <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                                    <p th:text="${Error}"></p>
+                                </div>
+                               
+                                <div>
+                                    <input type="number" placeholder="CALIFICACION" name="calificacion" min="1" max="5" th:value="${calificacion}"  >
+                                </div>
+                                <div>
+                                    <textarea placeholder="COMENTARIOS" name="feedback" th:value="${feedback}" maxlength="280" style="width: 100%; height: 100px;"></textarea>
+                                </div>                               
+
+                                <div class="d-flex justify-content-center ">
+                                    <button type="submit">
+                                        GUARDAR
+                                    </button>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center ">
+                                    <button type="button">
+                                        ELIMINAR
+                                    </button>
+                                </div>
+                            </form>
+
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+        </div>
+    </div>
+</body>
+
+</html>

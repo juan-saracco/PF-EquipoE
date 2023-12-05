@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragmentos/head:: head"></head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+    <div class="bg">
+        <section class="contact_section layout_padding">
+            <div class="custom_heading-container">
+                <h3 class=" ">
+                    MODIFICA TUS DATOS PERSONALES
+                </h3>
+            </div>
+            <div class="container layout_padding2-top">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <form th:action="@{/usuario/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
+
+                            <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                                <p th:text="${Exito}"></p>
+                            </div>
+                            <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                                <p th:text="${Error}"></p>
+                            </div>
+                            <div >
+                                <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="No se puede mostrar la imagen"
+                                     class="profile" 
+                                     style="object-fit: contain; width: 250px; height: 250px; margin: 0 auto; display: flex; justify-content: center">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="NOMBRES" name="nombre" th:value="${usuario.nombre}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="APELLIDO" name="apellido" th:value="${usuario.apellido}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="DOCUMENTO NACIONAL DE IDENTIDAD" name="DNI"
+                                    th:value="${usuario.DNI}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="TELEFONO" name="telefono" th:value="${usuario.telefono}">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="DIRECCION" name="direccion" th:value="${usuario.direccion}">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="EMAIL" name="email" th:value="${usuario.email}">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="CONTRASEÑA" name="password" th:value="${usuario.password}">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="REPITA LA CONTRASEÑA" name="password2"
+                                    th:value="${usuario.password}">
+                            </div>
+                            <div>
+                                <input type="file" placeholder="INGRESE UNA IMAGEN DE PERFIL" name="archivo">
+                            </div>
+
+                            <div class="d-flex justify-content-center ">
+                                <button type="submit">
+                                    Actualizar 
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- end contact section -->
+
+        <!-- info section -->
+
+        <!-- end info_section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
+        <!-- footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>

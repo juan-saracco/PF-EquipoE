@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragmentos/head:: head"></head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+        <!-- end header section -->
+
+        <div class="bg">
+
+            <section class="contact_section layout_padding">
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        INGRESA TUS DATOS PERSONALES
+                    </h3>
+                </div>
+                <div class="container layout_padding2-top">
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <form th:action="@{/usuario/registro}" method="POST" enctype="multipart/form-data">
+
+                                <div th:if="${Exito!=null}" class=" alert alert-success" role="alert">
+                                    <p th:text="${Exito}"></p>
+                                </div>
+                                <div th:if="${Error != null}" class=" alert alert-danger" role="alert">
+                                    <p th:text="${Error}"></p>
+                                </div>
+
+                                <div>
+                                    <input type="text" placeholder="NOMBRES" name="nombre" th:value="${nombre}">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="APELLIDO" name="apellido" th:value="${apellido}">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="DOCUMENTO NACIONAL DE IDENTIDAD" name="DNI"
+                                        th:value="${DNI}">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="TELEFONO" name="telefono" th:value="${telefono}">
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="DIRECCION" name="direccion" th:value="${direccion}">
+                                </div>
+                                <div>
+                                    <input type="email" placeholder="EMAIL" name="email" th:value="${email}">
+                                </div>
+                                <div>
+                                    <input type="password" placeholder="CONTRASEÑA" name="password"
+                                        th:value="${password}">
+                                </div>
+                                <div>
+                                    <input type="password" placeholder="REPITA LA CONTRASEÑA" name="password2"
+                                        th:value="${password2}">
+                                </div>
+                                
+                                <div>                                    
+                                    <input type="file" placeholder="INGRESE UNA IMAGEN DE PERFIL (formato JPEG/JPG)" accept="image/jpeg" name="archivo" th:value="${archivo}">         
+                                </div>
+                                <div class="d-flex justify-content-center ">
+                                    <button type="submit">
+                                        REGISTRATE
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="/fragmentos/head:: head"></head>
+
+    <body>
+        <div class="hero_area">
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragmentos/navbar :: nav"></nav>
+                </div>
+            </header>
+        </div>
+        <div class="bg">
+            <section class="contact_section layout_padding">               
+                <div class="custom_heading-container">
+                    <h3 class=" ">
+                        Qué desea buscar?
+                    </h3>
+                </div>
+                <div class="container layout_padding2-top">
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div>
+                                <form th:action="@{/buscarPorOficio}" method="POST">
+
+                                    <h4>Búsqueda por oficio</h4>
+                                    <div>
+                                        <select name="denominacion">
+                                            <option value="" >Seleccione un oficio</option> 
+                                            <option th:each="oficio: ${oficios}" 
+                                                    th:value="${oficio.denominacion}"
+                                                    th:text="${oficio.denominacion}"></option>
+                                        </select>
+                                    </div> 
+
+                                    <h4> Ordenar los resultados</h4>
+                                    <div>
+                                        <input type="radio" id="nombre" name="filtro" value="nombre" checked><label for="nombre">Por nombre del proveedor</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="tarifa" name="filtro" value="tarifa"><label for="tarifa">Por tarifa/hora</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center ">
+                                        <button type="submit">BUSCAR</button>                                        
+                                    </div>
+                                </form>
+                                
+                                <div>
+                                    <form th:action="@{/buscarPorProveedor}"  method="POST" >
+                                        <h4>Búsqueda por proveedor</h4>
+                                        <div>
+                                            <input type="text" placeholder="Ingrese el nombre" name="nombre" th:value="${nombre}">
+                                        </div>
+                                        <div class="d-flex justify-content-center ">
+                                            <button type="submit">BUSCAR</button>                                            
+                                        </div>
+                                         
+                                    </form> 
+                                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>                
+                <div class="container m-5">
+                    
+                    <table class="table table-hover" id="tablaResultados" >
+                        
+                        <div class="form-group my-3" style="align-content: space-evenly; display: flex;">                     
+                            <h3 class="card-title">Resultados de la búsqueda</h3>                              
+                        </div>
+                        <thead>
+                            <tr>                            
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Oficio</th>                           
+                                <th scope="col">Tarifa/hr</th>  
+                                <th scope="col">Calificacion</th>
+                                <th scope="col">Perfil</th>
+                            </tr>
+                        </thead>
+                        <tbody th:block th:each="proveedor : ${proveedores}">
+                            <tr>
+                                <td scope="row" th:text="${proveedor.nombre}"></td>
+                                <td th:text="${proveedor.apellido}"></td>                            
+                                <td th:text="${proveedor.oficio.denominacion}"></td>                                
+                                <td th:utext="${proveedor.tarifaPorHora}"></td> 
+                                <td th:utext="${proveedor.calificacion}"></td> 
+                                <td>
+                                    <a sec:authorize="hasRole('ADMIN')" >Ver Perfil</a>
+                                </td>                          
+                            </tr>                            
+                        </tbody> 
+                        
+                    </table>   
+                    
+                    <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                        <div class="card-body">
+                            <h5 class="card-title">Error</h5>
+                            <p class="card-text" th:text="${Error}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                        <div class="card-body">
+                            <h5 class="card-title">Exito!</h5>
+                            <p class="card-text" th:text="${Exito}"></p>
+                        </div>
+                    </div>                    
+                </div> 
+                
+            </section>
+            
+            <footer th:replace="/fragmentos/footer :: footer"></footer>
+
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+            
+        </div>  
+
+    </body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragmentos/head:: head"></head>
+
+<body>
+    <div class="hero_area">
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragmentos/navbar :: nav"></nav>
+            </div>
+        </header>
+    </div>
+    <div class="bg">
+        <div class="container m-5">
+
+            <div th:if="${Error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${Error}"></p>
+                </div>
+            </div>
+            <div th:if="${Exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${Exito}"></p>
+                </div>
+            </div>
+
+            <table class="table table-hover">
+                <div class="form-group my-3">
+                    <h3 class="card-title">Listado de Pedidos</h3>
+                </div>
+
+                <thead>
+                    <tr>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Solicitud</th>
+                        <th scope="col">Estado Usuario</th>
+                        <th scope="col">Cambiar Estado</th>
+                        <th scope="col">Estado Proveedor</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">FeedBack</th>
+                    </tr>
+                </thead>
+                <tbody th:each="pedidoUsuario : ${pedidos}">
+                    <tr>
+                        <th sec:authorize="hasRole('USER')"
+                            th:text="${pedidoUsuario.proveedor.nombre + ' ' + pedidoUsuario.proveedor.apellido}">
+                            </td>
+                        <td th:text="${pedidoUsuario.solicitud}"></td>
+                        <td>
+                            <span th:if="${pedidoUsuario.estadoPedido}">Solicitado</span>
+                            <span th:if="${!pedidoUsuario.estadoPedido}">Anulado/Finalizado</span>
+                        </td>
+                        <td>
+                            <a sec:authorize="hasRole('USER')"
+                                th:href="@{/pedido/aceptadoRechazadoPedido/__${pedidoUsuario.id}__}">Modificar</a>
+                        </td>
+                        <td>
+                            <span th:if="${pedidoUsuario.finalizado}">Finalizado</span>
+                            <span th:if="${!pedidoUsuario.finalizado}">En curso</span>
+                        </td>
+
+                        <td>
+                            <a sec:authorize="hasRole('USER')"
+                                th:href="@{/pedido/modificar/__${pedidoUsuario.id}__}">Editar</a>
+                            <!-- <a sec:authorize="hasRole('USER')" th:href="@{/enConstruccion}">Editar</a> -->
+                        </td>
+
+                        <td>
+                            <span th:if="${!pedidoUsuario.finalizado}">NO FINALIZADO</span>
+                            <span th:if="${pedidoUsuario.finalizado}">
+                                <a sec:authorize="hasRole('USER')" th:href="@{/feedback/__${pedidoUsuario.id}__}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                        <g>
+                                            <path fill="none" d="M0 0h24v24H0z" />
+                                            <path d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer th:replace="/fragmentos/footer :: footer"></footer>
+        <!-- footer section -->
+        <!-- footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>
