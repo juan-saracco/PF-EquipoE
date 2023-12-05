@@ -8,26 +8,12 @@ import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.OficioRepositorio;
 import com.proyectoFinal.demo.repositorios.ProveedorRepositorio;
 import com.proyectoFinal.demo.repositorios.UsuarioRepositorio;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -62,9 +48,7 @@ public class ProveedorServicio extends UsuarioServicio {
         proveedor.setOficio(oficio);
         proveedor.setDescripcion(descripcion);
         proveedor.setTarifaPorHora(tarifaPorHora);
-        //  proveedor.setEstado(true);
         proveedor.setRol(Rol.PROVEEDOR);
-        //  proveedor.setFecha_alta(new Date());
 
         proveedorRepositorio.save(proveedor);
 
@@ -75,7 +59,6 @@ public class ProveedorServicio extends UsuarioServicio {
 
         Oficio oficio = oficioRepositorio.buscarOficioPorDenom(denominacion);
         validar(oficio, denominacion, tarifaPorHora);
-        /*super.actualizar(id, nombre, apellido, email, password, password2, DNI, telefono, direccion, archivo);*/
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
@@ -88,18 +71,6 @@ public class ProveedorServicio extends UsuarioServicio {
             proveedor.setOficio(oficio);
             proveedor.setDescripcion(descripcion);
             proveedor.setTarifaPorHora(tarifaPorHora);
-
-            // TODO ESTO NO HACE FALTA PORQUE LO HACE DESDE EL SUPERACTUALIZAR
-        /*    proveedor.setEstado(true);
-            proveedor.setRol(Rol.PROVEEDOR);
-            proveedor.setFecha_alta(new Date());*/
-           /* String idImagen = null;
-            if (proveedor.getImagen() != null) {
-                idImagen = proveedor.getImagen().getId();
-            }
-            Imagen img = imagenServicio.actualizar(archivo, idImagen);
-            proveedor.setImagen(img);
-            proveedorRepositorio.save(proveedor);*/
 
             return proveedor;
         }
@@ -213,31 +184,6 @@ public class ProveedorServicio extends UsuarioServicio {
 
     }
 
-  /*  @Override
-    public UserDetails loadUserByUsername(String emailproveedor) throws UsernameNotFoundException {
-
-        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(emailproveedor);
-
-        if (proveedor != null) {
-
-            List<GrantedAuthority> permisos = new ArrayList();
-
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + proveedor.getRol().toString());
-
-            permisos.add(p);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-            HttpSession session = attr.getRequest().getSession(true);
-
-            session.setAttribute("proveedorsession", proveedor);
-
-            return new User(proveedor.getEmail(), proveedor.getPassword(), permisos);
-
-        } else {
-            return null;
-        }
-    }*/
 }
 
 

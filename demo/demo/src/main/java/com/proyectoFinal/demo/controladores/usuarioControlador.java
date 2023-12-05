@@ -25,7 +25,7 @@ public class usuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    //conectada a panel admin//
+    //Conectada a panel admin//
     @GetMapping("/obtener")
     public String obtenerPanelAdminUsuarios(ModelMap model) {
 
@@ -109,6 +109,7 @@ public class usuarioControlador {
         }
     }
 
+    //Cambiar entre un usuario activo o inactivo
     @GetMapping("/desactReactUsuarios/{id}")
     public String estadoUsuario(@PathVariable String id) throws MiException {
         usuarioServicio.cambiarestado(id);
@@ -116,8 +117,9 @@ public class usuarioControlador {
         return "redirect:/usuario/listaTodos";
     }
 
+    //MUESTRA TODOS LOS USUARIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/listaTodos") //MUESTRA TODOS LOS USUARIOS, TANTO ACTIVOS COMO DADOS DE BAJA ->SIRVE PARA MOSTRAR LOS OFICIOS AL ADMINISTRADOR
+    @GetMapping("/listaTodos")
     public String listarTodos(ModelMap modelo, @ModelAttribute("exi") String ex) {
 
         List<Usuario> usuarios = usuarioServicio.listarTodosUsuarios();

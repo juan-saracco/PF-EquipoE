@@ -1,7 +1,6 @@
 package com.proyectoFinal.demo.servicio;
 
 import com.proyectoFinal.demo.entidades.Imagen;
-import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.excepciones.MiException;
 import com.proyectoFinal.demo.repositorios.ImagenRepositorio;
 import java.io.IOException;

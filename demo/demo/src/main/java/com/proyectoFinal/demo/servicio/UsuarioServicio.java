@@ -70,28 +70,6 @@ public class UsuarioServicio implements UserDetailsService {
         return usuario;
     }
 
- /*   Eliminado debido al cambio de registro rapido del index
-
-    public void registrorapido(String nombre, String apellido, String email, String password)
-            throws MiException {
-
-        validarrapido(nombre, apellido, email, password);
-
-        Usuario usuario = new Usuario();
-
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setEmail(email);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.USER);
-        usuario.setEstado(true);
-        usuario.setFecha_alta(new Date());
-
-        usuarioRepositorio.save(usuario);
-        //  return usuario;
-    }*/
-
-
     @Transactional
     public Usuario actualizar(String id, String nombre, String apellido, String email, String password, String password2, String DNI, String telefono, String direccion, MultipartFile imagen)
             throws MiException {
@@ -107,11 +85,9 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
-            //  usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             usuario.setDNI(DNI);
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
-            /*      usuario.setRol(Rol.USER);*/
 
             String idImagen = null;
 
@@ -213,28 +189,6 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiException("El usuario con el EMAIL ingresado ya existe. Intente nuevamente");
         }
     }
-
-    /*private void validarrapido(String nombre, String apellido, String email, String password) throws MiException {
-
-
-        if (nombre.isEmpty() || nombre == null) {
-            throw new MiException("El nombre no puede ser nulo o estar vacio");
-        }
-
-        if (apellido.isEmpty() || apellido == null) {
-            throw new MiException("El apellido no puede ser nulo o estar vacio");
-        }
-
-        if (email.isEmpty() || email == null) {
-            throw new MiException("El email no puede ser nulo o estar vacio");
-        }
-
-        if (password.isEmpty() || password == null || password.length() <= 5) {
-            throw new MiException("La contraseña no puede ser nulo o estar vacia y no puede tener menos de 5 digitos");
-        }
-
-    }*/
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

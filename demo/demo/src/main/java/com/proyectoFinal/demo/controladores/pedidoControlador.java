@@ -9,10 +9,8 @@ import com.proyectoFinal.demo.entidades.Usuario;
 import com.proyectoFinal.demo.servicio.FeedBackServicio;
 import com.proyectoFinal.demo.servicio.PedidoServicio;
 import com.proyectoFinal.demo.servicio.ProveedorServicio;
-
 import java.util.List;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -159,30 +157,4 @@ public class pedidoControlador {
         return "redirect:/pedido/listarpedidosProveedor";
     }
 
-/*    @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/feedback/{id}")
-    public String calificarPedido(@PathVariable String id, ModelMap modelo) {
-
-        Pedido pedido = pedidoServicio.buscarPedidoporID(id);
-        modelo.addAttribute("pedido", pedido);
-
-        return "feedbackForm.html";
-    }*/
-
-    /*@PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("/feedback/creado")
-    public String pedidoCalificado(String id, Integer calificacion, String comentario, RedirectAttributes redirectAttributes) throws MiException {
-
-        try {
-            feedBackservicio.crearFeedBack(id, calificacion, comentario);
-            redirectAttributes.addFlashAttribute("Exito", "Se califico el pedido correctamente");
-            return "redirect:../listarpedidosUsuario";
-        }catch (MiException e) {
-            redirectAttributes.addFlashAttribute("Error", "Error: No se pudo calificar el pedido.");
-            redirectAttributes.addFlashAttribute("calificacion", calificacion);
-            redirectAttributes.addFlashAttribute("comentario", comentario);
-
-            return "feedbackForm.html";
-        }
-    }*/
 }

@@ -77,6 +77,7 @@ public class portalControlador {
         return "redirect:/";
     }
 
+    //Muestra vista una vez que el usuario esta logueado
     @GetMapping("/inicioLogueado")
     public String inicioLog() {
         return "inicioLogueado.html";
